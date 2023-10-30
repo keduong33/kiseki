@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "netlify dev --filter client",
     "client": "cd client && npm run dev",
-    "build": "cd client && npm run build"
+    "build": "netlify build --filter client"
   },
   "author": "",
   "license": "ISC",
