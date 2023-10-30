@@ -7,9 +7,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "dev":"netlify dev --filter client",
-    "client":"cd client && npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "netlify dev --filter client",
+    "client": "cd client && npm run dev",
+    "build": "cd client && npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +17,6 @@
     "backend",
     "client"
   ],
-
   "devDependencies": {
     "@types/node": "^20.8.9",
     "netlify-cli": "^16.9.3",
