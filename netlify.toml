@@ -9,7 +9,7 @@ directory = '../backend/src'
 
 [context.production]
 publish = "/output"
-command = "make publish"
+# command = "make publish"
 environment = { ACCESS_TOKEN = "super secret", NODE_ENV = "8.0.1" }
 
 # will inherit these settings.
