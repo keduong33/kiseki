@@ -26,7 +26,6 @@
       "declarationMap": true,
 
       // 
-"rootDir": "."
-    },
-    "include": ["client/types/Subject"]
+      "rootDir": "."
+    }
   }
