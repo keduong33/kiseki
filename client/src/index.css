@@ -73,6 +73,12 @@
   body {
     @apply bg-background text-foreground;
   }
+  h1 {
+    @apply pb-2 text-3xl font-semibold tracking-tight border-b scroll-m-20 first:mt-0;
+  }
+  h2{
+    @apply text-2xl font-semibold tracking-tight scroll-m-20;
+  }
 }
 
 

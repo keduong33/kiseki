@@ -9,7 +9,7 @@ type MenuStructure = {
   gap?: boolean;
 };
 
-const Navbar = () => {
+const VerticalNavBar = () => {
   const navigate = useNavigate();
 
   const Menus: MenuStructure[] = [
@@ -47,7 +47,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 flex flex-col w-20 h-screen bg-white shadow-lg dark:bg-gray-900">
+    <div className="flex flex-col w-20 h-screen bg-white shadow-lg dark:bg-gray-900">
       <SideBarIcon
         icon={
           <img
@@ -105,4 +105,13 @@ const SideBarIcon = ({
 
 const Divider = () => <hr className="sidebar-hr" />;
 
-export default Navbar;
+export default function NavBar() {
+  return (
+    <>
+      <div className="hidden md:block">
+        <VerticalNavBar />;
+      </div>
+      <div className="block md:hidden"></div>
+    </>
+  );
+}

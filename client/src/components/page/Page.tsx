@@ -1,8 +1,9 @@
 import { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import NavBar from "./NavBar";
 import { PageLocation } from "./PageLocation";
-import { ThemeProvider } from "./ThemeProvider";
+import { ModeToggle } from "./Theme/ModeToggle";
+import { ThemeProvider } from "./Theme/ThemeProvider";
 
 const isLoggedIn = true;
 const Page = ({ children }: { children: ReactNode }) => {
@@ -15,8 +16,13 @@ const Page = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="flex">
-        <Navbar />
-        <div className="w-full">
+        <div className="w-fit">
+          <NavBar />
+        </div>
+        <div className="flex flex-col w-full ">
+          <div className="flex justify-end w-full">
+            <ModeToggle />
+          </div>
           <main>{children}</main>
         </div>
       </div>
