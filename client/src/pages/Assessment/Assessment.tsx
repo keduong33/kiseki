@@ -1,11 +1,11 @@
 import Page from "../../components/page/Page";
 
-function Dashboard() {
+function Assessment() {
   return (
-    <Page pageTitle="Dashboard">
+    <Page pageTitle="Diagnostic Tests">
       <></>
     </Page>
   );
 }
 
-export default Dashboard;
+export default Assessment;

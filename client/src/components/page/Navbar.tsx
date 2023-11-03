@@ -109,7 +109,7 @@ export default function NavBar() {
   return (
     <>
       <div className="hidden md:block">
-        <VerticalNavBar />;
+        <VerticalNavBar />
       </div>
       <div className="block md:hidden"></div>
     </>
