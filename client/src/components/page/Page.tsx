@@ -25,12 +25,12 @@ const Page = ({
         <div className="w-fit">
           <NavBar />
         </div>
-        <div className="flex flex-col w-full mx-4 mt-4 h-fit">
-          <div className="flex justify-between w-full h-full">
+        <div className="flex flex-col w-full mx-4 mt-4">
+          <div className="flex justify-between w-full">
             <h1>{pageTitle}</h1>
             <ModeToggle />
           </div>
-          <main>{children}</main>
+          <main className="h-full overflow-y-scroll">{children}</main>
         </div>
       </div>
     </ThemeProvider>

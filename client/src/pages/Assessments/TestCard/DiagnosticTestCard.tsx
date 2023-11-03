@@ -15,9 +15,9 @@ const Row = ({ children }: { children: React.ReactNode }) => {
   return <div className="grid grid-cols-[30px_100px_200px]">{children}</div>;
 };
 
-function DiagnosticTestCard({ subject }: { subject: Subject }) {
+export default function DiagnosticTestCard({ subject }: { subject: Subject }) {
   return (
-    <Card className="w-[400px] h-[562px]">
+    <Card className="w-[350px] lg:w-[400px]  h-[550px]">
       <CardHeader className="pb-[6px] items-center">
         <div className="h-[286px] w-full bg-slate-600"></div>
         <CardTitle>{subject} Test</CardTitle>
@@ -48,5 +48,3 @@ function DiagnosticTestCard({ subject }: { subject: Subject }) {
     </Card>
   );
 }
-
-export default DiagnosticTestCard;

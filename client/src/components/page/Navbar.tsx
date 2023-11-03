@@ -21,6 +21,14 @@ const VerticalNavBar = () => {
       },
     },
 
+    {
+      title: "Assessments",
+      src: "book-open-check",
+      onclick: () => {
+        navigate(PageLocation.Assessments);
+      },
+    },
+
     // { title: "Practice", src: "practice" },
     {
       title: "Study Plan",
@@ -43,6 +51,7 @@ const VerticalNavBar = () => {
         navigate("/subject-visualiser");
       },
     },
+
     // { title: "Settings", src: "setting", gap: true },
   ];
 
