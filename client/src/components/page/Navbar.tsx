@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
+import { PageLocation } from "./PageLocation";
 
 type MenuStructure = {
   title: string;
@@ -53,6 +54,7 @@ const Navbar = () => {
             src="/assets/bb.svg"
             className={`h-8 cursor-pointer duration-500`}
             alt="Big Brain"
+            onClick={() => navigate(PageLocation.Dashboard)}
           />
         }
         text="BigBrain"

@@ -74,3 +74,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Custom CSS */
+@layer components {
+  .sidebar-icon {
+    @apply relative flex items-center justify-center w-12 h-12 mx-auto mt-2 mb-2 text-green-500 transition-all duration-300 ease-linear bg-gray-400 shadow-lg cursor-pointer dark:bg-gray-800 hover:text-white hover:rounded-xl rounded-3xl hover:bg-green-600 dark:hover:bg-green-600;
+  }
+
+  .sidebar-tooltip {
+    @apply absolute w-auto p-2 m-2 text-xs font-bold text-white transition-all duration-100 origin-left scale-0 bg-gray-900 rounded-md shadow-md min-w-max left-14;
+  }
+
+  .sidebar-hr {
+    @apply mx-2 bg-gray-200 border border-gray-200 rounded-full dark:bg-gray-800 dark:border-gray-800;
+  }
+}
