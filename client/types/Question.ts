@@ -1,20 +1,21 @@
 import type { Skill, SubTopic, Subject, Topic } from "./Subject/Subject";
 
-export type Question = {
+export type TestQuestion = {
   question: string;
-  subject: Subject;
-  topic: Topic;
-  subtopics: SubTopic[];
-  skills: Skill[];
-
   options: string[];
-  correctOption: number;
-  feedback: string;
-
   timer: number;
   questionImage: string;
 };
 
-export type AnsweredQuestion = Question & {
+export type FullInfoQuestion = TestQuestion & {
+  correctOption: number;
+  subject: Subject;
+  topic: Topic;
+  feedback: string;
+  subtopics: SubTopic[];
+  skills: Skill[];
+};
+
+export type AnsweredQuestion = TestQuestion & {
   markedCorrect: boolean;
 };

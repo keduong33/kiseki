@@ -13,17 +13,17 @@ import {
   type PromiseSafeResult,
 } from "../../../common/error";
 
-import type { Question } from "../../../../types/Question";
+import type { TestQuestion } from "../../../../types/Question";
 import type { Subject, Topic } from "../../../../types/Subject/Subject";
 import { db } from "../../../common/firebase";
 
 export const getAllQuestionsOfSubject = async (
   subject: Subject
-): PromiseSafeResult<Question[] | null> => {
+): PromiseSafeResult<TestQuestion[] | null> => {
   try {
     const retrievedList = await getDocs(collection(db, subject));
-    const questionsList: Question[] = retrievedList.docs.map((doc) => {
-      return doc.data() as Question;
+    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as TestQuestion;
     });
 
     return safeResult(questionsList);
@@ -37,15 +37,15 @@ export const getAllQuestionsOfSubject = async (
 export const getQuestionsOfASubjectByAmount = async (
   subject: Subject,
   amount: number
-): PromiseSafeResult<Question[] | null> => {
+): PromiseSafeResult<TestQuestion[] | null> => {
   try {
     const collectionRoot = collection(db, subject);
     const filteredQuery = query(collectionRoot, limit(amount));
 
     const retrievedList = await getDocs(filteredQuery);
 
-    const questionsList: Question[] = retrievedList.docs.map((doc) => {
-      return doc.data() as Question;
+    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as TestQuestion;
     });
     return safeResult(questionsList);
   } catch (e) {
@@ -69,8 +69,8 @@ export const getAllQuestionsOfTopic = async (
 
     const retrievedList = await getDocs(filteredQuery);
 
-    const questionsList: Question[] = retrievedList.docs.map((doc) => {
-      return doc.data() as Question;
+    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as TestQuestion;
     });
     return safeResult(questionsList);
   } catch (e) {
@@ -96,8 +96,8 @@ export const getQuestionsOfATopicByAmount = async (
 
     const retrievedList = await getDocs(filteredQuery);
 
-    const questionsList: Question[] = retrievedList.docs.map((doc) => {
-      return doc.data() as Question;
+    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as TestQuestion;
     });
     return safeResult(questionsList);
   } catch (e) {
@@ -121,8 +121,8 @@ export const getAllQuestionsOfSubTopic = async (
 
     const retrievedList = await getDocs(filteredQuery);
 
-    const questionsList: Question[] = retrievedList.docs.map((doc) => {
-      return doc.data() as Question;
+    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as TestQuestion;
     });
     return safeResult(questionsList);
   } catch (e) {
