@@ -9,7 +9,9 @@ import {
   CardTitle,
 } from "../../../components/shadcn/ui/card";
 
+import { useNavigate } from "react-router-dom";
 import type { Subject } from "../../../../types/Subject/Subject";
+import { PageLocation } from "../../../components/page/PageLocation";
 
 const Row = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -19,11 +21,14 @@ const Row = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const generateTest = (subject: Subject) => {
-  console.log(subject);
-};
-
 export default function DiagnosticTestCard({ subject }: { subject: Subject }) {
+  const navigate = useNavigate();
+
+  const generateTest = (subject: Subject) => {
+    console.log(subject);
+    navigate(PageLocation.Test);
+  };
+
   return (
     <Card className="w-[350px] lg:w-[400px]  h-[550px] flex flex-col">
       <CardHeader className="pb-[6px] items-center">

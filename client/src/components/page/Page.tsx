@@ -21,7 +21,7 @@ const Page = ({
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="flex w-screen h-screen">
+      <div className="flex h-screen">
         <div className="w-fit">
           <NavBar />
         </div>
