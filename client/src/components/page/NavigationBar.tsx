@@ -114,7 +114,7 @@ const SideBarIcon = ({
 
 const Divider = () => <hr className="sidebar-hr" />;
 
-export default function NavBar() {
+export default function NavigationBar() {
   return (
     <>
       <div className="hidden md:block">
