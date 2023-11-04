@@ -14,11 +14,7 @@ import type { Subject } from "../../../../types/Subject/Subject";
 import { PageLocation } from "../../../components/page/PageLocation";
 
 const Row = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="grid lg:grid-cols-[30px_100px_200px] grid-cols-[30px_100px_175px]">
-      {children}
-    </div>
-  );
+  return <div className="grid grid-cols-[30px_100px_1fr]">{children}</div>;
 };
 
 export default function DiagnosticTestCard({ subject }: { subject: Subject }) {
@@ -51,7 +47,7 @@ export default function DiagnosticTestCard({ subject }: { subject: Subject }) {
           <Row>
             <NewspaperIcon />
             <p>Description:</p>
-            <p className="overflow-x-hidden">Orientation {subject} test</p>
+            <p className="max-h-[20px] truncate">Orientation {subject} test</p>
           </Row>
         </div>
       </CardContent>
