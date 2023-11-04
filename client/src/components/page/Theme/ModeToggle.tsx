@@ -12,9 +12,9 @@ export function ModeToggle() {
 
   return (
     <div className="flex">
-      <Sun className="h-[1.2rem] w-[1.2rem] transition-all " />
+      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
       <Switch checked={theme === "dark"} onClick={changeTheme} />
-      <Moon className="h-[1.2rem] w-[1.2rem] transition-all " />
+      <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
     </div>
   );
 }
