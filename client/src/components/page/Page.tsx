@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./NavBar";
+import NavBar from "./Navbar";
 import { PageLocation } from "./PageLocation";
 import { ModeToggle } from "./Theme/ModeToggle";
 import { ThemeProvider } from "./Theme/ThemeProvider";
@@ -21,7 +21,7 @@ const Page = ({
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="flex h-screen">
+      <div className="flex w-screen h-screen">
         <div className="w-fit">
           <NavBar />
         </div>
