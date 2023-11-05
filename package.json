@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "netlify dev --filter client",
     "client": "cd client && npm run dev",
-    "build": "netlify build --filter client"
+    "build": "netlify build --filter client",
+    "deploy-preview": "netlify deploy --filter client --alias=dev",
+    "deploy-prod": "netlify deploy --filter client --prod"
   },
   "author": "",
   "license": "ISC",

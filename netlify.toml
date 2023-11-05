@@ -1,17 +1,5 @@
 [build]
-base = '/'
-command = 'npm run build'
 publish = '/client/dist'
 
 [functions]
-directory = '/backend/src'
-
-
-# [context.production]
-# publish = "/output"
-# # command = "make publish"
-# environment = { ACCESS_TOKEN = "super secret", NODE_ENV = "8.0.1" }
-
-# # will inherit these settings.
-# [context.deploy-preview]
-# publish = "/dist"
+directory = '/backend/src/functions/'
