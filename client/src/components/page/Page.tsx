@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import NavigationBar from "./NavigationBar";
+import { HorizontalNavBar, VerticalNavBar } from "./NavigationBar";
 import { PageLocation } from "./PageLocation";
 import { ModeToggle } from "./Theme/ModeToggle";
 import { ThemeProvider } from "./Theme/ThemeProvider";
@@ -21,15 +21,16 @@ const Page = ({
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="flex w-screen h-screen">
-        <NavigationBar />
-        <div className="flex flex-col w-full mx-2 mt-4 lg:mx-4">
-          <div className="flex justify-between">
+      <div className="flex flex-col w-screen h-screen sm:flex-row ">
+        <VerticalNavBar />
+        <div className="flex flex-col w-full h-auto sm:h-full">
+          <div className="flex justify-between px-2 pt-4 sm:px-4">
             <h1>{pageTitle}</h1>
             <ModeToggle />
           </div>
           <main className="pb-4 overflow-y-auto">{children}</main>
         </div>
+        <HorizontalNavBar />
       </div>
     </ThemeProvider>
   );

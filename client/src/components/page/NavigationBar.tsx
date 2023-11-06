@@ -9,7 +9,64 @@ type MenuStructure = {
   gap?: boolean;
 };
 
-const VerticalNavBar = () => {
+export const HorizontalNavBar = () => {
+  const navigate = useNavigate();
+
+  const Menus: MenuStructure[] = [
+    {
+      title: "Dashboard",
+      src: "dashboard",
+      onclick: () => {
+        navigate("/");
+      },
+    },
+
+    {
+      title: "Assessments",
+      src: "book-open-check",
+      onclick: () => {
+        navigate(PageLocation.Assessments);
+      },
+    },
+
+    // { title: "Practice", src: "practice" },
+    {
+      title: "Study Plan",
+      src: "study",
+      onclick: () => {
+        navigate("/study-plan");
+      },
+    },
+    {
+      title: "Insights",
+      src: "line-chart",
+      onclick: () => {
+        navigate("/insights");
+      },
+    },
+    {
+      title: "Subject Visualiser",
+      src: "route",
+      onclick: () => {
+        navigate("/subject-visualiser");
+      },
+    },
+  ];
+
+  return (
+    <div className="flex flex-row self-center h-full gap-1 bg-transparent shadow-lg w-fit sm:hidden">
+      {Menus.map((menu, index) => (
+        <SideBarIcon
+          key={index}
+          icon={<img src={`/assets/${menu.src}.svg`} alt={menu.title} />}
+          text={menu.title}
+        />
+      ))}
+    </div>
+  );
+};
+
+export const VerticalNavBar = () => {
   const navigate = useNavigate();
 
   const Menus: MenuStructure[] = [
@@ -56,7 +113,7 @@ const VerticalNavBar = () => {
   ];
 
   return (
-    <div className="flex flex-col w-20 h-screen bg-white shadow-lg dark:bg-gray-900">
+    <div className="flex-col hidden w-20 h-screen bg-white shadow-lg dark:bg-gray-900 sm:flex">
       <SideBarIcon
         icon={
           <img
@@ -113,14 +170,3 @@ const SideBarIcon = ({
 );
 
 const Divider = () => <hr className="sidebar-hr" />;
-
-export default function NavigationBar() {
-  return (
-    <>
-      <div className="hidden md:block">
-        <VerticalNavBar />
-      </div>
-      <div className="block md:hidden"></div>
-    </>
-  );
-}
