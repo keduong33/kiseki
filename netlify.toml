@@ -3,3 +3,8 @@ publish = '/client/dist'
 
 [functions]
 directory = '/backend/src/functions/'
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
