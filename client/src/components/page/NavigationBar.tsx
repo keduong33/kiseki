@@ -54,13 +54,14 @@ export const HorizontalNavBar = () => {
   ];
 
   return (
-    <div className="flex flex-row self-center h-full gap-1 bg-transparent shadow-lg w-fit sm:hidden">
+    <div className="flex flex-row self-center gap-2 bg-transparent h-fit w-fit sm:hidden">
       {Menus.map((menu, index) => (
-        <SideBarIcon
-          key={index}
-          icon={<img src={`/assets/${menu.src}.svg`} alt={menu.title} />}
-          text={menu.title}
-        />
+        <div key={index} onClick={menu.onclick}>
+          <SideBarIcon
+            icon={<img src={`/assets/${menu.src}.svg`} alt={menu.title} />}
+            text={menu.title}
+          />
+        </div>
       ))}
     </div>
   );
@@ -165,7 +166,7 @@ const SideBarIcon = ({
 }) => (
   <div className="sidebar-icon group">
     {icon as ReactNode}
-    <span className="sidebar-tooltip group-hover:scale-100">{text}</span>
+    <span className="sidebar-tooltip sm:group-hover:scale-100">{text}</span>
   </div>
 );
 
