@@ -28,7 +28,7 @@ const Page = ({
             <h1>{pageTitle}</h1>
             <ModeToggle />
           </div>
-          <main className="pb-4 overflow-y-auto">{children}</main>
+          <main className="flex flex-col p-4 overflow-y-auto">{children}</main>
         </div>
         <HorizontalNavBar />
       </div>
