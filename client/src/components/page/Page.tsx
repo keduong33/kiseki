@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { HorizontalNavBar, VerticalNavBar } from "./NavigationBar";
 import { PageLocation } from "./PageLocation";
@@ -18,6 +18,10 @@ const Page = ({
   if (!isLoggedIn) {
     navigate(PageLocation.Authentication);
   }
+
+  useEffect(() => {
+    document.title = pageTitle ?? "Edupath";
+  }, [pageTitle]);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
