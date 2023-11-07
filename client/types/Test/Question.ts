@@ -1,10 +1,10 @@
-import type { Skill, SubTopic, Subject, Topic } from "./Subject/Subject";
+import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
 
 export type TestQuestion = {
   question: string;
   options: string[];
   timer: number;
-  questionImage: string;
+  questionImage?: string;
 };
 
 export type FullInfoQuestion = TestQuestion & {
@@ -14,8 +14,4 @@ export type FullInfoQuestion = TestQuestion & {
   feedback: string;
   subtopics: SubTopic[];
   skills: Skill[];
-};
-
-export type AnsweredQuestion = TestQuestion & {
-  markedCorrect: boolean;
 };

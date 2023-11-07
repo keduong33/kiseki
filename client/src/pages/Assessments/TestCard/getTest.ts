@@ -13,8 +13,8 @@ import {
   type PromiseSafeResult,
 } from "../../../common/error";
 
-import type { TestQuestion } from "../../../../types/Question";
 import type { Subject, Topic } from "../../../../types/Subject/Subject";
+import type { TestQuestion } from "../../../../types/Test/Question";
 import { db } from "../../../common/firebase";
 
 export const getAllQuestionsOfSubject = async (
