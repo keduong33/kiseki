@@ -1,5 +1,5 @@
 export enum NumericalReasoningTopic {
-  WordedProblems = "Worded Problems",
+  "Worded Problems" = "Worded Problems",
 }
 
 /***************************************

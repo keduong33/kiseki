@@ -1,6 +1,6 @@
 export enum MathsTopic {
-  Algebra = "ALGEBRA",
-  Surds = "SURDS",
+  Algebra = "Algebra",
+  Surds = "Surds",
 }
 
 /***************************************
