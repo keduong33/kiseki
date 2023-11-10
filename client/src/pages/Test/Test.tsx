@@ -1,9 +1,11 @@
-import { Timer } from "lucide-react";
+import { ChevronLeft, ChevronRight, Timer } from "lucide-react";
+import { useState } from "react";
 import { MathsTopic } from "../../../types/Subject/Math";
 import { Subject } from "../../../types/Subject/Subject";
 import type { TestQuestion } from "../../../types/Test/Question";
 import type { TestMetaData } from "../../../types/Test/Test";
 import Page from "../../components/page/Page";
+import { Button } from "../../components/shadcn/ui/button";
 import { Card } from "../../components/shadcn/ui/card";
 import {
   Select,
@@ -27,6 +29,13 @@ const mockQuestion: TestQuestion = {
   questionImage: undefined,
 };
 
+const mockQuestion2: TestQuestion = {
+  question: "Question 2",
+  options: ["Yay", "Nay", "Nay Yay"],
+  timer: 0,
+  questionImage: undefined,
+};
+
 const mockTestMetaData: TestMetaData = {
   subject: Subject["Maths"],
   topic: MathsTopic["Algebra"],
@@ -35,9 +44,25 @@ const mockTestMetaData: TestMetaData = {
 
 const testMetaDataStyles = "flex flex-col gap-1 sm:flex-row text-center";
 
-const mockArrayOfQuestions: TestQuestion[] = [mockQuestion, mockQuestion];
+const mockArrayOfQuestions: TestQuestion[] = [mockQuestion, mockQuestion2];
 
 function Test() {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+  const changeQuestion = (newQuestionIndex: string) => {
+    setCurrentQuestionIndex(Number(newQuestionIndex));
+  };
+
+  const prevQuestion = () => {
+    if (currentQuestionIndex > 0)
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+  };
+
+  const nextQuestion = () => {
+    if (currentQuestionIndex < mockArrayOfQuestions.length - 1)
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+  };
+
   const TestHeader = () => (
     <div className="flex flex-col justify-between gap-6 sm:flex-row">
       <div className="flex items-center justify-between w-full">
@@ -60,9 +85,12 @@ function Test() {
         </div>
       </div>
       <div className="flex w-full gap-1">
-        <Select onValueChange={() => {}}>
+        <Select
+          onValueChange={changeQuestion}
+          value={currentQuestionIndex.toString()}
+        >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Some Question" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {mockArrayOfQuestions.map((question, index) => (
@@ -79,37 +107,54 @@ function Test() {
     </div>
   );
 
-  const Question = () => (
-    <Card className="w-full p-4 text-justify  sm:min-h-[450px]">
-      {mockQuestion.question}
-    </Card>
-  );
+  const Question = ({ currentQuestion }: { currentQuestion: TestQuestion }) => {
+    return (
+      <Card className="w-full p-4 text-justify  sm:min-h-[450px]">
+        <div>{currentQuestion.question}</div>
+      </Card>
+    );
+  };
 
-  const AnswerOptions = ({ options }: { options: string[] }) => (
-    <div className="flex flex-col justify-between w-full gap-3">
-      {options.map((option, index) => {
-        return (
-          <Card
-            className="flex content-center h-full gap-4 p-3"
-            key={`Option ${index}`}
-          >
-            <p className="my-auto">{String.fromCharCode(65 + index)}</p>
-            <p className="my-auto">{option}</p>
-          </Card>
-        );
-      })}
-    </div>
-  );
+  const AnswerOptions = ({ options }: { options: string[] }) => {
+    return (
+      <div className="flex flex-col justify-between w-full gap-3">
+        {options.map((option, index) => {
+          return (
+            <Card
+              className="flex content-center h-full gap-4 p-3"
+              key={`Option ${index}`}
+            >
+              <p className="my-auto">{String.fromCharCode(65 + index)}</p>
+              <p className="my-auto">{option}</p>
+            </Card>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const currentQuestion = mockArrayOfQuestions[currentQuestionIndex];
+  const currentOptions = currentQuestion?.options;
 
   return (
     <Page pageTitle="Test">
-      <div>
-        <TestHeader />
-        <div className="flex flex-col gap-3 pt-4 sm:flex-row">
-          <Question />
-          <AnswerOptions options={mockQuestion.options} />
+      {currentQuestion && currentOptions && (
+        <div>
+          <TestHeader />
+          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+            <Question currentQuestion={currentQuestion} />
+            <AnswerOptions options={currentOptions} />
+          </div>
+          <div className="flex justify-between w-full gap-3 mt-4 mb-4 sm:justify-end">
+            <Button variant="outline" size="icon" onClick={prevQuestion}>
+              <ChevronLeft className="w-4 h-4" />
+            </Button>
+            <Button variant="outline" size="icon" onClick={nextQuestion}>
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </Page>
   );
 }
