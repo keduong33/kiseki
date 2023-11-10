@@ -139,16 +139,26 @@ function Test() {
   return (
     <Page pageTitle="Test">
       {currentQuestion && currentOptions && (
-        <div>
+        <div className="flex flex-col gap-4">
           <TestHeader />
-          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Question currentQuestion={currentQuestion} />
             <AnswerOptions options={currentOptions} />
           </div>
-          <div className="flex justify-between w-full gap-3 mt-4 mb-4 sm:justify-end">
+
+          <div className="flex justify-between w-full gap-3 sm:justify-center">
             <Button variant="outline" size="icon" onClick={prevQuestion}>
               <ChevronLeft className="w-4 h-4" />
             </Button>
+
+            <Button
+              disabled={
+                currentQuestionIndex !== mockArrayOfQuestions.length - 1
+              }
+            >
+              Submit
+            </Button>
+
             <Button variant="outline" size="icon" onClick={nextQuestion}>
               <ChevronRight className="w-4 h-4" />
             </Button>
