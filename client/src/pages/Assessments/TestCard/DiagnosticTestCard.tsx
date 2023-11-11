@@ -26,7 +26,7 @@ export default function DiagnosticTestCard({ subject }: { subject: Subject }) {
   };
 
   return (
-    <Card className="w-[300px] sm:w-[320px] md:w-[350px] 2xl:w-[400px] h-[500px]  flex flex-col">
+    <Card className="w-[300px] sm:w-[320px] md:w-[330px] 2xl:w-[400px] h-[500px]  flex flex-col">
       <CardHeader className="pb-[6px] items-center">
         <div className="h-[250px] w-full bg-slate-600"></div>
         <CardTitle>{subject} Test</CardTitle>
