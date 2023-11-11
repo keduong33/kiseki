@@ -17,7 +17,7 @@ export const HorizontalNavBar = () => {
       title: "Dashboard",
       src: "dashboard",
       onclick: () => {
-        navigate("/");
+        navigate(PageLocation.Dashboard);
       },
     },
 
@@ -34,21 +34,21 @@ export const HorizontalNavBar = () => {
       title: "Study Plan",
       src: "study",
       onclick: () => {
-        navigate("/study-plan");
+        navigate(PageLocation.StudyPlan);
       },
     },
     {
       title: "Insights",
       src: "line-chart",
       onclick: () => {
-        navigate("/insights");
+        navigate(PageLocation.Insights);
       },
     },
     {
       title: "Subject Visualiser",
       src: "route",
       onclick: () => {
-        navigate("/subject-visualiser");
+        navigate(PageLocation.SubjectVisualiser);
       },
     },
   ];
@@ -75,7 +75,7 @@ export const VerticalNavBar = () => {
       title: "Dashboard",
       src: "dashboard",
       onclick: () => {
-        navigate("/");
+        navigate(PageLocation.Dashboard);
       },
     },
 
@@ -92,21 +92,21 @@ export const VerticalNavBar = () => {
       title: "Study Plan",
       src: "study",
       onclick: () => {
-        navigate("/study-plan");
+        navigate(PageLocation.StudyPlan);
       },
     },
     {
       title: "Insights",
       src: "line-chart",
       onclick: () => {
-        navigate("/insights");
+        navigate(PageLocation.Insights);
       },
     },
     {
       title: "Subject Visualiser",
       src: "route",
       onclick: () => {
-        navigate("/subject-visualiser");
+        navigate(PageLocation.SubjectVisualiser);
       },
     },
 
@@ -146,7 +146,7 @@ export const VerticalNavBar = () => {
               className={`h-8 cursor-pointer duration-500`}
               alt="User"
               onClick={() => {
-                navigate("/user");
+                navigate(PageLocation.User);
               }}
             />
           }
