@@ -11,7 +11,7 @@
       /* Strictness */
       "strict": true,
       "noUncheckedIndexedAccess": true,
-      "outDir": "dist",
+      "outDir": "/client/dist",
       "sourceMap": true,
       /* If NOT transpiling with TypeScript: */
       "moduleResolution": "Bundler",
