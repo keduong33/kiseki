@@ -42,7 +42,7 @@ const mockTestMetaData: TestMetaData = {
   numberOfQuestions: 15,
 };
 
-const testMetaDataStyles = "flex flex-col gap-1 sm:flex-row text-center";
+const testMetaDataStyles = "flex flex-col gap-1 md:flex-row text-center";
 
 const mockArrayOfQuestions: TestQuestion[] = [mockQuestion, mockQuestion2];
 
@@ -64,7 +64,7 @@ function Test() {
   };
 
   const TestHeader = () => (
-    <div className="flex flex-col justify-between gap-6 sm:flex-row">
+    <div className="flex flex-col justify-between gap-6 md:flex-row">
       <div className="flex items-center justify-between w-full">
         <div className={testMetaDataStyles}>
           <span>Subject</span>
@@ -80,7 +80,7 @@ function Test() {
             {1} of {mockTestMetaData.numberOfQuestions}
           </span>
         </div>
-        <div className="hidden sm:flex">
+        <div className="hidden md:flex">
           <Timer /> {millisToMinutesAndSeconds(0)}
         </div>
       </div>
@@ -100,7 +100,7 @@ function Test() {
             ))}
           </SelectContent>
         </Select>
-        <div className="flex my-auto sm:hidden">
+        <div className="flex my-auto md:hidden">
           <Timer /> {millisToMinutesAndSeconds(0)}
         </div>
       </div>
@@ -109,7 +109,7 @@ function Test() {
 
   const Question = ({ currentQuestion }: { currentQuestion: TestQuestion }) => {
     return (
-      <Card className="w-full p-4 text-justify  sm:min-h-[450px]">
+      <Card className="w-full p-4 text-justify  md:min-h-[450px]">
         <div>{currentQuestion.question}</div>
       </Card>
     );
@@ -141,12 +141,12 @@ function Test() {
       {currentQuestion && currentOptions && (
         <div className="flex flex-col gap-4">
           <TestHeader />
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-col gap-3 md:flex-row">
             <Question currentQuestion={currentQuestion} />
             <AnswerOptions options={currentOptions} />
           </div>
 
-          <div className="flex justify-between w-full gap-3 sm:justify-center">
+          <div className="flex justify-between w-full gap-3 md:justify-center">
             <Button variant="outline" size="icon" onClick={prevQuestion}>
               <ChevronLeft className="w-4 h-4" />
             </Button>
