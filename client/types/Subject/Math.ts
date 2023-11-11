@@ -1,7 +1,14 @@
+/***************************************
+                Subject
+ ***************************************/
+
 export enum MathsTopic {
   Algebra = "Algebra",
   Surds = "Surds",
 }
+
+export type MathSubTopic = AlgebraSubtopic | SurdsSubtopic | IndicesSubtopic;
+export type MathSkill = AlgebraSkill | SurdsSkill | IndicesSkill;
 
 /***************************************
                 ALGEBRA
@@ -54,6 +61,3 @@ export enum IndicesSubtopic {
   "Fractional powers" = "Fractional powers",
   "Unknown powers" = "Unknown powers",
 }
-
-export type MathSubTopic = AlgebraSubtopic | SurdsSubtopic | IndicesSubtopic;
-export type MathSkill = AlgebraSkill | SurdsSkill | IndicesSkill;
