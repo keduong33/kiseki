@@ -54,7 +54,7 @@ export const HorizontalNavBar = () => {
   ];
 
   return (
-    <div className="flex flex-row self-center gap-2 bg-transparent h-fit w-fit sm:hidden">
+    <div className="flex flex-row self-center gap-2 bg-transparent h-fit w-fit md:hidden">
       {Menus.map((menu, index) => (
         <div key={index} onClick={menu.onclick}>
           <SideBarIcon
@@ -114,7 +114,7 @@ export const VerticalNavBar = () => {
   ];
 
   return (
-    <div className="flex-col hidden w-20 h-screen bg-white shadow-lg dark:bg-gray-900 sm:flex">
+    <div className="flex-col hidden w-20 h-screen bg-white shadow-lg dark:bg-gray-900 md:flex">
       <SideBarIcon
         icon={
           <img

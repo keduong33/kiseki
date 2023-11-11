@@ -25,14 +25,16 @@ const Page = ({
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="flex flex-col w-screen h-screen sm:flex-row ">
+      <div className="flex flex-col w-screen h-screen md:flex-row">
         <VerticalNavBar />
-        <div className="flex flex-col w-full h-auto sm:h-full">
+        <div className="flex flex-col w-full h-auto md:h-full">
           <div className="flex justify-between px-2 pt-4 sm:px-4">
             <h1>{pageTitle}</h1>
             <ModeToggle />
           </div>
-          <main className="flex flex-col p-4 overflow-y-auto">{children}</main>
+          <main className="flex flex-col p-4 md:overflow-y-auto">
+            {children}
+          </main>
         </div>
         <HorizontalNavBar />
       </div>
