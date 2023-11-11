@@ -5,5 +5,7 @@ export enum PageLocation {
   Test = "/test",
   TestSummary = "/test-summary",
 
+  SubjectVisualiser = "/subject-visualiser",
+
   Error = "/error",
 }
