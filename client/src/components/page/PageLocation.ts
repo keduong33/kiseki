@@ -3,6 +3,7 @@ export enum PageLocation {
   Authentication = "/authentication",
   Assessments = "/assessments",
   Test = "/test",
+  TestSummary = "/test-summary",
 
   Error = "/error",
 }

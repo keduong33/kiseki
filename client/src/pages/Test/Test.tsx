@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/shadcn/ui/select";
+import { SubmitTestButton } from "./SubmitTestButton";
 import { millisToMinutesAndSeconds } from "./useCountdown";
 
 const mockQuestion: TestQuestion = {
@@ -151,13 +152,11 @@ function Test() {
               <ChevronLeft className="w-4 h-4" />
             </Button>
 
-            <Button
+            <SubmitTestButton
               disabled={
                 currentQuestionIndex !== mockArrayOfQuestions.length - 1
               }
-            >
-              Submit
-            </Button>
+            />
 
             <Button variant="outline" size="icon" onClick={nextQuestion}>
               <ChevronRight className="w-4 h-4" />
