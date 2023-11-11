@@ -13,7 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path={PageLocation.Dashboard} element={<Dashboard />} />
 
           <Route path={PageLocation.Assessments} element={<Assessments />} />
           <Route path={PageLocation.Test} element={<Test />} />
