@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { Edge, Node } from "reactflow";
-import type { SubTopic, Topic } from "../../../types/Subject/Subject";
+import type { SubTopic, Topic } from "../../../../types/Subject/Subject";
 
 const position = { x: 0, y: 0 };
 const edgeType = "smoothstep";

@@ -5,7 +5,7 @@ export enum PageLocation {
   Test = "/test",
   TestSummary = "/test-summary",
 
-  SubjectVisualiser = "/subject-visualiser",
+  MySubjects = "/my-subjects",
   Insights = "/insights",
   StudyPlan = "/study-plan",
 
