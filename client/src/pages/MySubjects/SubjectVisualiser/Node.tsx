@@ -2,14 +2,17 @@ import type { CSSProperties } from "react";
 import type { Edge, Node } from "reactflow";
 import type { SubTopic, Topic } from "../../../../types/Subject/Subject";
 
-const position = { x: 0, y: 0 };
 const edgeType = "smoothstep";
 const edgeStyle: CSSProperties = {
   stroke: "gray",
 };
 
+export const nodeWidth = 172;
+export const nodeHeight = 36;
+
 export const createNodes = (topic: Topic, subTopics: SubTopic[]): Node[] => {
   const nodes: Node[] = [];
+  const position = { x: 0, y: 0 };
 
   if (subTopics.length === 0) {
     const oneNode: Node = {
