@@ -1,3 +1,4 @@
+import { ChevronLeft } from "lucide-react";
 import { useEffect, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { HorizontalNavBar, VerticalNavBar } from "./NavigationBar";
@@ -11,9 +12,15 @@ type pageProps = {
   children: ReactNode;
   pageTitle?: string;
   hideNavBar?: boolean;
+  showBackButton?: boolean;
 };
 
-const Page = ({ children, pageTitle, hideNavBar }: pageProps) => {
+const Page = ({
+  children,
+  pageTitle,
+  hideNavBar,
+  showBackButton,
+}: pageProps) => {
   const navigate = useNavigate();
 
   if (!isLoggedIn) {
@@ -30,7 +37,14 @@ const Page = ({ children, pageTitle, hideNavBar }: pageProps) => {
         {!hideNavBar && <VerticalNavBar />}
         <div className="flex flex-col w-full mb-auto lg:h-full">
           <div className="flex justify-between px-2 pt-4 sm:px-4">
-            <h1>{pageTitle}</h1>
+            {pageTitle && <h1>{pageTitle}</h1>}
+            {showBackButton && (
+              <ChevronLeft
+                onClick={() => {
+                  navigate(-1);
+                }}
+              />
+            )}
             <ModeToggle />
           </div>
           <main className="flex flex-col p-4 overflow-y-auto">{children}</main>

@@ -4,6 +4,7 @@ import Assessments from "./pages/Assessments/Assessments";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Insights from "./pages/Insights/Insights";
 import MySubjects from "./pages/MySubjects/MySubjects";
+import SubjectVisualiser from "./pages/MySubjects/SubjectVisualiser/SubjectVisualiser";
 import StudyPlan from "./pages/StudyPlan/StudyPlan";
 import Test from "./pages/Test/Test";
 import TestSummary from "./pages/TestSummary/TestSummary";
@@ -13,6 +14,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="*" element={<>Something wrong</>} />
           <Route path={PageLocation.Dashboard} element={<Dashboard />} />
 
           <Route path={PageLocation.Assessments} element={<Assessments />} />
@@ -20,6 +22,10 @@ function App() {
           <Route path={PageLocation.TestSummary} element={<TestSummary />} />
 
           <Route path={PageLocation.MySubjects} element={<MySubjects />} />
+          <Route
+            path={`${PageLocation.MySubjects}/:subject`}
+            element={<SubjectVisualiser />}
+          />
           <Route path={PageLocation.StudyPlan} element={<StudyPlan />} />
           <Route path={PageLocation.Insights} element={<Insights />} />
         </Routes>

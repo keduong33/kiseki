@@ -11,6 +11,24 @@ const edgeStyle: CSSProperties = {
 export const createNodes = (topic: Topic, subTopics: SubTopic[]): Node[] => {
   const nodes: Node[] = [];
 
+  if (subTopics.length === 0) {
+    const oneNode: Node = {
+      id: topic,
+      position,
+      data: {
+        label: topic,
+      },
+      style: {
+        color: "black",
+        fontWeight: "bold",
+        backgroundColor: "yellow",
+        border: "1",
+      },
+      type: "input",
+    };
+    return [oneNode];
+  }
+
   const parentNode: Node = {
     id: topic,
     position,
@@ -51,7 +69,7 @@ export const createEdges = (topic: Topic, subTopics: SubTopic[]): Edge[] => {
   const parentEdge: Edge = {
     id: `${topic}-${subTopicsList[0]}`,
     source: topic,
-    target: subTopicsList[0]!.toString(),
+    target: subTopicsList[0]?.toString() ?? "",
     type: edgeType,
     style: edgeStyle,
   };

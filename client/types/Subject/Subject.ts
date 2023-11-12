@@ -25,7 +25,7 @@ export type SubTopic = MathSubTopic | NumericalReasoningSubTopic;
 
 export type Skill = MathSkill | NumericalReasoningSkill;
 
-export const getTopicsBasedOnSubject = (subject: Subject) => {
+export const getTopicsBasedOnSubject = (subject: Subject | undefined) => {
   switch (subject) {
     case Subject.Maths:
       return Object.values(MathsTopic);
@@ -37,11 +37,11 @@ export const getTopicsBasedOnSubject = (subject: Subject) => {
       return Object.values(NumericalReasoningTopic);
 
     default:
-      return [];
+      return;
   }
 };
 
-export const getSubTopicsBasedOnTopic = (topic: Topic) => {
+export const getSubTopicsBasedOnTopic = (topic: Topic | undefined) => {
   switch (topic) {
     //MATH
     case MathsTopic.Algebra:
