@@ -10,7 +10,7 @@ type RoadMapProps = {
   subtopics: SubTopic[];
 };
 
-const RoadMap = ({ topic, subtopics }: RoadMapProps) => {
+const ReactFlowRoadMap = ({ topic, subtopics }: RoadMapProps) => {
   const nodes = createNodes(topic, subtopics);
   const edges = createEdges(topic, subtopics);
 
@@ -32,7 +32,6 @@ const RoadMap = ({ topic, subtopics }: RoadMapProps) => {
   dagre.layout(dagreGraph);
 
   nodes.forEach((node) => {
-    console.log(node);
     const nodeWithPosition = dagreGraph.node(node.id);
     node.position = {
       x: nodeWithPosition.x - nodeWidth / 2,
@@ -41,10 +40,10 @@ const RoadMap = ({ topic, subtopics }: RoadMapProps) => {
   });
 
   return (
-    <div className="border w-[200px] sm:w-full h-[calc(100vh-200px)] flex mx-auto">
+    <div className={`flex w-full  h-[calc(100vh-230px)] border mx-auto`}>
       <ReactFlow nodes={nodes} edges={edges} fitView />
     </div>
   );
 };
 
-export default RoadMap;
+export default ReactFlowRoadMap;

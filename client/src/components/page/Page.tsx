@@ -6,13 +6,14 @@ import { ModeToggle } from "./Theme/ModeToggle";
 import { ThemeProvider } from "./Theme/ThemeProvider";
 
 const isLoggedIn = true;
-const Page = ({
-  children,
-  pageTitle,
-}: {
+
+type pageProps = {
   children: ReactNode;
   pageTitle?: string;
-}) => {
+  hideNavBar?: boolean;
+};
+
+const Page = ({ children, pageTitle, hideNavBar }: pageProps) => {
   const navigate = useNavigate();
 
   if (!isLoggedIn) {
@@ -26,7 +27,7 @@ const Page = ({
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="flex flex-col w-screen h-screen lg:flex-row">
-        <VerticalNavBar />
+        {!hideNavBar && <VerticalNavBar />}
         <div className="flex flex-col w-full mb-auto lg:h-full">
           <div className="flex justify-between px-2 pt-4 sm:px-4">
             <h1>{pageTitle}</h1>
@@ -34,7 +35,7 @@ const Page = ({
           </div>
           <main className="flex flex-col p-4 overflow-y-auto">{children}</main>
         </div>
-        <HorizontalNavBar />
+        {!hideNavBar && <HorizontalNavBar />}
       </div>
     </ThemeProvider>
   );

@@ -37,7 +37,6 @@ export const createNodes = (topic: Topic, subTopics: SubTopic[]): Node[] => {
     nodes.push(newChildNode);
   });
 
-  // roadMap[roadMap.length - 1].type = "output";
   const lastNode = nodes[nodes.length - 1];
 
   if (lastNode) lastNode.type = "output";

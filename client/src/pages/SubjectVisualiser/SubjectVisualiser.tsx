@@ -5,7 +5,7 @@ import {
   getTopicsBasedOnSubject,
 } from "../../../types/Subject/Subject";
 import Page from "../../components/page/Page";
-import RoadMap from "./RoadMap";
+import ReactFlowRoadMap from "./ReactFlowRoadMap";
 
 function SubjectVisualiser() {
   const topics = getTopicsBasedOnSubject(Subject.Maths);
@@ -15,12 +15,17 @@ function SubjectVisualiser() {
   const subjectTitle = Subject.Maths;
 
   return (
-    <Page pageTitle="Subject Visualiser">
+    <Page pageTitle="Subject Visualiser" hideNavBar>
       <div>Progress Circle</div>
       <div className="flex w-full h-full ">
         <div className="flex flex-col w-full h-full gap-4 text-center">
-          <h2>{subjectTitle}</h2>
-          <RoadMap topic={topic} subtopics={subtopics} />
+          <div className="grid grid-cols-5">
+            <h2 className="col-span-3 col-start-2">{subjectTitle}</h2>
+            <div className="col-span-1">Selector</div>
+          </div>
+
+          {/* If possible, in the future switch reactflow with svg */}
+          <ReactFlowRoadMap topic={topic} subtopics={subtopics} />
         </div>
       </div>
     </Page>
