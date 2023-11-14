@@ -45,7 +45,7 @@ export const HorizontalNavBar = () => {
       },
     },
     {
-      title: "Subject Visualiser",
+      title: "My Subjects",
       src: "route",
       onclick: () => {
         navigate(PageLocation.MySubjects);
@@ -103,7 +103,7 @@ export const VerticalNavBar = () => {
       },
     },
     {
-      title: "Subject Visualiser",
+      title: "My Subjects",
       src: "route",
       onclick: () => {
         navigate(PageLocation.MySubjects);
