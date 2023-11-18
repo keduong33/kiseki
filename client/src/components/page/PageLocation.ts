@@ -12,5 +12,7 @@ export enum PageLocation {
   User = "/user",
   Authentication = "/authentication",
 
+  AddQuestions = "/add-questions",
+
   Error = "/error",
 }

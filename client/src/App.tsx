@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PageLocation } from "./components/page/PageLocation";
+import AddQuestions from "./pages/AddQuestions/AddQuestions";
 import Assessments from "./pages/Assessments/Assessments";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Insights from "./pages/Insights/Insights";
@@ -28,6 +29,8 @@ function App() {
           />
           <Route path={PageLocation.StudyPlan} element={<StudyPlan />} />
           <Route path={PageLocation.Insights} element={<Insights />} />
+
+          <Route path={PageLocation.AddQuestions} element={<AddQuestions />} />
         </Routes>
       </BrowserRouter>
     </>

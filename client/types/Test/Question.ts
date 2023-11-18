@@ -1,17 +1,53 @@
+import type { ParsedFromCSVQuestion } from "../../src/pages/AddQuestions/AddQuestions";
 import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
 
 export type TestQuestion = {
+  name: string;
   question: string;
   options: string[];
-  timer: number;
+  optionsImageUrl: string[];
+  timeInMs: number;
   questionImage?: string;
+  randomiseOptions: boolean;
 };
 
 export type FullInfoQuestion = TestQuestion & {
-  correctOption: number;
+  correctOptions: string[];
+  feedback: string;
   subject: Subject;
   topic: Topic;
-  feedback: string;
   subtopics: SubTopic[];
   skills: Skill[];
+};
+
+export const convertParsedQuestionToFullInfo = (
+  parsedQuestion: ParsedFromCSVQuestion
+): FullInfoQuestion => {
+  const question = {
+    name: parsedQuestion["Name"],
+    question: parsedQuestion["Question"],
+    options: [
+      parsedQuestion["Option A"],
+      parsedQuestion["Option B"],
+      parsedQuestion["Option C"],
+      parsedQuestion["Option D"],
+      parsedQuestion["Option E"],
+    ],
+    optionsImageUrl: [
+      parsedQuestion["Option A Image URL"],
+      parsedQuestion["Option B Image URL"],
+      parsedQuestion["Option C Image URL"],
+      parsedQuestion["Option D Image URL"],
+      parsedQuestion["Option E Image URL"],
+    ],
+    correctOptions: parsedQuestion["Correct Options"].split(","),
+    feedback: parsedQuestion["Feedback"],
+    subject: parsedQuestion.Subject as Subject,
+    topic: parsedQuestion.Topic as Topic,
+    subtopics: parsedQuestion.Subtopic.split(",") as SubTopic[],
+    skills: parsedQuestion.Skill.split(",") as Skill[],
+    timeInMs: parsedQuestion["Time in ms"],
+    randomiseOptions: parsedQuestion["Randomise Options"],
+  } satisfies FullInfoQuestion;
+  return question;
 };
