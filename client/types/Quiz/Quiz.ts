@@ -1,19 +1,19 @@
 import type { Subject } from "../Subject/Subject";
-import type { TestQuestion } from "./Question";
+import type { QuizQuestion } from "./Question";
 
-export type Test = {
-  questionsList: TestQuestion[];
+export type Quiz = {
+  questionsList: QuizQuestion[];
 
   answersList: number[];
 
-  testMetaData: TestMetaData | null;
+  quizMetaData: QuizMetaData | null;
 
   currentQuestionIndex: number;
 
   remainingTime: number;
 };
 
-export type TestMetaData = {
+export type QuizMetaData = {
   subject: Subject;
   topic: string;
   mode?: string;

@@ -13,17 +13,17 @@ import {
   type PromiseSafeResult,
 } from "../../../common/error";
 
+import type { QuizQuestion } from "../../../../types/Quiz/Question";
 import type { Subject, Topic } from "../../../../types/Subject/Subject";
-import type { TestQuestion } from "../../../../types/Test/Question";
 import { db } from "../../../common/firebase";
 
 export const getAllQuestionsOfSubject = async (
   subject: Subject
-): PromiseSafeResult<TestQuestion[] | null> => {
+): PromiseSafeResult<QuizQuestion[] | null> => {
   try {
     const retrievedList = await getDocs(collection(db, subject));
-    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
-      return doc.data() as TestQuestion;
+    const questionsList: QuizQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as QuizQuestion;
     });
 
     return safeResult(questionsList);
@@ -37,15 +37,15 @@ export const getAllQuestionsOfSubject = async (
 export const getQuestionsOfASubjectByAmount = async (
   subject: Subject,
   amount: number
-): PromiseSafeResult<TestQuestion[] | null> => {
+): PromiseSafeResult<QuizQuestion[] | null> => {
   try {
     const collectionRoot = collection(db, subject);
     const filteredQuery = query(collectionRoot, limit(amount));
 
     const retrievedList = await getDocs(filteredQuery);
 
-    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
-      return doc.data() as TestQuestion;
+    const questionsList: QuizQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as QuizQuestion;
     });
     return safeResult(questionsList);
   } catch (e) {
@@ -69,8 +69,8 @@ export const getAllQuestionsOfTopic = async (
 
     const retrievedList = await getDocs(filteredQuery);
 
-    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
-      return doc.data() as TestQuestion;
+    const questionsList: QuizQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as QuizQuestion;
     });
     return safeResult(questionsList);
   } catch (e) {
@@ -96,8 +96,8 @@ export const getQuestionsOfATopicByAmount = async (
 
     const retrievedList = await getDocs(filteredQuery);
 
-    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
-      return doc.data() as TestQuestion;
+    const questionsList: QuizQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as QuizQuestion;
     });
     return safeResult(questionsList);
   } catch (e) {
@@ -121,8 +121,8 @@ export const getAllQuestionsOfSubTopic = async (
 
     const retrievedList = await getDocs(filteredQuery);
 
-    const questionsList: TestQuestion[] = retrievedList.docs.map((doc) => {
-      return doc.data() as TestQuestion;
+    const questionsList: QuizQuestion[] = retrievedList.docs.map((doc) => {
+      return doc.data() as QuizQuestion;
     });
     return safeResult(questionsList);
   } catch (e) {

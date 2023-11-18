@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { testState } from "../../states/Test.state";
+import { quizState } from "../../states/Quiz.state";
 
 export function millisToMinutesAndSeconds(millis: number) {
   const minutes = Math.floor(millis / 60000);
@@ -10,9 +10,9 @@ export function millisToMinutesAndSeconds(millis: number) {
 }
 
 export const useCountdown = () => {
-  const [remainingTime, setRemainingTime] = testState((test) => [
-    test.remainingTime,
-    test.setRemainingTime,
+  const [remainingTime, setRemainingTime] = quizState((quiz) => [
+    quiz.remainingTime,
+    quiz.setRemainingTime,
   ]);
   const interval = 1000;
   const isFinished = useRef(false);
@@ -24,7 +24,7 @@ export const useCountdown = () => {
 
     if (remainingTime === 0) {
       isFinished.current = true;
-      console.warn("Test finished");
+      console.warn("Quiz finished");
     }
 
     return () => clearInterval(countdown);

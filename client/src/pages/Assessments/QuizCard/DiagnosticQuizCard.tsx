@@ -17,19 +17,19 @@ const Row = ({ children }: { children: React.ReactNode }) => {
   return <div className="grid grid-cols-[30px_100px_1fr]">{children}</div>;
 };
 
-export default function DiagnosticTestCard({ subject }: { subject: Subject }) {
+export default function DiagnosticQuizCard({ subject }: { subject: Subject }) {
   const navigate = useNavigate();
 
-  const generateTest = (subject: Subject) => {
+  const generateQuiz = (subject: Subject) => {
     console.log(subject);
-    navigate(PageLocation.Test);
+    navigate(PageLocation.Quiz);
   };
 
   return (
     <Card className="w-[300px] sm:w-[320px] md:w-[330px] 2xl:w-[400px] h-[500px]  flex flex-col">
       <CardHeader className="pb-[6px] items-center">
         <div className="h-[250px] w-full bg-slate-600"></div>
-        <CardTitle>{subject} Test</CardTitle>
+        <CardTitle>{subject}</CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription>Details</CardDescription>
@@ -47,13 +47,13 @@ export default function DiagnosticTestCard({ subject }: { subject: Subject }) {
           <Row>
             <NewspaperIcon />
             <p>Description:</p>
-            <p className="max-h-[20px] truncate">Orientation {subject} test</p>
+            <p className="max-h-[20px] truncate">Orientation {subject}</p>
           </Row>
         </div>
       </CardContent>
       <CardFooter
         className="justify-center"
-        onClick={() => generateTest(subject)}
+        onClick={() => generateQuiz(subject)}
       >
         <Button type="submit">Enter</Button>
       </CardFooter>

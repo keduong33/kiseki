@@ -2,8 +2,8 @@ export enum PageLocation {
   Dashboard = "/",
 
   Assessments = "/assessments",
-  Test = "/test",
-  TestSummary = "/test-summary",
+  Quiz = "/quiz",
+  QuizSummary = "/quiz-summary",
 
   MySubjects = "/my-subjects",
   Insights = "/insights",

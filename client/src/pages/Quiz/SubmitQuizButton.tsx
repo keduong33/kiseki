@@ -12,12 +12,12 @@ import {
   DialogTrigger,
 } from "../../components/shadcn/ui/dialog";
 
-export function SubmitTestButton({ disabled }: { disabled: boolean }) {
+export function SubmitQuizButton({ disabled }: { disabled: boolean }) {
   const navigate = useNavigate();
 
-  const submitTest = () => {
-    console.log("Submitting test");
-    navigate(PageLocation.TestSummary);
+  const submitQuiz = () => {
+    console.log("Submitting quiz");
+    navigate(PageLocation.QuizSummary);
   };
 
   return (
@@ -33,7 +33,7 @@ export function SubmitTestButton({ disabled }: { disabled: boolean }) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2">
-          <Button onClick={submitTest}>Continue</Button>
+          <Button onClick={submitQuiz}>Continue</Button>
           <DialogClose asChild>
             <Button type="button" variant="secondary">
               Cancel

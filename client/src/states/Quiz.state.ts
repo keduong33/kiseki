@@ -1,26 +1,26 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import type { TestQuestion } from "../../types/Test/Question";
-import type { Test, TestMetaData } from "../../types/Test/Test";
+import type { QuizQuestion } from "../../types/Quiz/Question";
+import type { Quiz, QuizMetaData } from "../../types/Quiz/Quiz";
 
 type Actions = {
-  setQuestionsList: (questionsList: TestQuestion[]) => void;
+  setQuestionsList: (questionsList: QuizQuestion[]) => void;
   setAnswersList: (answersList: number[]) => void;
-  setTestMetaData: (testMetaData: TestMetaData) => void;
+  setQuizMetaData: (quizMetaData: QuizMetaData) => void;
   setCurrentQuestionIndex: (index: number) => void;
   setRemainingTime: (time: number) => void;
   resetState: () => void;
 };
 
-const initialState: Test = {
+const initialState: Quiz = {
   questionsList: [],
   answersList: [],
-  testMetaData: null,
+  quizMetaData: null,
   currentQuestionIndex: 0,
   remainingTime: 0,
 };
 
-export const testState = create<Test & Actions>()(
+export const quizState = create<Quiz & Actions>()(
   persist(
     (set) => ({
       ...initialState,
@@ -30,8 +30,8 @@ export const testState = create<Test & Actions>()(
       setAnswersList(answersList) {
         set(() => ({ answersList: answersList }));
       },
-      setTestMetaData(testMetaData) {
-        set(() => ({ testMetaData: testMetaData }));
+      setQuizMetaData(quizMetaData) {
+        set(() => ({ quizMetaData: quizMetaData }));
       },
       setCurrentQuestionIndex(index) {
         set(() => ({ currentQuestionIndex: index }));
@@ -43,6 +43,6 @@ export const testState = create<Test & Actions>()(
         set(initialState);
       },
     }),
-    { name: "testState", storage: createJSONStorage(() => sessionStorage) }
+    { name: "quizState", storage: createJSONStorage(() => sessionStorage) }
   )
 );

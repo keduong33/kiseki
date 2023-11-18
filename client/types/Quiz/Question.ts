@@ -1,18 +1,17 @@
 import type { ParsedFromCSVQuestion } from "../../src/pages/AddQuestions/AddQuestions";
 import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
 
-export type TestQuestion = {
+export type QuizQuestion = {
   id: string;
   name: string;
   question: string;
   options: string[];
   optionsImageUrl: string[];
   timeInMs: number;
-  questionImage?: string;
   randomiseOptions: boolean;
 };
 
-export type FullInfoQuestion = TestQuestion & {
+export type FullInfoQuestion = QuizQuestion & {
   correctOptions: string[];
   feedback: string;
   subject: Subject;

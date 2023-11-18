@@ -3,7 +3,7 @@ import { useRef } from "react";
 import {
   convertParsedQuestionToFullInfo,
   type FullInfoQuestion,
-} from "../../../types/Test/Question";
+} from "../../../types/Quiz/Question";
 import Page from "../../components/page/Page";
 import { Button } from "../../components/shadcn/ui/button";
 import { Input } from "../../components/shadcn/ui/input";

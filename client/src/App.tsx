@@ -6,9 +6,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Insights from "./pages/Insights/Insights";
 import MySubjects from "./pages/MySubjects/MySubjects";
 import SubjectVisualiser from "./pages/MySubjects/SubjectVisualiser/SubjectVisualiser";
+import Quiz from "./pages/Quiz/Quiz";
+import QuizSummary from "./pages/QuizSummary/QuizSummary";
 import StudyPlan from "./pages/StudyPlan/StudyPlan";
-import Test from "./pages/Test/Test";
-import TestSummary from "./pages/TestSummary/TestSummary";
 
 function App() {
   return (
@@ -19,8 +19,8 @@ function App() {
           <Route path={PageLocation.Dashboard} element={<Dashboard />} />
 
           <Route path={PageLocation.Assessments} element={<Assessments />} />
-          <Route path={PageLocation.Test} element={<Test />} />
-          <Route path={PageLocation.TestSummary} element={<TestSummary />} />
+          <Route path={PageLocation.Quiz} element={<Quiz />} />
+          <Route path={PageLocation.QuizSummary} element={<QuizSummary />} />
 
           <Route path={PageLocation.MySubjects} element={<MySubjects />} />
           <Route

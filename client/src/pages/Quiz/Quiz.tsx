@@ -1,9 +1,9 @@
 import { ChevronLeft, ChevronRight, Timer } from "lucide-react";
 import { useState } from "react";
+import type { QuizQuestion } from "../../../types/Quiz/Question";
+import type { QuizMetaData } from "../../../types/Quiz/Quiz";
 import { MathsTopic } from "../../../types/Subject/Math";
 import { Subject } from "../../../types/Subject/Subject";
-import type { TestQuestion } from "../../../types/Test/Question";
-import type { TestMetaData } from "../../../types/Test/Test";
 import Page from "../../components/page/Page";
 import { Button } from "../../components/shadcn/ui/button";
 import { Card } from "../../components/shadcn/ui/card";
@@ -14,10 +14,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/shadcn/ui/select";
-import { SubmitTestButton } from "./SubmitTestButton";
+import { SubmitQuizButton } from "./SubmitQuizButton";
 import { millisToMinutesAndSeconds } from "./useCountdown";
 
-const mockQuestion: TestQuestion = {
+const mockQuestion: QuizQuestion = {
   question:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
   options: [
@@ -26,28 +26,26 @@ const mockQuestion: TestQuestion = {
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
     "Nay Yay",
   ],
-  timer: 0,
-  questionImage: undefined,
+  timeInMs: 0,
 };
 
-const mockQuestion2: TestQuestion = {
+const mockQuestion2: QuizQuestion = {
   question: "Question 2",
   options: ["Yay", "Nay", "Nay Yay"],
-  timer: 0,
-  questionImage: undefined,
+  timeInMs: 0,
 };
 
-const mockTestMetaData: TestMetaData = {
+const mockQuizMetaData: QuizMetaData = {
   subject: Subject["Maths"],
   topic: MathsTopic["Algebra"],
   numberOfQuestions: 15,
 };
 
-const testMetaDataStyles = "flex flex-col gap-1 md:flex-row text-center";
+const quizMetaDataStyles = "flex flex-col gap-1 md:flex-row text-center";
 
-const mockArrayOfQuestions: TestQuestion[] = [mockQuestion, mockQuestion2];
+const mockArrayOfQuestions: QuizQuestion[] = [mockQuestion, mockQuestion2];
 
-function Test() {
+function Quiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const changeQuestion = (newQuestionIndex: string) => {
@@ -64,21 +62,21 @@ function Test() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
-  const TestHeader = () => (
+  const QuizHeader = () => (
     <div className="flex flex-col justify-between gap-6 md:flex-row">
       <div className="flex items-center justify-between w-full">
-        <div className={testMetaDataStyles}>
+        <div className={quizMetaDataStyles}>
           <span>Subject</span>
-          <span>{mockTestMetaData.subject}</span>
+          <span>{mockQuizMetaData.subject}</span>
         </div>
-        <div className={testMetaDataStyles}>
+        <div className={quizMetaDataStyles}>
           <span>Topic</span>
-          <span>{mockTestMetaData.topic}</span>
+          <span>{mockQuizMetaData.topic}</span>
         </div>
-        <div className={testMetaDataStyles}>
+        <div className={quizMetaDataStyles}>
           <span>Questions</span>
           <span>
-            {1} of {mockTestMetaData.numberOfQuestions}
+            {1} of {mockQuizMetaData.numberOfQuestions}
           </span>
         </div>
         <div className="hidden md:flex">
@@ -108,7 +106,7 @@ function Test() {
     </div>
   );
 
-  const Question = ({ currentQuestion }: { currentQuestion: TestQuestion }) => {
+  const Question = ({ currentQuestion }: { currentQuestion: QuizQuestion }) => {
     return (
       <Card className="w-full p-4 text-justify  md:min-h-[450px]">
         <div>{currentQuestion.question}</div>
@@ -138,10 +136,10 @@ function Test() {
   const currentOptions = currentQuestion?.options;
 
   return (
-    <Page pageTitle="Test">
+    <Page pageTitle="Quiz">
       {currentQuestion && currentOptions && (
         <div className="flex flex-col gap-4">
-          <TestHeader />
+          <QuizHeader />
           <div className="flex flex-col gap-3 md:flex-row">
             <Question currentQuestion={currentQuestion} />
             <AnswerOptions options={currentOptions} />
@@ -152,7 +150,7 @@ function Test() {
               <ChevronLeft className="w-4 h-4" />
             </Button>
 
-            <SubmitTestButton
+            <SubmitQuizButton
               disabled={
                 currentQuestionIndex !== mockArrayOfQuestions.length - 1
               }
@@ -168,4 +166,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default Quiz;
