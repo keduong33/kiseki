@@ -2,6 +2,7 @@ import type { ParsedFromCSVQuestion } from "../../src/pages/AddQuestions/AddQues
 import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
 
 export type TestQuestion = {
+  id: string;
   name: string;
   question: string;
   options: string[];
@@ -24,6 +25,7 @@ export const convertParsedQuestionToFullInfo = (
   parsedQuestion: ParsedFromCSVQuestion
 ): FullInfoQuestion => {
   const question = {
+    id: "",
     name: parsedQuestion["Name"],
     question: parsedQuestion["Question"],
     options: [
