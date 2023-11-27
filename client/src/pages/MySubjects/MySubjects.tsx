@@ -7,7 +7,6 @@ function MySubjects() {
   const navigate = useNavigate();
   return (
     <Page pageTitle="My Subjects">
-      {/* <SubjectVisualiser subject={Subject.Maths} /> */}
       <>
         <div className="flex gap-4">
           <Button

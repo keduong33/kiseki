@@ -1,0 +1,9 @@
+import type { Config, Context } from "@netlify/functions";
+
+export default async (req: Request, context: Context) => {
+  return new Response("Dashboard");
+};
+
+export const config: Config = {
+  path: "/add-new-questions",
+};
