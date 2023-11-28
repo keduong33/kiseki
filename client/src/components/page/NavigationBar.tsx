@@ -144,13 +144,13 @@ export const VerticalNavBar = () => {
             <img
               src="/assets/user.svg"
               className={`h-8 cursor-pointer duration-500`}
-              alt="User"
+              alt="Profile"
               onClick={() => {
-                navigate(PageLocation.User);
+                navigate(PageLocation.Profile);
               }}
             />
           }
-          text="User"
+          text="Profile"
         />
       </div>
     </div>

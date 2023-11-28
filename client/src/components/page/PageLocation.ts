@@ -9,7 +9,7 @@ export enum PageLocation {
   Insights = "/insights",
   StudyPlan = "/study-plan",
 
-  User = "/user",
+  Profile = "/profile",
   Authentication = "/authentication",
 
   AddQuestions = "/add-questions",

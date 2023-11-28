@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Insights from "./pages/Insights/Insights";
 import MySubjects from "./pages/MySubjects/MySubjects";
 import SubjectVisualiser from "./pages/MySubjects/SubjectVisualiser/SubjectVisualiser";
+import Profile from "./pages/Profile/Profile";
 import Quiz from "./pages/Quiz/Quiz";
 import QuizSummary from "./pages/QuizSummary/QuizSummary";
 import StudyPlan from "./pages/StudyPlan/StudyPlan";
@@ -31,6 +32,8 @@ function App() {
           <Route path={PageLocation.Insights} element={<Insights />} />
 
           <Route path={PageLocation.AddQuestions} element={<AddQuestions />} />
+
+          <Route path={PageLocation.Profile} element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>

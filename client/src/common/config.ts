@@ -6,7 +6,6 @@ type configType = {
 };
 
 const getConfig = (hostname: string): configType => {
-  console.log("here", hostname);
   switch (hostname) {
     case "localhost":
     case "192.168.1.103":
