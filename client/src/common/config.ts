@@ -11,8 +11,8 @@ const getConfig = (hostname: string): configType => {
     case "192.168.1.103":
       return {
         auth0: {
-          domain: "dev-bigbrain.au.auth0.com",
-          clientId: "mEeuPnXlIxWfgSDAiAz5h36K0pgHn0ch",
+          domain: import.meta.env.VITE_DEV_AUTH0_DOMAIN,
+          clientId: import.meta.env.VITE_DEV_AUTH0_CLIENT_ID,
         },
       } satisfies configType;
     default:

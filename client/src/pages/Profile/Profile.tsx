@@ -7,10 +7,6 @@ const Profile = () => {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0<UserProfile>();
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
-
   return (
     <Page pageTitle="Profile">
       {isAuthenticated && (
