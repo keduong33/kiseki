@@ -10,7 +10,8 @@
     "dev": "netlify dev --filter client",
     "client": "cd client && npm run dev",
     "build": "netlify build --filter client",
-    "deploy-preview": "netlify deploy --filter client --alias=dev",
+    "build-dev": "netlify build --filter client --context dev",
+    "deploy-dev": "netlify deploy --filter client --alias=dev",
     "deploy-prod": "netlify deploy --filter client --prod"
   },
   "author": "",

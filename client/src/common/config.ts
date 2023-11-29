@@ -9,6 +9,7 @@ const getConfig = (hostname: string): configType => {
   switch (hostname) {
     case "localhost":
     case "192.168.1.103":
+    case "dev--edupath.netlify.app":
       return {
         auth0: {
           domain: import.meta.env.VITE_DEV_AUTH0_DOMAIN,
