@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { PageLocation } from "./components/page/PageLocation";
 import AddQuestions from "./pages/AddQuestions/AddQuestions";
 import Assessments from "./pages/Assessments/Assessments";
@@ -13,30 +13,26 @@ import StudyPlan from "./pages/StudyPlan/StudyPlan";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<>Something wrong</>} />
-          <Route path={PageLocation.Dashboard} element={<Dashboard />} />
+    <Routes>
+      <Route path="*" element={<>Something wrong</>} />
+      <Route path={PageLocation.Dashboard} element={<Dashboard />} />
 
-          <Route path={PageLocation.Assessments} element={<Assessments />} />
-          <Route path={PageLocation.Quiz} element={<Quiz />} />
-          <Route path={PageLocation.QuizSummary} element={<QuizSummary />} />
+      <Route path={PageLocation.Assessments} element={<Assessments />} />
+      <Route path={PageLocation.Quiz} element={<Quiz />} />
+      <Route path={PageLocation.QuizSummary} element={<QuizSummary />} />
 
-          <Route path={PageLocation.MySubjects} element={<MySubjects />} />
-          <Route
-            path={`${PageLocation.MySubjects}/:subject`}
-            element={<SubjectVisualiser />}
-          />
-          <Route path={PageLocation.StudyPlan} element={<StudyPlan />} />
-          <Route path={PageLocation.Insights} element={<Insights />} />
+      <Route path={PageLocation.MySubjects} element={<MySubjects />} />
+      <Route
+        path={`${PageLocation.MySubjects}/:subject`}
+        element={<SubjectVisualiser />}
+      />
+      <Route path={PageLocation.StudyPlan} element={<StudyPlan />} />
+      <Route path={PageLocation.Insights} element={<Insights />} />
 
-          <Route path={PageLocation.AddQuestions} element={<AddQuestions />} />
+      <Route path={PageLocation.AddQuestions} element={<AddQuestions />} />
 
-          <Route path={PageLocation.Profile} element={<Profile />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+      <Route path={PageLocation.Profile} element={<Profile />} />
+    </Routes>
   );
 }
 
