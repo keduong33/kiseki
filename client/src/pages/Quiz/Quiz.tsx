@@ -27,12 +27,20 @@ const mockQuestion: QuizQuestion = {
     "Nay Yay",
   ],
   timeInMs: 0,
+  id: "",
+  name: "",
+  optionsImageUrl: [],
+  randomiseOptions: false,
 };
 
 const mockQuestion2: QuizQuestion = {
   question: "Question 2",
   options: ["Yay", "Nay", "Nay Yay"],
   timeInMs: 0,
+  id: "",
+  name: "",
+  optionsImageUrl: [],
+  randomiseOptions: false,
 };
 
 const mockQuizMetaData: QuizMetaData = {
