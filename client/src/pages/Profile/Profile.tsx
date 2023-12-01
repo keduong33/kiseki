@@ -24,12 +24,7 @@ const Profile = () => {
       const domain = auth0.domain;
 
       try {
-        const accessToken = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: `https://${domain}/api/v2/`,
-            scope: "read:current_user",
-          },
-        });
+        const accessToken = await getAccessTokenSilently();
 
         const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user?.sub}`;
 

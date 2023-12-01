@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           audience: `https://${auth0.domain}/api/v2/`,
           scope: "read:current_user update:current_user_metadata",
         }}
+        useRefreshTokens={true}
       >
         <App />
       </Auth0Provider>
