@@ -28,7 +28,7 @@ const Profile = () => {
 
         const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user?.sub}`;
 
-        const metadataResponse: AxiosResponse<UserProfile> = await axios.get(
+        const response: AxiosResponse<UserProfile> = await axios.get(
           userDetailsByIdUrl,
           {
             headers: {
@@ -37,7 +37,7 @@ const Profile = () => {
           }
         );
 
-        const userProfile = metadataResponse.data;
+        const userProfile = response.data;
 
         setUserProfile(userProfile);
       } catch (e) {
