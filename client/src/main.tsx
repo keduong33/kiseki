@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         authorizationParams={{
           redirect_uri: window.location.origin,
           audience: `https://${auth0.domain}/api/v2/`,
-          scope: "read:current_user update:current_user_metadata",
+          scope: "read:current_user",
         }}
       >
         <App />
