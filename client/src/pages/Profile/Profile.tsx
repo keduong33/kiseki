@@ -49,9 +49,15 @@ const Profile = () => {
     if (user?.sub) getUserMetadata();
   }, [getAccessTokenSilently, user?.sub]);
 
+  if (isLoading)
+    return (
+      <Page pageTitle="Profile">
+        <>Loading</>
+      </Page>
+    );
+
   return (
     <Page pageTitle="Profile">
-      {isLoading && <>Loading...</>}
       {isAuthenticated && (
         <div>
           <img src={userProfile?.picture} />
