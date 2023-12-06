@@ -1,87 +1,18 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import axios, { AxiosError, type AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
-import { config } from "../../common/config";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import Page from "../../components/page/Page";
-import { Button } from "../../components/shadcn/ui/button";
-import type { UserProfile } from "./UserProfile";
+import type { UserProfileMetadata } from "./UserProfile";
 
 const Profile = () => {
-  const {
-    user,
-    isAuthenticated,
-    isLoading,
-    loginWithRedirect,
-    logout,
-    getAccessTokenSilently,
-  } = useAuth0();
+  const { isLoaded, userId, sessionId } = useAuth();
+  const { user } = useUser();
 
-  const [userProfile, setUserProfile] = useState<UserProfile>({});
-
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const { auth0 } = config;
-      const domain = auth0.domain;
-
-      try {
-        const accessToken = await getAccessTokenSilently();
-
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user?.sub}`;
-
-        const response: AxiosResponse<UserProfile> = await axios.get(
-          userDetailsByIdUrl,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-
-        const userProfile = response.data;
-
-        setUserProfile(userProfile);
-      } catch (e) {
-        const error = e as AxiosError;
-        console.error(error.code, error.message);
-      }
-    };
-
-    if (user?.sub) getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
-
-  if (isLoading)
-    return (
-      <Page pageTitle="Profile">
-        <>Loading</>
-      </Page>
-    );
-
+  const userMetaData = user?.publicMetadata as UserProfileMetadata;
   return (
     <Page pageTitle="Profile">
-      {isAuthenticated && (
+      {isLoaded && userId && (
         <div>
-          <img src={userProfile?.picture} />
-          <h2>Hello {userProfile?.name},</h2>
-          <div>
-            <p>Here are your details:</p>
-            <p>Email: {userProfile?.email}</p>
-            <p>School: {userProfile?.user_metadata?.school}</p>
-          </div>
-
-          <Button
-            onClick={() =>
-              logout({ logoutParams: { returnTo: window.location.origin } })
-            }
-          >
-            Log Out
-          </Button>
-        </div>
-      )}
-
-      {!isAuthenticated && (
-        <div>
-          <p>Please login</p>
-          <Button onClick={() => loginWithRedirect()}>Log in</Button>
+          Hello, {userId}:{user?.fullName} your current active session is{" "}
+          {sessionId}. You are from {userMetaData.school}
         </div>
       )}
     </Page>

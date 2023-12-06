@@ -1,7 +1,6 @@
 type configType = {
-  auth0: {
-    domain: string;
-    clientId: string;
+  clerk: {
+    publisableKey?: string;
   };
 };
 
@@ -11,17 +10,13 @@ const getConfig = (hostname: string): configType => {
     case "192.168.1.103":
     case "dev--edupath.netlify.app":
       return {
-        auth0: {
-          domain: import.meta.env.VITE_DEV_AUTH0_DOMAIN,
-          clientId: import.meta.env.VITE_DEV_AUTH0_CLIENT_ID,
+        clerk: {
+          publisableKey: import.meta.env.VITE_CLERK_PUBLISHABLE_DEV_KEY,
         },
       } satisfies configType;
     default:
       return {
-        auth0: {
-          domain: "",
-          clientId: "",
-        },
+        clerk: {},
       } satisfies configType;
   }
 };
