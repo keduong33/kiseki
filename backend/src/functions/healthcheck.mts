@@ -1,12 +1,10 @@
 import type { Config, Context } from "@netlify/functions";
 
-import { verifyJwt } from "../common/verifyJwt";
+import { verifyClientToken } from "../common/verifyJwt";
 
 export default async (req: Request, context: Context) => {
-  const { isSuccessful, userId, status, errorMessage } = await verifyJwt(
-    req,
-    context
-  );
+  const { isSuccessful, userId, status, errorMessage } =
+    await verifyClientToken(req, context);
 
   if (!isSuccessful) {
     return new Response(errorMessage, {

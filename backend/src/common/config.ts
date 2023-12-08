@@ -5,10 +5,11 @@ type configType = {
 type clerkConfig = {
   secretKey?: string;
   backendAPI: string;
+  issuer: string | null;
 };
 
 const basicClerkConfig = {
-  backendAPI: " https://api.clerk.dev/v1/jwks",
+  backendAPI: " https://api.clerk.dev/v1/",
 };
 
 export const getBackendConfig = (hostname: string): configType => {
@@ -20,12 +21,14 @@ export const getBackendConfig = (hostname: string): configType => {
         clerk: {
           ...basicClerkConfig,
           secretKey: process.env.CLERK_SECRET_DEV_KEY,
+          issuer: "https://active-macaque-95.clerk.accounts.dev",
         },
       } satisfies configType;
     default:
       return {
         clerk: {
           ...basicClerkConfig,
+          issuer: null,
         },
       } satisfies configType;
   }
