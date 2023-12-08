@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@netlify/functions": "^2.3.0"
+    "@netlify/functions": "^2.3.0",
+    "axios": "^1.6.2",
+    "jose": "^5.1.3"
   }
 }
