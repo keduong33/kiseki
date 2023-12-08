@@ -4,7 +4,7 @@ import * as jose from "jose";
 import { JOSEError } from "jose/errors";
 import { getBackendConfig } from "./config";
 
-type jwtVerificationStatus = {
+type JwtVerificationStatus = {
   isSuccessful: boolean;
   errorMessage?: string;
   status: number;
@@ -14,7 +14,7 @@ type jwtVerificationStatus = {
 export const verifyJwt = async (
   req: Request,
   context: Context
-): Promise<jwtVerificationStatus> => {
+): Promise<JwtVerificationStatus> => {
   const sessionToken = context.cookies.get("__session");
   const accessToken = req.headers.get("Authorization");
 
