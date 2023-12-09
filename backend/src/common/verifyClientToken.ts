@@ -26,8 +26,16 @@ export const verifyClientToken = async (
   }
   let userId;
 
-  const hostname = new URL(req.url).hostname;
-  const { clerk } = getBackendConfig(hostname);
+  const { clerk } = getBackendConfig();
+
+  if (!clerk) {
+    console.warn("Failed in verifyCLientToken", "Invalid environment");
+    return {
+      isSuccessful: false,
+      errorMessage: "Invalid Environment",
+      status: 500,
+    };
+  }
 
   try {
     const payload = await verifyToken(sessionToken, {
