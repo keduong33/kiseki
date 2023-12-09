@@ -1,6 +1,6 @@
 import type { Config, Context } from "@netlify/functions";
 
-import { verifyClientToken } from "../common/verifyJwt";
+import { verifyClientToken } from "../common/verifyClientToken";
 
 export default async (req: Request, context: Context) => {
   const { isSuccessful, userId, status, errorMessage } =

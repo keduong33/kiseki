@@ -27,5 +27,6 @@
 
       // 
       "rootDir": "."
-    }
+    },
+      "include": ["backend/env.d.ts"],
   }

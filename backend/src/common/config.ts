@@ -1,18 +1,26 @@
-type configType = {
-  clerk: clerkConfig;
+type ConfigType = {
+  clerk?: ClerkConfig;
+  neo4j?: Neo4jConfig;
 };
 
-type clerkConfig = {
+type ClerkConfig = {
   secretKey?: string;
   backendAPI: string;
   issuer: string | null;
+};
+
+export type Neo4jConfig = {
+  uri: string;
+  username: string;
+  password: string;
 };
 
 const basicClerkConfig = {
   backendAPI: " https://api.clerk.dev/v1/",
 };
 
-export const getBackendConfig = (hostname: string): configType => {
+export const getBackendConfig = (hostname?: string): ConfigType => {
+  if (!hostname) hostname = new URL(process.env.URL).hostname;
   switch (hostname) {
     case "localhost":
     case "192.168.1.103":
@@ -23,13 +31,13 @@ export const getBackendConfig = (hostname: string): configType => {
           secretKey: process.env.CLERK_SECRET_DEV_KEY,
           issuer: "https://active-macaque-95.clerk.accounts.dev",
         },
-      } satisfies configType;
-    default:
-      return {
-        clerk: {
-          ...basicClerkConfig,
-          issuer: null,
+        neo4j: {
+          uri: "neo4j+s://7d0aef41.databases.neo4j.io:7687",
+          username: process.env.NEO4J_DEV_USERNAME,
+          password: process.env.NEO4J_DEV_PASSWORD,
         },
-      } satisfies configType;
+      } satisfies ConfigType;
+    default:
+      return {};
   }
 };
