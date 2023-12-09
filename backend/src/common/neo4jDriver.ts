@@ -1,7 +1,7 @@
 import { Driver, auth, driver } from "neo4j-driver";
 import { getBackendConfig } from "./config";
 
-export const initDriver = (): Driver | undefined => {
+export const initNeo4jDriver = (): Driver | undefined => {
   const { neo4j } = getBackendConfig();
   if (!neo4j) {
     console.warn("Failed in Neo4jDriver", "Invalid environment");

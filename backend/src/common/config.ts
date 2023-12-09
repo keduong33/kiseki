@@ -1,6 +1,7 @@
 type ConfigType = {
   clerk?: ClerkConfig;
   neo4j?: Neo4jConfig;
+  postgresConfig?: PostgresConfig;
 };
 
 type ClerkConfig = {
@@ -9,10 +10,18 @@ type ClerkConfig = {
   issuer: string | null;
 };
 
-export type Neo4jConfig = {
+type Neo4jConfig = {
   uri: string;
   username: string;
   password: string;
+};
+
+type PostgresConfig = {
+  PGHOST: string;
+  PGDATABASE: string;
+  PGUSER: string;
+  PGPASSWORD: string;
+  ENDPOINT_ID: string;
 };
 
 const basicClerkConfig = {
@@ -35,6 +44,13 @@ export const getBackendConfig = (hostname?: string): ConfigType => {
           uri: "neo4j+s://7d0aef41.databases.neo4j.io:7687",
           username: process.env.NEO4J_DEV_USERNAME,
           password: process.env.NEO4J_DEV_PASSWORD,
+        },
+        postgresConfig: {
+          PGHOST: process.env.PGHOST_DEV,
+          PGDATABASE: process.env.PGDATABASE_DEV,
+          PGUSER: process.env.PGUSER_DEV,
+          PGPASSWORD: process.env.PGPASSWORD_DEV,
+          ENDPOINT_ID: process.env.ENDPOINT_ID_DEV,
         },
       } satisfies ConfigType;
     default:

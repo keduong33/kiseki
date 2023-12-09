@@ -1,6 +1,6 @@
 export type SafeError = {
   e?: Error;
-  statusCode: number;
+  statusCode?: number;
   message?: string;
 };
 
