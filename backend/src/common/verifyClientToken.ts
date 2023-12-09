@@ -1,28 +1,22 @@
 import { verifyToken } from "@clerk/backend";
 import type { Context } from "@netlify/functions";
 import { getBackendConfig } from "./config";
-
-type JwtVerificationStatus = {
-  isSuccessful: boolean;
-  errorMessage?: string;
-  status: number;
-  userId?: string;
-};
+import {
+  safeError,
+  safeResult,
+  type PromiseSafeResponse,
+} from "./safeResponse";
 
 export const verifyClientToken = async (
   req: Request,
   context: Context
-): Promise<JwtVerificationStatus> => {
+): PromiseSafeResponse<string> => {
   const sessionToken = context.cookies.get("__session");
   const accessToken = req.headers.get("Authorization");
 
   if (!sessionToken && !accessToken) {
     console.warn("User has not logged in");
-    return {
-      isSuccessful: false,
-      errorMessage: "You have not signed in",
-      status: 401,
-    };
+    return safeError({ statusCode: 401, message: "You have not signed in" });
   }
   let userId;
 
@@ -30,11 +24,7 @@ export const verifyClientToken = async (
 
   if (!clerk) {
     console.warn("Failed in verifyCLientToken", "Invalid environment");
-    return {
-      isSuccessful: false,
-      errorMessage: "Invalid Environment",
-      status: 500,
-    };
+    return safeError({ statusCode: 500, message: "Invalid Environment" });
   }
 
   try {
@@ -44,12 +34,8 @@ export const verifyClientToken = async (
     userId = payload.sub;
   } catch (e) {
     console.error("Failed in verifyClientToken:\n", e);
-    return {
-      isSuccessful: false,
-      status: 500,
-      errorMessage: "Failed to verify token",
-    };
+    return safeError({ statusCode: 500, message: "Failed to verify token" });
   }
 
-  return { isSuccessful: true, status: 200, userId: userId };
+  return safeResult(userId);
 };
