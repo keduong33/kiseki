@@ -17,6 +17,15 @@ export enum Subject {
   Maths = "Maths",
   English = "English",
   "Numerical Reasoning" = "Numerical Reasoning",
+  "Science Reasoning" = "Science Reasoning",
+}
+
+export enum DiagnosticSubject {
+  "Mathematics" = "Mathematics",
+  "Numerical Reasoning" = "Numerical Reasoning",
+  "Reading Comprehension" = "Reading Comprehension",
+  "Science Reasoning" = "Science Reasoning",
+  "Verbal Reasoning" = "Verbal Reasoning",
 }
 
 export type Topic = MathsTopic | EnglishTopic | NumericalReasoningTopic;

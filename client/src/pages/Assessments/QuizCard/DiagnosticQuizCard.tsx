@@ -9,22 +9,38 @@ import {
   CardTitle,
 } from "../../../components/shadcn/ui/card";
 
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import type { Subject } from "../../../../types/Subject/Subject";
-import { PageLocation } from "../../../components/page/PageLocation";
+import type {
+  DiagnosticSubject,
+  Subject,
+} from "../../../../types/Subject/Subject";
 
 const Row = ({ children }: { children: React.ReactNode }) => {
   return <div className="grid grid-cols-[30px_100px_1fr]">{children}</div>;
 };
 
-export default function DiagnosticQuizCard({ subject }: { subject: Subject }) {
+export default function DiagnosticQuizCard({
+  subject,
+}: {
+  subject: Subject | DiagnosticSubject;
+}) {
   const navigate = useNavigate();
 
-  const generateQuiz = (subject: Subject) => {
-    console.log(subject);
-    navigate(PageLocation.Quiz);
-  };
+  const query = useQuery({
+    queryKey: ["quiz", subject],
+    queryFn: async () => await axios.get(`/get-diagnostic-quiz/${subject}`),
+    retry: false,
+    enabled: false,
+  });
 
+  if (query.isSuccess) {
+    const questions = query.data.data;
+
+    console.log(questions[0]);
+    // navigate(PageLocation.Quiz);
+  }
   return (
     <Card className="w-[300px] sm:w-[320px] md:w-[330px] 2xl:w-[400px] h-[500px]  flex flex-col">
       <CardHeader className="pb-[6px] items-center">
@@ -51,10 +67,7 @@ export default function DiagnosticQuizCard({ subject }: { subject: Subject }) {
           </Row>
         </div>
       </CardContent>
-      <CardFooter
-        className="justify-center"
-        onClick={() => generateQuiz(subject)}
-      >
+      <CardFooter className="justify-center" onClick={() => query.refetch()}>
         <Button type="submit">Enter</Button>
       </CardFooter>
     </Card>
