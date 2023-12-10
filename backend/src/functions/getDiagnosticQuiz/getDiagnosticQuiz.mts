@@ -1,7 +1,7 @@
 import type { Config, Context } from "@netlify/functions";
 import type { PostgresError } from "postgres";
-import { general500Response } from "../../common/generalReponse";
 import { initPostgres } from "../../common/postgresDriver";
+import { Response500 } from "../../common/responseTemplate";
 
 export default async (req: Request, context: Context) => {
   const { subject, subtopic } = context.params;
@@ -9,7 +9,7 @@ export default async (req: Request, context: Context) => {
   const [sql, error] = initPostgres();
 
   if (error) {
-    return general500Response("Failed to get quiz");
+    return Response500("Failed to get quiz");
   }
 
   if (subject) {
@@ -21,7 +21,7 @@ export default async (req: Request, context: Context) => {
     } catch (e) {
       const error = e as PostgresError;
       console.error("Failed in getDiagnosticQuiz\n", error);
-      return general500Response("Failed to get quiz");
+      return Response500("Failed to get quiz");
     } finally {
       sql.end();
     }

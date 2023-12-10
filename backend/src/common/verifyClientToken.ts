@@ -18,7 +18,6 @@ export const verifyClientToken = async (
     console.warn("User has not logged in");
     return safeError({ statusCode: 401, message: "You have not signed in" });
   }
-  let userId;
 
   const { clerk } = getBackendConfig();
 
@@ -31,11 +30,10 @@ export const verifyClientToken = async (
     const payload = await verifyToken(sessionToken, {
       issuer: clerk.issuer,
     });
-    userId = payload.sub;
+    const userId = payload.sub;
+    return safeResult(userId);
   } catch (e) {
     console.error("Failed in verifyClientToken:\n", e);
     return safeError({ statusCode: 500, message: "Failed to verify token" });
   }
-
-  return safeResult(userId);
 };
