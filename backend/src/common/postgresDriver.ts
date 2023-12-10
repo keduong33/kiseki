@@ -10,17 +10,7 @@ export const initPostgres = (): SafeResponse<postgres.Sql> => {
     return safeError({ message: "Invalid environment" });
   }
 
-  const sql = postgres({
-    host: postgresConfig.PGHOST,
-    database: postgresConfig.PGDATABASE,
-    username: postgresConfig.PGUSER,
-    password: postgresConfig.PGPASSWORD,
-    port: 5432,
-    ssl: "require",
-    connection: {
-      options: `project=${postgresConfig.ENDPOINT_ID}`,
-    },
-  });
+  const sql = postgres(process.env.NEON_DB_URL, { ssl: "require" });
 
   return safeResult(sql);
 };

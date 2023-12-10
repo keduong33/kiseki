@@ -14,10 +14,6 @@ declare namespace NodeJS {
     CLERK_SECRET_DEV_KEY: string;
 
     // NEON
-    PGHOST_DEV: string;
-    PGDATABASE_DEV: string;
-    PGUSER_DEV: string;
-    PGPASSWORD_DEV: string;
-    ENDPOINT_ID_DEV: string;
+    NEON_DB_URL: string;
   }
 }
