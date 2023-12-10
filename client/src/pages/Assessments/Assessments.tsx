@@ -8,12 +8,17 @@ import DiagnosticQuizCard from "./QuizCard/DiagnosticQuizCard";
 function Assessments() {
   const query = useQuery({
     queryKey: ["assessmentCards"],
-    queryFn: async () => await axios.get(`/assessments/all`),
+    queryFn: async () =>
+      await axios.get(`/get-diagnostic-quiz/Verbal Reasoning`),
     retry: false,
     enabled: false,
   });
 
-  console.log(query.data);
+  if (query.isSuccess) {
+    const questions = query.data.data;
+
+    console.log(questions[0]);
+  }
 
   return (
     <Page pageTitle="Diagnostic Quizzes">

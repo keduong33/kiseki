@@ -14,8 +14,9 @@ export default async (req: Request, context: Context) => {
     return generalErrorResponse;
   }
 
-  const result = await sql`select version()`;
-  console.log(result);
+  if (subject) console.log(decodeURIComponent(subject));
+  // const result = await sql`select * from diagnostics_test`;
+  // console.log(result);
 
   return new Response("Subject");
 };

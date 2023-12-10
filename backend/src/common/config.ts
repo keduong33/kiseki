@@ -17,11 +17,7 @@ type Neo4jConfig = {
 };
 
 type PostgresConfig = {
-  PGHOST: string;
-  PGDATABASE: string;
-  PGUSER: string;
-  PGPASSWORD: string;
-  ENDPOINT_ID: string;
+  dbURL: string;
 };
 
 const basicClerkConfig = {
@@ -46,11 +42,7 @@ export const getBackendConfig = (hostname?: string): ConfigType => {
           password: process.env.NEO4J_DEV_PASSWORD,
         },
         postgresConfig: {
-          PGHOST: process.env.PGHOST_DEV,
-          PGDATABASE: process.env.PGDATABASE_DEV,
-          PGUSER: process.env.PGUSER_DEV,
-          PGPASSWORD: process.env.PGPASSWORD_DEV,
-          ENDPOINT_ID: process.env.ENDPOINT_ID_DEV,
+          dbURL: process.env.NEON_DB_DEV_URL,
         },
       } satisfies ConfigType;
     default:

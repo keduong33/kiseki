@@ -14,6 +14,6 @@ declare namespace NodeJS {
     CLERK_SECRET_DEV_KEY: string;
 
     // NEON
-    NEON_DB_URL: string;
+    NEON_DB_DEV_URL: string;
   }
 }

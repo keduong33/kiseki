@@ -10,7 +10,11 @@ export const initPostgres = (): SafeResponse<postgres.Sql> => {
     return safeError({ message: "Invalid environment" });
   }
 
-  const sql = postgres(process.env.NEON_DB_URL, { ssl: "require" });
+  const sql = postgres(postgresConfig.dbURL, {
+    ssl: "require",
+    idle_timeout: 20,
+    max_lifetime: 60 * 30,
+  });
 
   return safeResult(sql);
 };
