@@ -14,47 +14,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/shadcn/ui/select";
+import { useQuizState } from "../../states/Quiz.state";
 import { SubmitQuizButton } from "./SubmitQuizButton";
 import { millisToMinutesAndSeconds } from "./useCountdown";
 
-const mockQuestion: QuizQuestion = {
-  question:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-  options: [
-    "Yay",
-    "Nay",
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
-    "Nay Yay",
-  ],
-  timeInMs: 0,
-  id: "",
-  name: "",
-  optionsImageUrl: [],
-  randomiseOptions: false,
-};
-
-const mockQuestion2: QuizQuestion = {
-  question: "Question 2",
-  options: ["Yay", "Nay", "Nay Yay"],
-  timeInMs: 0,
-  id: "",
-  name: "",
-  optionsImageUrl: [],
-  randomiseOptions: false,
-};
-
-const mockQuizMetaData: QuizMetaData = {
-  subject: Subject["Maths"],
-  topic: MathsTopic["Algebra"],
-  numberOfQuestions: 15,
-};
-
 const quizMetaDataStyles = "flex flex-col gap-1 md:flex-row text-center";
-
-const mockArrayOfQuestions: QuizQuestion[] = [mockQuestion, mockQuestion2];
 
 function Quiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+  const [questionsList] = useQuizState((state) => [state.questionsList]);
+
+  const mockQuizMetaData: QuizMetaData = {
+    subject: Subject["Maths"],
+    topic: MathsTopic["Algebra"],
+    numberOfQuestions: questionsList.length,
+  };
 
   const changeQuestion = (newQuestionIndex: string) => {
     setCurrentQuestionIndex(Number(newQuestionIndex));
@@ -66,7 +41,7 @@ function Quiz() {
   };
 
   const nextQuestion = () => {
-    if (currentQuestionIndex < mockArrayOfQuestions.length - 1)
+    if (currentQuestionIndex < questionsList.length - 1)
       setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
@@ -100,7 +75,7 @@ function Quiz() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {mockArrayOfQuestions.map((question, index) => (
+            {questionsList.map((question, index) => (
               <SelectItem value={index.toString()} key={index}>
                 Question {index + 1}
               </SelectItem>
@@ -117,7 +92,7 @@ function Quiz() {
   const Question = ({ currentQuestion }: { currentQuestion: QuizQuestion }) => {
     return (
       <Card className="w-full p-4 text-justify  md:min-h-[450px]">
-        <div>{currentQuestion.question}</div>
+        <div>{currentQuestion.content}</div>
       </Card>
     );
   };
@@ -140,7 +115,7 @@ function Quiz() {
     );
   };
 
-  const currentQuestion = mockArrayOfQuestions[currentQuestionIndex];
+  const currentQuestion = questionsList[currentQuestionIndex];
   const currentOptions = currentQuestion?.options;
 
   return (
@@ -159,9 +134,7 @@ function Quiz() {
             </Button>
 
             <SubmitQuizButton
-              disabled={
-                currentQuestionIndex !== mockArrayOfQuestions.length - 1
-              }
+              disabled={currentQuestionIndex !== questionsList.length - 1}
             />
 
             <Button variant="outline" size="icon" onClick={nextQuestion}>

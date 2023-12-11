@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { quizState } from "../../states/Quiz.state";
+import { useQuizState } from "../../states/Quiz.state";
 
 export function millisToMinutesAndSeconds(millis: number) {
   const minutes = Math.floor(millis / 60000);
@@ -10,7 +10,7 @@ export function millisToMinutesAndSeconds(millis: number) {
 }
 
 export const useCountdown = () => {
-  const [remainingTime, setRemainingTime] = quizState((quiz) => [
+  const [remainingTime, setRemainingTime] = useQuizState((quiz) => [
     quiz.remainingTime,
     quiz.setRemainingTime,
   ]);

@@ -4,7 +4,7 @@ import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
 export type QuizQuestion = {
   id: string;
   name: string;
-  question: string;
+  content: string;
   options: string[];
   optionsImageUrl: string[];
   timeInMs: number;
@@ -20,13 +20,70 @@ export type FullInfoQuestion = QuizQuestion & {
   skills: Skill[];
 };
 
+export type QuestionFromBackend = {
+  id: string;
+  name: string;
+  content: string;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d: string;
+  option_e: string;
+  option_a_image_url: string;
+  option_b_image_url: string;
+  option_c_image_url: string;
+  option_d_image_url: string;
+  option_e_image_url: string;
+  correct_options: string;
+  feedback: string;
+  subject: string;
+  topic: string | null;
+  subtopic: string | null;
+  skill: string | null;
+  time_in_ms: number;
+  randomise_options: boolean;
+};
+
+export const convertBackendQuestionToFullInfo = (
+  inputQuestion: QuestionFromBackend
+): FullInfoQuestion => {
+  const question = {
+    id: inputQuestion.id,
+    name: inputQuestion.name,
+    content: inputQuestion.content,
+    options: [
+      inputQuestion.option_a,
+      inputQuestion.option_b,
+      inputQuestion.option_c,
+      inputQuestion.option_d,
+      inputQuestion.option_e,
+    ],
+    optionsImageUrl: [
+      inputQuestion.option_a_image_url,
+      inputQuestion.option_b_image_url,
+      inputQuestion.option_c_image_url,
+      inputQuestion.option_d_image_url,
+      inputQuestion.option_e_image_url,
+    ],
+    correctOptions: inputQuestion.correct_options.split(","),
+    feedback: inputQuestion.feedback,
+    subject: inputQuestion.subject as Subject,
+    topic: inputQuestion.topic as Topic,
+    subtopics: inputQuestion.subtopic?.split(",") as SubTopic[],
+    skills: inputQuestion.skill?.split(",") as Skill[],
+    timeInMs: inputQuestion.time_in_ms,
+    randomiseOptions: inputQuestion.randomise_options,
+  } satisfies FullInfoQuestion;
+  return question;
+};
+
 export const convertParsedQuestionToFullInfo = (
   parsedQuestion: ParsedFromCSVQuestion
 ): FullInfoQuestion => {
   const question = {
     id: "",
     name: parsedQuestion["Name"],
-    question: parsedQuestion["Question"],
+    content: parsedQuestion["Question"],
     options: [
       parsedQuestion["Option A"],
       parsedQuestion["Option B"],

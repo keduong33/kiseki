@@ -20,7 +20,7 @@ const initialState: Quiz = {
   remainingTime: 0,
 };
 
-export const quizState = create<Quiz & Actions>()(
+export const useQuizState = create<Quiz & Actions>()(
   persist(
     (set) => ({
       ...initialState,
