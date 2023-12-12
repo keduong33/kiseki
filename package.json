@@ -12,8 +12,8 @@
     "build": "netlify build --filter client",
     "bdd": "npm run build-deploy:dev",
     "build-deploy:dev": "npm run build:dev && npm run deploy:dev",
-    "build:dev": "netlify build --filter client --context dev",
-    "deploy:dev": "netlify deploy --filter client --alias=dev",
+    "build:dev": "netlify build --filter client --context branch-deploy",
+    "deploy:dev": "netlify deploy --filter client ",
     "deploy:prod": "netlify deploy --filter client --prod"
   },
   "author": "",
