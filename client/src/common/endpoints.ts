@@ -1,3 +1,3 @@
 export enum backendEndpoint {
-  getDiagnosticQuiz = "/get-diagnostic-quiz",
+  getDiagnosticQuiz = "/api/get-diagnostic-quiz",
 }

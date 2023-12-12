@@ -6,7 +6,7 @@ import { Button } from "../../components/shadcn/ui/button";
 function Dashboard() {
   const query = useQuery({
     queryKey: ["healthcheck"],
-    queryFn: async () => await axios.get("/healthcheck"),
+    queryFn: async () => await axios.get("/api/healthcheck"),
     enabled: false,
     retry: false,
   });
