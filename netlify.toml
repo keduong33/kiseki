@@ -1,7 +1,4 @@
-[build]
-framework = "vite"
-base = "/"
-publish = 'dist/'
+
 
 [functions]
 directory = 'backend/src/functions/'
