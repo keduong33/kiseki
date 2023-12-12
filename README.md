@@ -1,4 +1,4 @@
-# Edupath (name gonna change again probs)
+# Kiseki
 
 ## Key info
 
