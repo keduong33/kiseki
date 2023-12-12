@@ -13,7 +13,10 @@ import DiagnosticQuizCard from "./QuizCard/DiagnosticQuizCard";
 import StartQuizDialog from "./QuizCard/StartQuizDialog";
 
 function Assessments() {
-  const [setQuestionsList] = useQuizState((state) => [state.setQuestionsList]);
+  const [setQuestionsList, setAnswersList] = useQuizState((state) => [
+    state.setQuestionsList,
+    state.setAnswersList,
+  ]);
   const [showStartQuiz, setShowStartQuiz] = useState<boolean>(false);
   const [selectedSubject, setSelectedSubject] = useState<Subject | undefined>();
 
@@ -37,6 +40,7 @@ function Assessments() {
         );
         setShowStartQuiz(true);
         setQuestionsList(questionsList);
+        setAnswersList(new Array(questionsList.length));
       }
       setSelectedSubject(undefined);
     }

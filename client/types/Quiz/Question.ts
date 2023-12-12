@@ -5,8 +5,8 @@ export type QuizQuestion = {
   id: string;
   name: string;
   content: string;
-  options: string[];
-  optionsImageUrl: string[];
+  options: (string | null)[];
+  optionImageUrls: (string | null)[];
   timeInMs: number;
   randomiseOptions: boolean;
 };
@@ -58,7 +58,7 @@ export const convertBackendQuestionToFullInfo = (
       inputQuestion.option_d,
       inputQuestion.option_e,
     ],
-    optionsImageUrl: [
+    optionImageUrls: [
       inputQuestion.option_a_image_url,
       inputQuestion.option_b_image_url,
       inputQuestion.option_c_image_url,
@@ -91,7 +91,7 @@ export const convertParsedQuestionToFullInfo = (
       parsedQuestion["Option D"],
       parsedQuestion["Option E"],
     ],
-    optionsImageUrl: [
+    optionImageUrls: [
       parsedQuestion["Option A Image URL"],
       parsedQuestion["Option B Image URL"],
       parsedQuestion["Option C Image URL"],
