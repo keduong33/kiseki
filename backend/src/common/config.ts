@@ -24,28 +24,20 @@ const basicClerkConfig = {
   backendAPI: " https://api.clerk.dev/v1/",
 };
 
-export const getBackendConfig = (hostname?: string): ConfigType => {
-  if (!hostname) hostname = new URL(process.env.URL).hostname;
-  switch (hostname) {
-    case "localhost":
-    case "192.168.1.103":
-    case "dev--edupath.netlify.app":
-      return {
-        clerk: {
-          ...basicClerkConfig,
-          secretKey: process.env.CLERK_SECRET_DEV_KEY,
-          issuer: "https://active-macaque-95.clerk.accounts.dev",
-        },
-        neo4j: {
-          uri: "neo4j+s://7d0aef41.databases.neo4j.io:7687",
-          username: process.env.NEO4J_DEV_USERNAME,
-          password: process.env.NEO4J_DEV_PASSWORD,
-        },
-        postgresConfig: {
-          dbURL: process.env.NEON_DB_DEV_URL,
-        },
-      } satisfies ConfigType;
-    default:
-      return {};
-  }
+export const getBackendConfig = (): ConfigType => {
+  return {
+    clerk: {
+      ...basicClerkConfig,
+      secretKey: process.env.CLERK_SECRET_KEY,
+      issuer: process.env.CLERK_ISSUER,
+    },
+    neo4j: {
+      uri: process.env.NEO4J_URI,
+      username: process.env.NEO4J_USERNAME,
+      password: process.env.NEO4J_PASSWORD,
+    },
+    postgresConfig: {
+      dbURL: process.env.NEON_DB_URL,
+    },
+  } satisfies ConfigType;
 };

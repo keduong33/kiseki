@@ -2,18 +2,16 @@ declare namespace NodeJS {
   export interface ProcessEnv {
     URL: string;
 
-    // --------------------------//
-    //           DEV             //
-    // --------------------------//
-
     // NEO4J
-    NEO4J_DEV_USERNAME: string;
-    NEO4J_DEV_PASSWORD: string;
+    NEO4J_URI: string;
+    NEO4J_USERNAME: string;
+    NEO4J_PASSWORD: string;
 
     // CLERK
-    CLERK_SECRET_DEV_KEY: string;
+    CLERK_SECRET_KEY: string;
+    CLERK_ISSUER: string;
 
     // NEON
-    NEON_DB_DEV_URL: string;
+    NEON_DB_URL: string;
   }
 }
