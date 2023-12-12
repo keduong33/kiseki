@@ -9,12 +9,7 @@
   "scripts": {
     "dev": "netlify dev --filter client",
     "client": "cd client && npm run dev",
-    "build": "netlify build --filter client",
-    "bdd": "npm run build-deploy:dev",
-    "build-deploy:dev": "npm run build:dev && npm run deploy:dev",
-    "build:dev": "netlify build --filter client --context development",
-    "deploy:dev": "netlify deploy --filter client",
-    "deploy:prod": "netlify deploy --filter client --prod"
+    "build": "netlify build --filter client"
   },
   "author": "",
   "license": "ISC",
