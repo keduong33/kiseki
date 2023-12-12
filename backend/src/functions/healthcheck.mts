@@ -10,10 +10,7 @@ export default async (req: Request, context: Context) => {
       status: error.statusCode,
     });
   }
-
-  console.log(userId);
-
-  return new Response("", { status: 200 });
+  return new Response("Healthcheck clear", { status: 200 });
 };
 
 export const config: Config = {
