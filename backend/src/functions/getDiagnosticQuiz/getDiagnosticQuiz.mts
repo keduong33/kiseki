@@ -30,5 +30,5 @@ export default async (req: Request, context: Context) => {
 
 export const config: Config = {
   method: "GET",
-  path: ["/get-diagnostic-quiz/:subject"],
+  path: ["/api/get-diagnostic-quiz/:subject"],
 };

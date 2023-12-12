@@ -23,5 +23,5 @@ export default async (req: Request, context: Context) => {
 
 export const config: Config = {
   method: "GET",
-  path: ["/assessments/:subject", "/assessments/:subject/:subtopic"],
+  path: ["/api/assessments/:subject", "/api/assessments/:subject/:subtopic"],
 };

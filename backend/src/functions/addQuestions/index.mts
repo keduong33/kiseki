@@ -5,5 +5,5 @@ export default async (req: Request, context: Context) => {
 };
 
 export const config: Config = {
-  path: "/add-new-questions",
+  path: "/api/add-new-questions",
 };
