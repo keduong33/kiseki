@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { PageLocation } from "../../../../types/PageLocation";
 import Button from "../../../components/kiseki/button";
-import { PageLocation } from "../../../components/page/PageLocation";
 import {
   Dialog,
   DialogClose,

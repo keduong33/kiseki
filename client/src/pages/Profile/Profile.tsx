@@ -1,5 +1,5 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
-import { PageLocation } from "../../components/page/PageLocation";
+import { PageLocation } from "../../../types/PageLocation";
 import type { UserProfileMetadata } from "./UserProfile";
 
 const Profile = () => {

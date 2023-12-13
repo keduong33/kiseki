@@ -4,9 +4,9 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import { PageLocation } from "../../types/PageLocation";
 import App from "../App";
-import { PageLocation } from "../components/page/PageLocation";
-import ProtectedPage from "../components/page/ProtectedPage";
+import ProtectedPage from "../components/layout/ProtectedPage";
 import AddQuestions from "../pages/AddQuestions/AddQuestions";
 import Assessments from "../pages/Assessments/Assessments";
 import Dashboard from "../pages/Dashboard/Dashboard";

@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import { PageLocation } from "./PageLocation";
+import { PageLocation } from "../../../types/PageLocation";
 
 type MenuStructure = {
   title: string;
@@ -67,7 +67,7 @@ export const HorizontalNavBar = () => {
   );
 };
 
-export const VerticalNavBar = () => {
+export const OldVerticalNavBar = () => {
   const navigate = useNavigate();
 
   const Menus: MenuStructure[] = [
