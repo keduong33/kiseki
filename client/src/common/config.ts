@@ -4,7 +4,7 @@ type configType = {
   };
 };
 
-const getConfig = (hostname: string): configType => {
+const getConfig = (): configType => {
   return {
     clerk: {
       publisableKey: import.meta.env.VITE_CLERK_PUBLISHABLE_KEY,
@@ -12,4 +12,4 @@ const getConfig = (hostname: string): configType => {
   } satisfies configType;
 };
 
-export const config = getConfig(window.location.hostname);
+export const config = getConfig();

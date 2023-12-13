@@ -6,7 +6,6 @@ import {
   getTopicsBasedOnSubject,
   type Topic,
 } from "../../../../types/Subject/Subject";
-import Page from "../../../components/page/Page";
 import {
   Select,
   SelectContent,
@@ -36,7 +35,7 @@ function SubjectVisualiser() {
   };
 
   return (
-    <Page hideNavBar showBackButton>
+    <>
       {topics && (
         <>
           <div>Progress Circle</div>
@@ -66,7 +65,7 @@ function SubjectVisualiser() {
           </div>
         </>
       )}
-    </Page>
+    </>
   );
 }
 

@@ -4,7 +4,6 @@ import {
   convertParsedQuestionToFullInfo,
   type FullInfoQuestion,
 } from "../../../types/Quiz/Question";
-import Page from "../../components/page/Page";
 import { Button } from "../../components/shadcn/ui/button";
 import { Input } from "../../components/shadcn/ui/input";
 import { Label } from "../../components/shadcn/ui/label";
@@ -74,13 +73,11 @@ function AddQuestions() {
   };
 
   return (
-    <Page pageTitle="Add Questions">
-      <div className="grid w-full max-w-sm items-center gap-1.5">
-        <Label htmlFor="csv">Check inspector after parsing the CSV</Label>
-        <Input id="csv" type="file" ref={inputRef} />
-        <Button onClick={parseFile}>Parse</Button>
-      </div>
-    </Page>
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="csv">Check inspector after parsing the CSV</Label>
+      <Input id="csv" type="file" ref={inputRef} />
+      <Button onClick={parseFile}>Parse</Button>
+    </div>
   );
 }
 

@@ -7,7 +7,6 @@ import {
 } from "../../../types/Quiz/Question";
 import { Subject } from "../../../types/Subject/Subject";
 import { backendEndpoint } from "../../common/endpoints";
-import Page from "../../components/page/Page";
 import { useQuizState } from "../../states/Quiz.state";
 import DiagnosticQuizCard from "./QuizCard/DiagnosticQuizCard";
 import StartQuizDialog from "./QuizCard/StartQuizDialog";
@@ -47,7 +46,7 @@ function Assessments() {
   }, [query.isSuccess, query.isFetching, selectedSubject]);
 
   return (
-    <Page pageTitle="Diagnostic Quizzes">
+    <>
       <div className="grid grid-cols-1 gap-4 pt-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center">
         <DiagnosticQuizCard
           subjectTitle={Subject["Mathematics"]}
@@ -79,7 +78,7 @@ function Assessments() {
         setShowStartQuiz={setShowStartQuiz}
         showStartQuiz={showStartQuiz}
       />
-    </Page>
+    </>
   );
 }
 

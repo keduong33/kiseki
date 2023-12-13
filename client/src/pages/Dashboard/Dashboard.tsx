@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Page from "../../components/page/Page";
 import { Button } from "../../components/shadcn/ui/button";
 
 function Dashboard() {
@@ -12,11 +11,11 @@ function Dashboard() {
   });
 
   return (
-    <Page pageTitle="Dashboard">
+    <>
       <>Whatever here</>
       <Button onClick={() => query.refetch()}>Fetch</Button>
       {/* {query.isSuccess && <>{query.data.data}</>} */}
-    </Page>
+    </>
   );
 }
 

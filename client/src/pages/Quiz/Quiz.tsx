@@ -4,7 +4,6 @@ import type { QuizQuestion } from "../../../types/Quiz/Question";
 import type { QuizMetaData } from "../../../types/Quiz/Quiz";
 import { MathsTopic } from "../../../types/Subject/Math";
 import { Subject } from "../../../types/Subject/Subject";
-import Page from "../../components/page/Page";
 import { Button } from "../../components/shadcn/ui/button";
 import { Card } from "../../components/shadcn/ui/card";
 import {
@@ -155,7 +154,7 @@ function Quiz() {
   const hasImage = !currentQuestion?.optionImageUrls.includes(null);
 
   return (
-    <Page pageTitle="Quiz">
+    <>
       {currentQuestion && (
         <div className="flex flex-col gap-4">
           <QuizHeader />
@@ -182,7 +181,7 @@ function Quiz() {
           </div>
         </div>
       )}
-    </Page>
+    </>
   );
 }
 
