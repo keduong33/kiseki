@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   convertBackendQuestionToFullInfo,
+  type FullInfoQuestion,
   type QuestionFromBackend,
 } from "../../../types/Quiz/Question";
 import { Subject } from "../../../types/Subject/Subject";
@@ -12,10 +13,13 @@ import DiagnosticQuizCard from "./QuizCard/DiagnosticQuizCard";
 import StartQuizDialog from "./QuizCard/StartQuizDialog";
 
 function Assessments() {
-  const [setQuestionsList, setAnswersList] = useQuizState((state) => [
-    state.setQuestionsList,
-    state.setAnswersList,
-  ]);
+  const [setQuestions, setUserAnswers, setCurrentQuestionIndex] = useQuizState(
+    (state) => [
+      state.setQuestions,
+      state.setUserAnswers,
+      state.setCurrentQuestionIndex,
+    ]
+  );
   const [showStartQuiz, setShowStartQuiz] = useState<boolean>(false);
   const [selectedSubject, setSelectedSubject] = useState<Subject | undefined>();
 
@@ -31,15 +35,20 @@ function Assessments() {
 
   const receivedQuestions = query.data?.data as QuestionFromBackend[];
 
+  const setUpQuiz = (questions: FullInfoQuestion[]) => {
+    setQuestions(questions);
+    setUserAnswers(new Array(questions.length));
+    setCurrentQuestionIndex(0);
+  };
+
   useEffect(() => {
     if (query.isSuccess && !query.isFetching && !!selectedSubject) {
       if (receivedQuestions && receivedQuestions.length !== 0) {
-        const questionsList = receivedQuestions.map((question) =>
+        const questions = receivedQuestions.map((question) =>
           convertBackendQuestionToFullInfo(question)
         );
         setShowStartQuiz(true);
-        setQuestionsList(questionsList);
-        setAnswersList(new Array(questionsList.length));
+        setUpQuiz(questions);
       }
       setSelectedSubject(undefined);
     }

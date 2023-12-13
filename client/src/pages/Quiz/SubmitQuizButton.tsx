@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { PageLocation } from "../../../types/PageLocation";
 import { Button } from "../../components/shadcn/ui/button";
 import {
   Dialog,
@@ -11,13 +10,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/shadcn/ui/dialog";
+import { useQuizState } from "../../states/Quiz.state";
+import { markQuiz } from "./markQuiz/markQuiz";
 
 export function SubmitQuizButton({ disabled }: { disabled: boolean }) {
   const navigate = useNavigate();
+  const [usersAnswers, questions] = useQuizState((state) => [
+    state.userAnswers,
+    state.questions,
+  ]);
 
   const submitQuiz = () => {
     console.log("Submitting quiz");
-    navigate(PageLocation.QuizSummary);
+    const [quizResult, error] = markQuiz(usersAnswers, questions);
+    if (error) {
+      console.error("Failed to mark quiz:", error.message);
+      return;
+    }
+    console.log(quizResult);
+
+    // navigate(PageLocation.QuizSummary, {state:{result:quizResult}});
   };
 
   return (

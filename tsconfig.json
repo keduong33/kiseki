@@ -10,7 +10,7 @@
       "moduleDetection": "force",
       /* Strictness */
       "strict": true,
-      "noUncheckedIndexedAccess": true,
+      // "noUncheckedIndexedAccess": true,
       "outDir": "dist",
       "sourceMap": true,
       /* If NOT transpiling with TypeScript: */

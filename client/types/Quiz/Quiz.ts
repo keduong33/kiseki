@@ -1,10 +1,10 @@
 import type { Subject } from "../Subject/Subject";
-import type { QuizQuestion } from "./Question";
+import type { FullInfoQuestion } from "./Question";
 
 export type Quiz = {
-  questionsList: QuizQuestion[];
+  questions: FullInfoQuestion[];
 
-  answersList: number[];
+  userAnswers: (string | null)[];
 
   quizMetaData: QuizMetaData | null;
 

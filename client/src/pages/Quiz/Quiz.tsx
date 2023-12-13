@@ -1,6 +1,6 @@
 import htmlParser from "html-react-parser";
 import { ChevronLeft, ChevronRight, Timer } from "lucide-react";
-import type { QuizQuestion } from "../../../types/Quiz/Question";
+import type { FullInfoQuestion } from "../../../types/Quiz/Question";
 import type { QuizMetaData } from "../../../types/Quiz/Quiz";
 import { MathsTopic } from "../../../types/Subject/Math";
 import { Subject } from "../../../types/Subject/Subject";
@@ -15,23 +15,23 @@ import {
 } from "../../components/shadcn/ui/select";
 import { useQuizState } from "../../states/Quiz.state";
 import { SubmitQuizButton } from "./SubmitQuizButton";
+import { convertNumberToChar } from "./commonQuizFunctions";
 import { millisToMinutesAndSeconds } from "./useCountdown";
 
 const quizMetaDataStyles = "flex flex-col gap-1 md:flex-row text-center";
 export const convertArrayIndexToQuestionIndex = (index: number) => index + 1;
-export const convertNumberToChar = (n: number) => String.fromCharCode(65 + n);
 
 function Quiz() {
   const [
-    questionsList,
-    answersList,
-    setAnswersList,
+    questions,
+    userAnswers,
+    setUserAnswers,
     currentQuestionIndex,
     setCurrentQuestionIndex,
   ] = useQuizState((state) => [
-    state.questionsList,
-    state.answersList,
-    state.setAnswersList,
+    state.questions,
+    state.userAnswers,
+    state.setUserAnswers,
     state.currentQuestionIndex,
     state.setCurrentQuestionIndex,
   ]);
@@ -39,7 +39,7 @@ function Quiz() {
   const mockQuizMetaData: QuizMetaData = {
     subject: Subject["Maths"],
     topic: MathsTopic["Algebra"],
-    numberOfQuestions: questionsList.length,
+    numberOfQuestions: questions.length,
   };
 
   const changeQuestion = (newQuestionIndex: string) => {
@@ -52,14 +52,18 @@ function Quiz() {
   };
 
   const nextQuestion = () => {
-    if (currentQuestionIndex < questionsList.length - 1)
+    if (currentQuestionIndex < questions.length - 1)
       setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
-  const saveAnswer = (studentAnswer: number) => {
-    const updatedAnswersList = answersList.slice();
-    updatedAnswersList[currentQuestionIndex] = studentAnswer;
-    setAnswersList(updatedAnswersList);
+  const saveAnswer = (studentAnswer: string | null) => {
+    /*TODO: Add these features (multiple answers & shuffled questions):
+      - save shuffled questions
+      - save question with multiple answers
+    */
+    const updatedUserAnswers = userAnswers.slice();
+    updatedUserAnswers[currentQuestionIndex] = studentAnswer;
+    setUserAnswers(updatedUserAnswers);
   };
 
   const QuizHeader = () => (
@@ -93,7 +97,7 @@ function Quiz() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="overflow-y-auto h-[200px]">
-            {questionsList.map((question, index) => (
+            {questions.map((question, index) => (
               <SelectItem value={index.toString()} key={index}>
                 Question {convertArrayIndexToQuestionIndex(index)}
               </SelectItem>
@@ -107,7 +111,11 @@ function Quiz() {
     </div>
   );
 
-  const Question = ({ currentQuestion }: { currentQuestion: QuizQuestion }) => {
+  const Question = ({
+    currentQuestion,
+  }: {
+    currentQuestion: FullInfoQuestion;
+  }) => {
     return (
       <Card className="w-full p-4 text-justify md:min-h-[450px]">
         <div>{htmlParser(currentQuestion.content)}</div>
@@ -125,15 +133,20 @@ function Quiz() {
     return (
       <div className="flex flex-col justify-between w-full gap-3">
         {options.map((option, index) => {
-          const isPicked = answersList[currentQuestionIndex] == index;
           const imageUrl = optionImageUrls[index];
+
+          const isPicked =
+            (userAnswers[currentQuestionIndex] == option && option !== null) ||
+            (userAnswers[currentQuestionIndex] == optionImageUrls[index] &&
+              imageUrl !== null);
+
           return (
             <Card
               className={`flex content-center h-full gap-4 p-3 ${
                 isPicked && "bg-gray-600"
               } ${!!imageUrl && "flex-col items-center"}`}
               key={`Option ${index}`}
-              onClick={() => saveAnswer(index)}
+              onClick={() => saveAnswer(option ?? imageUrl)}
             >
               <p className="my-auto">{convertNumberToChar(index)}</p>
               <div className="my-auto">{htmlParser(option ?? "")}</div>
@@ -150,7 +163,7 @@ function Quiz() {
     );
   };
 
-  const currentQuestion = questionsList[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
   const hasImage = !currentQuestion?.optionImageUrls.includes(null);
 
   return (
@@ -172,7 +185,7 @@ function Quiz() {
             </Button>
 
             <SubmitQuizButton
-              disabled={currentQuestionIndex !== questionsList.length - 1}
+              disabled={currentQuestionIndex !== questions.length - 1}
             />
 
             <Button variant="outline" size="icon" onClick={nextQuestion}>
