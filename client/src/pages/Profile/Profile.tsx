@@ -1,11 +1,11 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
 import { PageLocation } from "../../../types/PageLocation";
-import type { UserProfileMetadata } from "./UserProfile";
+import type { ClerkUserProfileMetadata } from "../../../types/User/UserProfile";
 
 const Profile = () => {
   const { isLoaded, isSignedIn, user } = useUser();
 
-  const userMetaData = user?.publicMetadata as UserProfileMetadata;
+  const userMetaData = user?.publicMetadata as ClerkUserProfileMetadata;
 
   return (
     <>

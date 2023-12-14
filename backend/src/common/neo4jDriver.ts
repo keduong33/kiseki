@@ -10,7 +10,8 @@ export const initNeo4jDriver = (): SafeResponse<Driver> => {
   }
   const neo4jDriver = driver(
     neo4j.uri,
-    auth.basic(neo4j.username, neo4j.password)
+    auth.basic(neo4j.username, neo4j.password),
+    { disableLosslessIntegers: true }
   );
 
   return safeResult(neo4jDriver);
