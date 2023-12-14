@@ -3,7 +3,7 @@ import type { FullInfoQuestion } from "../../../../types/Quiz/Question";
 import { markQuiz } from "./markQuiz";
 
 describe("markQuiz", () => {
-  // describe.todo("for Text marking");
+  describe.todo("for Text marking");
 
   describe("for MCQ", () => {
     it("should mark user answers correctly", () => {
