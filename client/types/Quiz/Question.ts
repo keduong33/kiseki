@@ -20,6 +20,10 @@ export type FullInfoQuestion = QuizQuestion & {
   skills: Skill[];
 };
 
+export type MarkedQuestion = FullInfoQuestion & {
+  markedCorrect: boolean;
+};
+
 export type QuestionFromBackend = {
   id: string;
   name: string;

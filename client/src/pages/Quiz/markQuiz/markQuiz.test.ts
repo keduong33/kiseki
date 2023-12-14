@@ -8,7 +8,9 @@ describe("markQuiz", () => {
   describe("for MCQ", () => {
     it("should mark user answers correctly", () => {
       const [result, error] = markQuiz(mockUserAnswers, mockQuestions);
-      expect(result).toEqual(2);
+
+      expect(result?.numberOfCorrectAnswers).toEqual(2);
+      expect(result?.numberOfQuestions).toEqual(mockQuestions.length);
       expect(error).toBeNull();
     });
 

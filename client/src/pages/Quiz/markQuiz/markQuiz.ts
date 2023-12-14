@@ -1,4 +1,8 @@
-import type { FullInfoQuestion } from "../../../../types/Quiz/Question";
+import type {
+  FullInfoQuestion,
+  MarkedQuestion,
+} from "../../../../types/Quiz/Question";
+import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
 import {
   uiSafeError,
   uiSafeResult,
@@ -9,7 +13,7 @@ import { convertCharToNumber } from "../commonQuizFunctions";
 export const markQuiz = (
   userAnswers: (string | null)[],
   questions: FullInfoQuestion[]
-): UISafeReturn<number> => {
+): UISafeReturn<MarkedQuiz> => {
   if (userAnswers.length <= 0) {
     return uiSafeError(new Error("User Answers do not exist"));
   }
@@ -23,6 +27,7 @@ export const markQuiz = (
   }
 
   let numberOfCorrectAnswers = 0;
+  const markedQuestions: MarkedQuestion[] = [];
 
   // Assumptions: Questions & Answers are saved in the same order
 
@@ -47,7 +52,19 @@ export const markQuiz = (
       userAnswer === question.optionImageUrls[correctAnswerIndex];
 
     if (isCorrect) numberOfCorrectAnswers += 1;
+    const markedQuestion = {
+      ...question,
+      markedCorrect: isCorrect,
+    } satisfies MarkedQuestion;
+
+    markedQuestions.push(markedQuestion);
   }
 
-  return uiSafeResult(numberOfCorrectAnswers);
+  const markedQuiz: MarkedQuiz = {
+    questions: markedQuestions,
+    numberOfCorrectAnswers: numberOfCorrectAnswers,
+    numberOfQuestions: markedQuestions.length,
+  } satisfies MarkedQuiz;
+
+  return uiSafeResult(markedQuiz);
 };
