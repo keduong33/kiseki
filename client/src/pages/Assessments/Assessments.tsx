@@ -7,7 +7,7 @@ import {
   type QuestionFromBackend,
 } from "../../../types/Quiz/Question";
 import { Subject } from "../../../types/Subject/Subject";
-import { backendEndpoint } from "../../common/endpoints";
+import { backendEndpoint } from "../../../types/endpoints";
 import { useQuizState } from "../../states/Quiz.state";
 import DiagnosticQuizCard from "./QuizCard/DiagnosticQuizCard";
 import StartQuizDialog from "./QuizCard/StartQuizDialog";
