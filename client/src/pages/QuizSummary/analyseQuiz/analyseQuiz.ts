@@ -1,42 +1,33 @@
 import type { MarkedQuestion } from "../../../../types/Quiz/Question";
 import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
+import type {
+  AnalysedResult,
+  AnalysedSubtopics,
+  AnalysedTopics,
+} from "../../../../types/Quiz/Result";
 import type { SubTopic, Topic } from "../../../../types/Subject/Subject";
 import { uiSafeResult, type UISafeReturn } from "../../../common/safeReturn";
-import type { AnalysedResult } from "../QuizSummary";
-
-export type AnalysedTopics = Map<Topic, number>;
-export type AnalysedSubtopics = Map<SubTopic, number>;
 
 const analyseQuiz = (markedQuiz: MarkedQuiz): UISafeReturn<AnalysedResult> => {
-  const { numberOfQuestionsByTopic, numberOfCorrectAnswersByTopic } =
-    analyseResultsBasedOnTopic(markedQuiz.questions);
+  const topicsAnalysed = analyseResultsBasedOnTopic(markedQuiz.questions);
 
-  const { numberOfCorrectAnswersBySubtopic, numberOfQuestionsBySubtopic } =
-    analyseBasedOnSubTopics(markedQuiz.questions);
+  const subtopicsAnalysed = analyseBasedOnSubTopics(markedQuiz.questions);
 
   // TODO: multiple subjects?
   const subject = markedQuiz.questions[0].subject;
 
   return uiSafeResult({
-    topics: {
-      numberOfQuestions: numberOfQuestionsByTopic,
-      numberOfCorrectAnswers: numberOfCorrectAnswersByTopic,
-    },
-    subtopics: {
-      numberOfQuestions: numberOfQuestionsBySubtopic,
-      numberOfCorrectAnswers: numberOfCorrectAnswersBySubtopic,
-    },
-    overall: {
-      numberOfQuestions: markedQuiz.numberOfQuestions,
-      numberOfCorrectAnswers: markedQuiz.numberOfCorrectAnswers,
-    },
+    topics: topicsAnalysed,
+    subtopics: subtopicsAnalysed,
+    totalNumberOfQuestions: markedQuiz.numberOfQuestions,
+    totalNumberOfCorrectAnswers: markedQuiz.numberOfCorrectAnswers,
     subject: subject,
   } satisfies AnalysedResult);
 };
 
 const analyseResultsBasedOnTopic = (markedQuestionsList: MarkedQuestion[]) => {
-  const numberOfQuestionsByTopic: AnalysedTopics = new Map();
-  const numberOfCorrectAnswersByTopic: AnalysedTopics = new Map();
+  const numberOfQuestionsByTopic: Map<Topic, number> = new Map();
+  const numberOfCorrectAnswersByTopic: Map<Topic, number> = new Map();
 
   markedQuestionsList.forEach((question) => {
     const topic = question.topic;
@@ -51,18 +42,32 @@ const analyseResultsBasedOnTopic = (markedQuestionsList: MarkedQuestion[]) => {
         topic,
         (numberOfCorrectAnswersByTopic.get(topic) ?? 0) + 1
       );
+    } else {
+      numberOfCorrectAnswersByTopic.set(
+        topic,
+        numberOfCorrectAnswersByTopic.get(topic) ?? 0
+      );
     }
   });
 
-  return {
-    numberOfQuestionsByTopic,
-    numberOfCorrectAnswersByTopic,
-  };
+  const topicsAnalysed: AnalysedTopics[] = [];
+
+  for (const t of numberOfQuestionsByTopic.keys()) {
+    const topic = t as Topic;
+
+    topicsAnalysed.push({
+      topic: topic as Topic,
+      numberOfCorrectAnswers: numberOfCorrectAnswersByTopic.get(topic) ?? 0,
+      numberOfQuestions: numberOfQuestionsByTopic.get(topic) ?? 0,
+    } satisfies AnalysedTopics);
+  }
+
+  return topicsAnalysed;
 };
 
 const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
-  const numberOfQuestionsBySubtopic: AnalysedSubtopics = new Map();
-  const numberOfCorrectAnswersBySubtopic: AnalysedSubtopics = new Map();
+  const numberOfQuestionsBySubtopic: Map<SubTopic, number> = new Map();
+  const numberOfCorrectAnswersBySubtopic: Map<SubTopic, number> = new Map();
 
   markedQuestionsList.forEach((question) => {
     question.subtopics.forEach((subtopic) => {
@@ -76,14 +81,28 @@ const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
           subtopic,
           (numberOfCorrectAnswersBySubtopic.get(subtopic) ?? 0) + 1
         );
+      } else {
+        numberOfCorrectAnswersBySubtopic.set(
+          subtopic,
+          numberOfCorrectAnswersBySubtopic.get(subtopic) ?? 0
+        );
       }
     });
   });
 
-  return {
-    numberOfQuestionsBySubtopic,
-    numberOfCorrectAnswersBySubtopic,
-  };
+  const subtopicsAnalysed: AnalysedSubtopics[] = [];
+  for (const s of numberOfQuestionsBySubtopic.keys()) {
+    const subtopic = s as SubTopic;
+
+    subtopicsAnalysed.push({
+      subtopic: subtopic as SubTopic,
+      numberOfCorrectAnswers:
+        numberOfCorrectAnswersBySubtopic.get(subtopic) ?? 0,
+      numberOfQuestions: numberOfQuestionsBySubtopic.get(subtopic) ?? 0,
+    } satisfies AnalysedSubtopics);
+  }
+
+  return subtopicsAnalysed;
 };
 
 export default analyseQuiz;

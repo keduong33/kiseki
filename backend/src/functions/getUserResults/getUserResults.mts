@@ -1,6 +1,6 @@
 import type { Config, Context } from "@netlify/functions";
 import type { ManagedTransaction, Neo4jError } from "neo4j-driver";
-import { type Neo4jUser } from "../../../../client/types/User/UserProfile";
+import type { Neo4jUser } from "../../../../client/types/Neo4j";
 import { initNeo4jDriver } from "../../common/neo4jDriver";
 import { Response500 } from "../../common/responseTemplate";
 import { verifyClientToken } from "../../common/verifyClientToken";
@@ -33,10 +33,15 @@ export default async (req: Request, context: Context) => {
         }
       )
     );
-    console.log(res.records[0].get("student").properties);
+    console.log(res.records[0].get("properties").id);
   } catch (error) {
     const e = error as Neo4jError;
     console.error("Failed in getUserResult", e.message);
+
+    if (e.message.includes("already exist with")) {
+    } else if (e.message.includes("must have the property")) {
+    }
+
     return Response500("Cannot retrieve your information");
   } finally {
     await session.close();
