@@ -1,0 +1,26 @@
+NeonDB query
+    CREATE TABLE diagnostics_question(
+    id SERIAL,
+    name TEXT,
+    content TEXT,
+    option_a TEXT,
+    option_b TEXT,
+    option_c TEXT,
+    option_d TEXT,
+    option_e TEXT,
+    option_a_image_url TEXT,
+    option_b_image_url TEXT,
+    option_c_image_url TEXT,
+    option_d_image_url TEXT,
+    option_e_image_url TEXT,
+    correct_options TEXT,
+    feedback TEXT,
+    subject TEXT,
+    topic TEXT,
+    subtopic TEXT,
+    skill TEXT,
+    time_in_ms INTEGER,
+    randomise_options BOOLEAN,
+    primary key(id));
+
+    \copy customer FROM '/path/to/customer.csv' DELIMITER ',' CSV HEADER --> to copy csv to NeonDB

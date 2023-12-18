@@ -20,7 +20,7 @@ import StudyPlan from "../pages/StudyPlan/StudyPlan";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<App />}>
+    <Route element={<App />} errorElement={<>Uh Oh</>}>
       <Route path="*" element={<>Something wrong</>} />
       <Route path={PageLocation.Dashboard} element={<Dashboard />} />
 
