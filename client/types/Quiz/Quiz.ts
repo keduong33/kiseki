@@ -1,4 +1,4 @@
-import type { Subject } from "../Subject/Subject";
+import type { Subject, Topic } from "../Subject/Subject";
 import type { FullInfoQuestion, MarkedQuestion } from "./Question";
 
 export type Quiz = {
@@ -21,7 +21,8 @@ export type MarkedQuiz = {
 
 export type QuizMetaData = {
   subject: Subject;
-  topic: string;
+  topics?: Topic[];
   mode?: string;
   numberOfQuestions: number;
+  status: "not submitted" | "submitted";
 };

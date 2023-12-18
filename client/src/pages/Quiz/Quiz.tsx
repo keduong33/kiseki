@@ -2,7 +2,6 @@ import htmlParser from "html-react-parser";
 import { ChevronLeft, ChevronRight, Timer } from "lucide-react";
 import type { FullInfoQuestion } from "../../../types/Quiz/Question";
 import type { QuizMetaData } from "../../../types/Quiz/Quiz";
-import { MathsTopic } from "../../../types/Subject/Math";
 import { Subject } from "../../../types/Subject/Subject";
 import { Button } from "../../components/shadcn/ui/button";
 import { Card } from "../../components/shadcn/ui/card";
@@ -38,8 +37,8 @@ function Quiz() {
 
   const mockQuizMetaData: QuizMetaData = {
     subject: Subject["Maths"],
-    topic: MathsTopic["Algebra"],
     numberOfQuestions: questions.length,
+    status: "not submitted",
   };
 
   const changeQuestion = (newQuestionIndex: string) => {
@@ -72,10 +71,6 @@ function Quiz() {
         <div className={quizMetaDataStyles}>
           <span>Subject</span>
           <span>{mockQuizMetaData.subject}</span>
-        </div>
-        <div className={quizMetaDataStyles}>
-          <span>Topic</span>
-          <span>{mockQuizMetaData.topic}</span>
         </div>
         <div className={quizMetaDataStyles}>
           <span>Questions</span>

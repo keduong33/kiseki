@@ -6,6 +6,7 @@ import {
   type FullInfoQuestion,
   type QuestionFromBackend,
 } from "../../../types/Quiz/Question";
+import type { QuizMetaData } from "../../../types/Quiz/Quiz";
 import { Subject } from "../../../types/Subject/Subject";
 import { backendEndpoint } from "../../../types/endpoints";
 import { useQuizState } from "../../states/Quiz.state";
@@ -13,13 +14,17 @@ import DiagnosticQuizCard from "./QuizCard/DiagnosticQuizCard";
 import StartQuizDialog from "./QuizCard/StartQuizDialog";
 
 function Assessments() {
-  const [setQuestions, setUserAnswers, setCurrentQuestionIndex] = useQuizState(
-    (state) => [
-      state.setQuestions,
-      state.setUserAnswers,
-      state.setCurrentQuestionIndex,
-    ]
-  );
+  const [
+    setQuestions,
+    setUserAnswers,
+    setCurrentQuestionIndex,
+    setQuizMetaData,
+  ] = useQuizState((state) => [
+    state.setQuestions,
+    state.setUserAnswers,
+    state.setCurrentQuestionIndex,
+    state.setQuizMetaData,
+  ]);
   const [showStartQuiz, setShowStartQuiz] = useState<boolean>(false);
   const [selectedSubject, setSelectedSubject] = useState<Subject | undefined>();
 
@@ -35,10 +40,19 @@ function Assessments() {
 
   const receivedQuestions = query.data?.data as QuestionFromBackend[];
 
-  const setUpQuiz = (questions: FullInfoQuestion[]) => {
+  const setUpQuiz = (questions: FullInfoQuestion[], subject: Subject) => {
+    const quizMetaData: QuizMetaData = {
+      subject: subject,
+      //TODO: add different mode
+      mode: "Diagnostic Test",
+      numberOfQuestions: questions.length,
+      status: "not submitted",
+    } satisfies QuizMetaData;
+
     setQuestions(questions);
     setUserAnswers(new Array(questions.length));
     setCurrentQuestionIndex(0);
+    setQuizMetaData(quizMetaData);
   };
 
   useEffect(() => {
@@ -48,7 +62,7 @@ function Assessments() {
           convertBackendQuestionToFullInfo(question)
         );
         setShowStartQuiz(true);
-        setUpQuiz(questions);
+        setUpQuiz(questions, selectedSubject);
       }
       setSelectedSubject(undefined);
     }
