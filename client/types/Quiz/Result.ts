@@ -17,4 +17,5 @@ export type AnalysedResult = {
   subject?: Subject;
   totalNumberOfCorrectAnswers: number;
   totalNumberOfQuestions: number;
+  createdAt?: Date;
 };

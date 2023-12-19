@@ -46,23 +46,25 @@ export default async (req: Request, context: Context) => {
             id:$resultID, 
             createdAt:$createdAt, 
             totalNumberOfCorrectAnswers:$totalNumberOfCorrectAnswers, 
-            totalNumberOfQuestions:$totalNumberOfQuestions})
+            totalNumberOfQuestions:$totalNumberOfQuestions,
+            subject:$subject}
+            )
           MERGE (student)-[tookQuiz:TOOK_QUIZ ]->(result)
 
           WITH $topics as importedTopic, result
           UNWIND importedTopic as topic
           MERGE (t:Topic {topic:topic.topic})
           MERGE (result)-[hasTopic:HAS_TOPIC {
-            numberOfQuestionsByTopic:topic.numberOfQuestions,
-            numberOfCorrectAnswersByTopic:topic.numberOfCorrectAnswers
+            numberOfQuestions:topic.numberOfQuestions,
+            numberOfCorrectAnswers:topic.numberOfCorrectAnswers
           }]->(t)
 
           WITH $subtopics as importedSubtopic, result, topic
           UNWIND importedSubtopic as subtopic
           MERGE (sub:Subtopic {subtopic:subtopic.subtopic})
           MERGE (result)-[hasSubtopic:HAS_SUBTOPIC {
-            numberOfQuestionsBySubtopic:subtopic.numberOfQuestions,
-            numberOfCorrectAnswersBySubtopic:subtopic.numberOfCorrectAnswers
+            numberOfQuestions:subtopic.numberOfQuestions,
+            numberOfCorrectAnswers:subtopic.numberOfCorrectAnswers
           }]->(sub)
         `,
         {
@@ -74,6 +76,7 @@ export default async (req: Request, context: Context) => {
           totalNumberOfCorrectAnswers:
             analysedResult.totalNumberOfCorrectAnswers,
           totalNumberOfQuestions: analysedResult.totalNumberOfQuestions,
+          subject: analysedResult.subject,
         }
       )
     );
