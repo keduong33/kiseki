@@ -70,7 +70,7 @@ const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
   const numberOfCorrectAnswersBySubtopic: Map<SubTopic, number> = new Map();
 
   markedQuestionsList.forEach((question) => {
-    question.subtopics.forEach((subtopic) => {
+    question.subtopics?.forEach((subtopic) => {
       numberOfQuestionsBySubtopic.set(
         subtopic,
         (numberOfQuestionsBySubtopic.get(subtopic) ?? 0) + 1

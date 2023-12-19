@@ -1,6 +1,5 @@
 import type { Config, Context } from "@netlify/functions";
 import { DateTime, ManagedTransaction, Neo4jError } from "neo4j-driver";
-import type { Neo4jUser } from "../../../../client/types/Neo4j";
 import type { AnalysedResult } from "../../../../client/types/Quiz/Result";
 import { initNeo4jDriver } from "../../common/neo4jDriver";
 import { Response500 } from "../../common/responseTemplate";
@@ -40,10 +39,14 @@ export default async (req: Request, context: Context) => {
     const now = new Date();
     const neo4jDateTime = DateTime.fromStandardDate(now);
     const res = await session.executeWrite((tx: ManagedTransaction) =>
-      tx.run<Neo4jUser>(
+      tx.run(
         `
           MERGE (student:Student {id:$userID})
-          MERGE (result:Result {id:$resultID, createdAt:$createdAt})
+          MERGE (result:Result {
+            id:$resultID, 
+            createdAt:$createdAt, 
+            totalNumberOfCorrectAnswers:$totalNumberOfCorrectAnswers, 
+            totalNumberOfQuestions:$totalNumberOfQuestions})
           MERGE (student)-[tookQuiz:TOOK_QUIZ ]->(result)
 
           WITH $topics as importedTopic, result
@@ -58,8 +61,8 @@ export default async (req: Request, context: Context) => {
           UNWIND importedSubtopic as subtopic
           MERGE (sub:Subtopic {subtopic:subtopic.subtopic})
           MERGE (result)-[hasSubtopic:HAS_SUBTOPIC {
-            numberOfQuestionsByTopic:subtopic.numberOfQuestions,
-            numberOfCorrectAnswersByTopic:subtopic.numberOfCorrectAnswers
+            numberOfQuestionsBySubtopic:subtopic.numberOfQuestions,
+            numberOfCorrectAnswersBySubtopic:subtopic.numberOfCorrectAnswers
           }]->(sub)
         `,
         {
@@ -68,6 +71,9 @@ export default async (req: Request, context: Context) => {
           subtopics: analysedResult.subtopics,
           createdAt: neo4jDateTime,
           resultID: `${userID}&${neo4jDateTime}`,
+          totalNumberOfCorrectAnswers:
+            analysedResult.totalNumberOfCorrectAnswers,
+          totalNumberOfQuestions: analysedResult.totalNumberOfQuestions,
         }
       )
     );
