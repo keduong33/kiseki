@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import type { MarkedQuiz } from "../../../types/Quiz/Quiz";
 import type { AnalysedResult } from "../../../types/Quiz/Result";
 import { backendEndpoint } from "../../../types/endpoints";
+import KisekiButton from "../../components/kiseki/button";
 import {
   Card,
   CardContent,
@@ -67,6 +68,15 @@ function QuizSummary() {
       <div className="flex gap-3">
         <p>Subject:</p>
         <p>{quizMetaData?.subject}</p>
+
+        <KisekiButton
+          onClick={() => {
+            saveResult.mutate(analysedResult);
+          }}
+          disabled={JSON.stringify(analysedResult) === "{}"}
+        >
+          Save your results
+        </KisekiButton>
       </div>
 
       <div className="flex flex-row gap-4 pt-2">
@@ -122,7 +132,7 @@ function QuizSummary() {
                 <TableCell className="font-medium align-top">
                   {convertArrayIndexToQuestionIndex(index)}
                 </TableCell>
-                <TableCell className="2xl:w-[600px] w-[400px] px-2">
+                <TableCell className="2xl:max-w-[600px] max-w-[400px] px-2">
                   {HTMLReactParser(markedQuestion.content)}
                 </TableCell>
                 <TableCell className="w-[300px]">
@@ -136,6 +146,10 @@ function QuizSummary() {
                       src={answer}
                       className={`${!!answer && "my-auto mx-auto w-[200px]"}`}
                     />
+                  ) : answer ? (
+                    <span key={"Correct Answer " + index}>
+                      {HTMLReactParser(answer)}
+                    </span>
                   ) : (
                     <>N/A</>
                   )}
@@ -172,15 +186,6 @@ function QuizSummary() {
           })}
         </TableBody>
       </Table>
-
-      {/* <KisekiButton
-        onClick={() => {
-          saveResult.mutate(analysedResult);
-        }}
-        disabled={JSON.stringify(analysedResult) === "{}"}
-      >
-        Save your results
-      </KisekiButton> */}
     </>
   );
 }
