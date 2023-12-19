@@ -9,6 +9,7 @@ function Insights() {
   const query = useQuery({
     queryKey: ["results"],
     queryFn: async () => await axios.get("/api/get-results"),
+    retry: false,
   });
 
   useEffect(() => {
