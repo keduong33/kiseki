@@ -75,26 +75,31 @@ function Assessments() {
           subjectTitle={Subject["Mathematics"]}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
+          timeLimit={15}
         />
         <DiagnosticQuizCard
           subjectTitle={Subject["Numerical Reasoning"]}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
+          timeLimit={15}
         />
         <DiagnosticQuizCard
           subjectTitle={Subject["Reading Comprehension"]}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
+          timeLimit={15}
         />
         <DiagnosticQuizCard
           subjectTitle={Subject["Science Reasoning"]}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
+          timeLimit={15}
         />
         <DiagnosticQuizCard
           subjectTitle={Subject["Verbal Reasoning"]}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
+          timeLimit={15}
         />
       </div>
       <StartQuizDialog

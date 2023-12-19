@@ -36,7 +36,7 @@ function QuizSummary() {
   const saveResult = useMutation({
     mutationFn: async (result: AnalysedResult) =>
       await axios.post(`${backendEndpoint.saveStudentResult}`, result),
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       console.log(data.data);
     },
   });

@@ -1,8 +1,6 @@
 import htmlParser from "html-react-parser";
 import { ChevronLeft, ChevronRight, Timer } from "lucide-react";
 import type { FullInfoQuestion } from "../../../types/Quiz/Question";
-import type { QuizMetaData } from "../../../types/Quiz/Quiz";
-import { Subject } from "../../../types/Subject/Subject";
 import { Button } from "../../components/shadcn/ui/button";
 import { Card } from "../../components/shadcn/ui/card";
 import {
@@ -27,19 +25,15 @@ function Quiz() {
     setUserAnswers,
     currentQuestionIndex,
     setCurrentQuestionIndex,
+    quizMetaData,
   ] = useQuizState((state) => [
     state.questions,
     state.userAnswers,
     state.setUserAnswers,
     state.currentQuestionIndex,
     state.setCurrentQuestionIndex,
+    state.quizMetaData,
   ]);
-
-  const mockQuizMetaData: QuizMetaData = {
-    subject: Subject["Maths"],
-    numberOfQuestions: questions.length,
-    status: "not submitted",
-  };
 
   const changeQuestion = (newQuestionIndex: string) => {
     setCurrentQuestionIndex(Number(newQuestionIndex));
@@ -70,13 +64,13 @@ function Quiz() {
       <div className="flex items-center justify-between w-full">
         <div className={quizMetaDataStyles}>
           <span>Subject</span>
-          <span>{mockQuizMetaData.subject}</span>
+          <span>{quizMetaData?.subject}</span>
         </div>
         <div className={quizMetaDataStyles}>
           <span>Questions</span>
           <span>
             {convertArrayIndexToQuestionIndex(currentQuestionIndex)} of{" "}
-            {mockQuizMetaData.numberOfQuestions}
+            {quizMetaData?.numberOfQuestions}
           </span>
         </div>
         <div className="hidden md:flex">
