@@ -1,4 +1,4 @@
-import { Integer, Node, Relationship } from "neo4j-driver";
+import { DateTime, Integer, Node, Relationship } from "neo4j-driver";
 import type { SubTopic, Subject, Topic } from "./Subject/Subject";
 
 type StudentProperties = {
@@ -21,7 +21,7 @@ export type ResultNode = Node<
     subject?: Subject;
     totalNumberOfCorrectAnswers: number;
     totalNumberOfQuestions: number;
-    createdAt: Date;
+    createdAt: DateTime;
   }
 >;
 

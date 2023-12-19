@@ -1,12 +1,13 @@
 import type { Config, Context } from "@netlify/functions";
 import type { ManagedTransaction, Neo4jError } from "neo4j-driver";
-import type { Neo4jUser } from "../../../../client/types/Neo4j";
+import type { Neo4jResultTopicSubtopic } from "../../../../client/types/Neo4j";
 import { initNeo4jDriver } from "../../common/neo4jDriver";
 import { Response500 } from "../../common/responseTemplate";
 import { verifyClientToken } from "../../common/verifyClientToken";
+import { convertNeo4jResult } from "./convertNeo4jResult";
 
 export default async (req: Request, context: Context) => {
-  const [userId, verificationError] = await verifyClientToken(req, context);
+  const [userID, verificationError] = await verifyClientToken(req, context);
 
   if (verificationError) {
     return new Response(verificationError.message, {
@@ -25,15 +26,22 @@ export default async (req: Request, context: Context) => {
   const session = driver.session();
 
   try {
+    // TODO: different filters
     const res = await session.executeRead((tx: ManagedTransaction) =>
-      tx.run<Neo4jUser>(
-        `MATCH (s:Student) WHERE s.id = $userID  return s as student`,
+      tx.run<Neo4jResultTopicSubtopic>(
+        `
+        MATCH (s:Student {id:$userID})-[:TOOK_QUIZ]->(result:Result)
+        WITH result
+        MATCH (result)-[stats]->(resultType:Topic|Subtopic)
+        RETURN result, LABELS(resultType)[0] as level, stats, resultType`,
         {
-          userID: userId,
+          userID: userID,
         }
       )
     );
-    console.log(res.records[0].get("properties").id);
+    const convertedResults = convertNeo4jResult(res);
+
+    return Response.json(convertedResults, { status: 200 });
   } catch (error) {
     const e = error as Neo4jError;
     console.error("Failed in getUserResult", e.message);
@@ -46,8 +54,6 @@ export default async (req: Request, context: Context) => {
   } finally {
     await session.close();
   }
-
-  return new Response("Healthcheck clear", { status: 200 });
 };
 
 export const config: Config = {
