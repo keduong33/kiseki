@@ -3,6 +3,7 @@ import { useRef } from "react";
 import {
   convertParsedQuestionToFullInfo,
   type FullInfoQuestion,
+  type ParsedFromCSVQuestion,
 } from "../../../../types/Quiz/Question";
 import { Button } from "../../components/shadcn/ui/button";
 import { Input } from "../../components/shadcn/ui/input";
@@ -12,29 +13,6 @@ type ParsedResult = {
   data: Array<ParsedFromCSVQuestion>;
   errors: Array<unknown>;
   meta: object;
-};
-
-export type ParsedFromCSVQuestion = {
-  Name: string;
-  Question: string;
-  "Option A": string;
-  "Option B": string;
-  "Option C": string;
-  "Option D": string;
-  "Option E": string;
-  "Option A Image URL": string;
-  "Option B Image URL": string;
-  "Option C Image URL": string;
-  "Option D Image URL": string;
-  "Option E Image URL": string;
-  "Correct Options": string;
-  Feedback: string;
-  Subject: string;
-  Topic: string;
-  Subtopic: string;
-  Skill: string;
-  "Time in ms": number;
-  "Randomise Options": boolean;
 };
 
 function AddQuestions() {

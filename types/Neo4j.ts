@@ -1,5 +1,5 @@
 import { DateTime, Integer, Node, Relationship } from "neo4j-driver";
-import type { SubTopic, Subject, Topic } from "../../types/Subject/Subject";
+import type { SubTopic, Subject, Topic } from "./Subject/Subject";
 
 type StudentProperties = {
   id: string;

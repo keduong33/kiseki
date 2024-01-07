@@ -28,5 +28,5 @@
       // 
       "rootDir": "."
     },
-      "include": ["backend/env.d.ts"],
+      "include": ["backend/env.d.ts","types/**/*"],
   }

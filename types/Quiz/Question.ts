@@ -1,5 +1,27 @@
-import type { ParsedFromCSVQuestion } from "../../client/src/pages/AddQuestions/AddQuestions";
 import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
+
+export type ParsedFromCSVQuestion = {
+  Name: string;
+  Question: string;
+  "Option A": string;
+  "Option B": string;
+  "Option C": string;
+  "Option D": string;
+  "Option E": string;
+  "Option A Image URL": string;
+  "Option B Image URL": string;
+  "Option C Image URL": string;
+  "Option D Image URL": string;
+  "Option E Image URL": string;
+  "Correct Options": string;
+  Feedback: string;
+  Subject: string;
+  Topic: string;
+  Subtopic: string;
+  Skill: string;
+  "Time in ms": number;
+  "Randomise Options": boolean;
+};
 
 export type QuizQuestion = {
   id: string;

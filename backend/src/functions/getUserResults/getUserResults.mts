@@ -1,6 +1,6 @@
 import type { Config, Context } from "@netlify/functions";
 import type { ManagedTransaction, Neo4jError } from "neo4j-driver";
-import type { Neo4jResultTopicSubtopic } from "../../../../client/types/Neo4j";
+import type { Neo4jResultTopicSubtopic } from "../../../../types/Neo4j";
 import { initNeo4jDriver } from "../../common/neo4jDriver";
 import { Response500 } from "../../common/responseTemplate";
 import { verifyClientToken } from "../../common/verifyClientToken";

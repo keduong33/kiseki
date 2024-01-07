@@ -1,6 +1,6 @@
 import type { Config, Context } from "@netlify/functions";
 import { DateTime, ManagedTransaction, Neo4jError } from "neo4j-driver";
-import type { AnalysedResult } from "../../../../client/types/Quiz/Result";
+import type { AnalysedResult } from "../../../../types/Quiz/Result";
 import { initNeo4jDriver } from "../../common/neo4jDriver";
 import { Response500 } from "../../common/responseTemplate";
 import { verifyClientToken } from "../../common/verifyClientToken";

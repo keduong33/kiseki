@@ -1,16 +1,17 @@
 import type { QueryResult } from "neo4j-driver";
+
 import type {
   Neo4jResultTopicSubtopic,
   ResultStatistics,
   SubtopicNode,
   TopicNode,
-} from "../../../../client/types/Neo4j";
+} from "../../../../types/Neo4j";
 import type {
   AnalysedResult,
   AnalysedSubtopics,
   AnalysedTopics,
-} from "../../../../client/types/Quiz/Result";
-import type { SubTopic, Topic } from "../../../../client/types/Subject/Subject";
+} from "../../../../types/Quiz/Result";
+import type { SubTopic, Topic } from "../../../../types/Subject/Subject";
 
 export const convertNeo4jResult = (
   neo4jResponse: QueryResult<Neo4jResultTopicSubtopic>
