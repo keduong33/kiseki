@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import type { AnalysedResult } from "../../../types/Quiz/Result";
+import type { AnalysedResult } from "../../../../types/Quiz/Result";
 
 function Insights() {
   const [results, setResults] = useState<AnalysedResult[]>();

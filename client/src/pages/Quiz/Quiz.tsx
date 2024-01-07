@@ -1,6 +1,6 @@
 import htmlParser from "html-react-parser";
 import { ChevronLeft, ChevronRight, Timer } from "lucide-react";
-import type { FullInfoQuestion } from "../../../types/Quiz/Question";
+import type { FullInfoQuestion } from "../../../../types/Quiz/Question";
 import { Button } from "../../components/shadcn/ui/button";
 import { Card } from "../../components/shadcn/ui/card";
 import {

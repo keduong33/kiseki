@@ -3,9 +3,9 @@ import axios from "axios";
 import HTMLReactParser from "html-react-parser";
 import { AwardIcon, HourglassIcon } from "lucide-react";
 import { useLocation } from "react-router-dom";
-import type { MarkedQuiz } from "../../../types/Quiz/Quiz";
-import type { AnalysedResult } from "../../../types/Quiz/Result";
-import { backendEndpoint } from "../../../types/endpoints";
+import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
+import type { AnalysedResult } from "../../../../types/Quiz/Result";
+import { backendEndpoint } from "../../../../types/endpoints";
 import KisekiButton from "../../components/kiseki/button";
 import {
   Card,

@@ -1,8 +1,8 @@
 import type {
   FullInfoQuestion,
   MarkedQuestion,
-} from "../../../../types/Quiz/Question";
-import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
+} from "../../../../../types/Quiz/Question";
+import type { MarkedQuiz } from "../../../../../types/Quiz/Quiz";
 import {
   uiSafeError,
   uiSafeResult,

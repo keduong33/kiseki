@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import type { FullInfoQuestion } from "../../types/Quiz/Question";
-import type { Quiz, QuizMetaData } from "../../types/Quiz/Quiz";
+import type { FullInfoQuestion } from "../../../types/Quiz/Question";
+import type { Quiz, QuizMetaData } from "../../../types/Quiz/Quiz";
 
 type Actions = {
   setQuestions: (questions: FullInfoQuestion[]) => void;

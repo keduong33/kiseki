@@ -1,6 +1,6 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
-import { PageLocation } from "../../../types/PageLocation";
-import type { ClerkUserProfileMetadata } from "../../../types/User/UserProfile";
+import { PageLocation } from "../../../../types/PageLocation";
+import type { ClerkUserProfileMetadata } from "../../../../types/User/UserProfile";
 
 const Profile = () => {
   const { isLoaded, isSignedIn, user } = useUser();

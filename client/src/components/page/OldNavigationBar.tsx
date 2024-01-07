@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import { PageLocation } from "../../../types/PageLocation";
+import { PageLocation } from "../../../../types/PageLocation";
 
 type MenuStructure = {
   title: string;

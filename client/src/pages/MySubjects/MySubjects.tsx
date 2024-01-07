@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { PageLocation } from "../../../types/PageLocation";
+import { PageLocation } from "../../../../types/PageLocation";
 import { Button } from "../../components/shadcn/ui/button";
 
 function MySubjects() {

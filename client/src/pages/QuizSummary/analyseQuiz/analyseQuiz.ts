@@ -1,11 +1,11 @@
-import type { MarkedQuestion } from "../../../../types/Quiz/Question";
-import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
+import type { MarkedQuestion } from "../../../../../types/Quiz/Question";
+import type { MarkedQuiz } from "../../../../../types/Quiz/Quiz";
 import type {
   AnalysedResult,
   AnalysedSubtopics,
   AnalysedTopics,
-} from "../../../../types/Quiz/Result";
-import type { SubTopic, Topic } from "../../../../types/Subject/Subject";
+} from "../../../../../types/Quiz/Result";
+import type { SubTopic, Topic } from "../../../../../types/Subject/Subject";
 import { uiSafeResult, type UISafeReturn } from "../../../common/safeReturn";
 
 const analyseQuiz = (markedQuiz: MarkedQuiz): UISafeReturn<AnalysedResult> => {

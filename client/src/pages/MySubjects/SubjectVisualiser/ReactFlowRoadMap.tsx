@@ -1,6 +1,6 @@
 import ReactFlow from "reactflow";
 import "reactflow/dist/style.css";
-import type { SubTopic, Topic } from "../../../../types/Subject/Subject";
+import type { SubTopic, Topic } from "../../../../../types/Subject/Subject";
 import { createEdges, createNodes, nodeHeight, nodeWidth } from "./Node";
 
 import dagre from "@dagrejs/dagre";

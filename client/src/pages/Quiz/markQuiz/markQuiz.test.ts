@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { FullInfoQuestion } from "../../../../types/Quiz/Question";
+import type { FullInfoQuestion } from "../../../../../types/Quiz/Question";
 import { markQuiz } from "./markQuiz";
 
 describe("markQuiz", () => {

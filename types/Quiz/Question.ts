@@ -1,4 +1,4 @@
-import type { ParsedFromCSVQuestion } from "../../src/pages/AddQuestions/AddQuestions";
+import type { ParsedFromCSVQuestion } from "../../client/src/pages/AddQuestions/AddQuestions";
 import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
 
 export type QuizQuestion = {

@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import { PageLocation } from "../../types/PageLocation";
+import { PageLocation } from "../../../types/PageLocation";
 import App from "../App";
 import ProtectedPage from "../components/layout/ProtectedPage";
 import AddQuestions from "../pages/AddQuestions/AddQuestions";

@@ -5,7 +5,7 @@ import {
   getSubTopicsBasedOnTopic,
   getTopicsBasedOnSubject,
   type Topic,
-} from "../../../../types/Subject/Subject";
+} from "../../../../../types/Subject/Subject";
 import {
   Select,
   SelectContent,

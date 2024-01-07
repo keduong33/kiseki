@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "../../../components/shadcn/ui/card";
 
-import { Subject } from "../../../../types/Subject/Subject";
+import { Subject } from "../../../../../types/Subject/Subject";
 import KisekiButton from "../../../components/kiseki/button";
 
 const Row = ({ children }: { children: React.ReactNode }) => {
