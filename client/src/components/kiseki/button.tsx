@@ -11,7 +11,7 @@ const KisekiButton = React.forwardRef<HTMLButtonElement, KisekiButtonProps>(
     return (
       <Button ref={ref} {...props}>
         {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-        {children}
+        {!isLoading && children}
       </Button>
     );
   }
