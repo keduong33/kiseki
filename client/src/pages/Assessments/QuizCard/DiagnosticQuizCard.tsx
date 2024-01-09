@@ -1,19 +1,16 @@
-import { ListChecksIcon, NewspaperIcon, TimerIcon } from "lucide-react";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../../../components/shadcn/ui/card";
 
+import { Clock } from "iconsax-react";
+import { HelpCircleIcon } from "lucide-react";
 import { Subject } from "../../../../../types/Subject/Subject";
 import KisekiButton from "../../../components/kiseki/button";
-
-const Row = ({ children }: { children: React.ReactNode }) => {
-  return <div className="grid grid-cols-[30px_100px_1fr]">{children}</div>;
-};
+import { IconSize } from "../../../components/layout/NavigationBar";
+import { Badge } from "../../../components/shadcn/ui/badge";
 
 type DiagnosticQuizCardProps = {
   subjectTitle: Subject;
@@ -34,47 +31,34 @@ export default function DiagnosticQuizCard({
 }: DiagnosticQuizCardProps) {
   return (
     <>
-      <Card className="w-[300px] sm:w-[320px] md:w-[330px] 2xl:w-[400px] h-[500px]  flex flex-col">
-        <CardHeader className="pb-[6px] items-center">
-          <div className="h-[250px] w-full bg-slate-600"></div>
-          <CardTitle>{subjectTitle}</CardTitle>
+      <Card className="w-[280px] h-[230px] flex flex-col">
+        <CardHeader className="items-start p-0 ">
+          <div className="h-[130px] w-full bg-slate-600 rounded-lg" />
+          <CardTitle className="py-3 pl-[16px]">{subjectTitle}</CardTitle>
         </CardHeader>
-        <CardContent>
-          <CardDescription>Details</CardDescription>
-          <div>
-            <Row>
-              <TimerIcon />
-              <p>Time:</p>
-              <p>{timeLimit} minutes</p>
-            </Row>
-            <Row>
-              <ListChecksIcon />
-              <p>Questions:</p>
-              <p>{numberOfQuestions}</p>
-            </Row>
-            <Row>
-              <NewspaperIcon />
-              <p>Description:</p>
-              <p className="max-h-[20px] truncate">
-                Orientation {subjectTitle}
-              </p>
-            </Row>
-          </div>
-        </CardContent>
-        <CardFooter
-          className="justify-center"
-          onClick={async () => {
-            setSelectedSubject(subjectTitle);
-          }}
-        >
+        <CardContent className="flex justify-between px-[16px]">
+          <Badge variant="outline" className=" h-[32px]">
+            <HelpCircleIcon size={IconSize.small} />
+            {numberOfQuestions
+              ? `${numberOfQuestions} questions`
+              : "Surprise xD"}
+          </Badge>
+          <Badge variant="outline" className=" h-[32px] align-middle flex">
+            <Clock size={IconSize.small} />
+            <p>{timeLimit ? `${timeLimit}:00` : "No time limit"} </p>
+          </Badge>
           <KisekiButton
+            onClick={async () => {
+              setSelectedSubject(subjectTitle);
+            }}
             type="submit"
             disabled={!!selectedSubject}
             isLoading={selectedSubject == subjectTitle}
+            className="w-[60px] h-[30px]"
           >
-            Select
+            Start
           </KisekiButton>
-        </CardFooter>
+        </CardContent>
       </Card>
     </>
   );
