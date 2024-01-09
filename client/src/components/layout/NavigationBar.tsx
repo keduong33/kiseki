@@ -7,6 +7,7 @@ type navBarLink = {
   title: string;
   destination: PageLocation;
   icon?: React.ReactNode;
+  comingSoon?: boolean;
   disabled?: boolean;
 };
 const mainLinks: navBarLink[] = [
@@ -14,13 +15,7 @@ const mainLinks: navBarLink[] = [
     title: "Dashboard",
     destination: PageLocation.Dashboard,
     icon: <LayoutDashboard size="22" />,
-    disabled: true,
-  },
-  {
-    title: "Assessments",
-    destination: PageLocation.Assessments,
-    icon: <Bookmark size="22" />,
-    disabled: true,
+    comingSoon: true,
   },
   {
     title: "Study Plan",
@@ -28,19 +23,26 @@ const mainLinks: navBarLink[] = [
     icon: <Firstline size="22" />,
   },
   {
+    title: "Diagnostic Quiz",
+    destination: PageLocation.DiagnosticQuiz,
+    icon: <Book1 size="22" />,
+  },
+  {
+    title: "Assessments",
+    destination: PageLocation.ComingSoon,
+    icon: <Bookmark size="22" />,
+    comingSoon: true,
+  },
+  {
     title: "Insights",
     destination: PageLocation.Insights,
     icon: <Chart1 size="22" />,
   },
   {
-    title: "Diagnostic Quiz",
-    destination: PageLocation.Assessments,
-    icon: <Book1 size="22" />,
-  },
-  {
     title: "Community",
     destination: PageLocation.Error,
     icon: <People size="22" />,
+    comingSoon: true,
     disabled: true,
   },
 ];
@@ -57,20 +59,25 @@ function NavigationBar() {
       <div className="flex flex-col h-[80%] pt-20 gap-11">
         {mainLinks.map((link, index) => {
           const onPage = pathname === link.destination;
-          return (
-            <div key={index} className="flex w-full">
-              {onPage && <div className="border-2 border-white rounded-r-md" />}
-              <Link
-                to={link.destination}
-                className={`flex gap-5 pl-7 ${
-                  !onPage && "text-violet-inactive"
-                }`}
-              >
-                {link.icon}
-                {`${link.title} ${link.disabled ? "(Coming Soon)" : ""}`}
-              </Link>
-            </div>
-          );
+          if (!link.disabled)
+            return (
+              <div key={index} className="flex w-full">
+                {onPage && (
+                  <div className="border-2 border-white rounded-r-md" />
+                )}
+                <Link
+                  to={link.destination}
+                  className={`flex gap-5 pl-7  ${
+                    !onPage && "text-violet-inactive"
+                  }`}
+                >
+                  {link.icon}
+                  {`${link.title}`}
+                  <br />
+                  {link.comingSoon ? "(Coming Soon)" : ""}
+                </Link>
+              </div>
+            );
         })}
       </div>
       <hr />

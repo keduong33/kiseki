@@ -9,6 +9,7 @@ import App from "../App";
 import ProtectedPage from "../components/layout/ProtectedPage";
 import AddQuestions from "../pages/AddQuestions/AddQuestions";
 import Assessments from "../pages/Assessments/Assessments";
+import ComingSoon from "../pages/ComingSoon/ComingSoon";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Insights from "../pages/Insights/Insights";
 import MySubjects from "../pages/MySubjects/MySubjects";
@@ -22,6 +23,8 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<App />} errorElement={<>Uh Oh</>}>
       <Route path="*" element={<>Something wrong</>} />
+      <Route path={PageLocation.ComingSoon} element={<ComingSoon />} />
+
       <Route path={PageLocation.Dashboard} element={<Dashboard />} />
 
       <Route path={PageLocation.DiagnosticQuiz} element={<Assessments />} />

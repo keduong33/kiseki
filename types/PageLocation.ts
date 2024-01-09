@@ -14,5 +14,6 @@ export enum PageLocation {
 
   AddQuestions = "/add-questions",
 
+  ComingSoon = "/coming-soon",
   Error = "/error",
 }
