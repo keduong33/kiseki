@@ -10,38 +10,44 @@ type navBarLink = {
   comingSoon?: boolean;
   disabled?: boolean;
 };
+
+export enum IconSize {
+  small = 12,
+  medium = 22,
+}
+
 const mainLinks: navBarLink[] = [
   {
     title: "Dashboard",
     destination: PageLocation.Dashboard,
-    icon: <LayoutDashboard size="22" />,
+    icon: <LayoutDashboard size={IconSize.medium} />,
     comingSoon: true,
   },
   {
     title: "Study Plan",
     destination: PageLocation.StudyPlan,
-    icon: <Firstline size="22" />,
+    icon: <Firstline size={IconSize.medium} />,
   },
   {
     title: "Diagnostic Quiz",
     destination: PageLocation.DiagnosticQuiz,
-    icon: <Book1 size="22" />,
+    icon: <Book1 size={IconSize.medium} />,
   },
   {
     title: "Assessments",
     destination: PageLocation.ComingSoon,
-    icon: <Bookmark size="22" />,
+    icon: <Bookmark size={IconSize.medium} />,
     comingSoon: true,
   },
   {
     title: "Insights",
     destination: PageLocation.Insights,
-    icon: <Chart1 size="22" />,
+    icon: <Chart1 size={IconSize.medium} />,
   },
   {
     title: "Community",
     destination: PageLocation.Error,
-    icon: <People size="22" />,
+    icon: <People size={IconSize.medium} />,
     comingSoon: true,
     disabled: true,
   },
