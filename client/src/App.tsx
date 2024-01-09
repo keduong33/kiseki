@@ -1,8 +1,8 @@
 import { ClerkProvider } from "@clerk/clerk-react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { config } from "./common/config";
+import NavigationBar from "./components/layout/NavigationBar";
 import { ThemeProvider } from "./components/layout/Theme/ThemeProvider";
-import { OldVerticalNavBar } from "./components/page/OldNavigationBar";
 
 const { clerk } = config;
 
@@ -21,7 +21,7 @@ function App() {
         navigate={(to) => navigate(to)}
       >
         <div className="flex flex-row w-screen h-screen">
-          <OldVerticalNavBar />
+          <NavigationBar />
           <main className="w-full h-screen p-3 overflow-y-scroll">
             <Outlet />
           </main>
