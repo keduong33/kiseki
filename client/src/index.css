@@ -53,7 +53,7 @@
 
 @layer base {
   html {
-    font-family: "Epilogue", sans-serif;
+    font-family: "Epilogue", sans-serif !important;
   }
   * {
     @apply border-border;
@@ -62,12 +62,12 @@
     @apply bg-background text-foreground;
   }
   h1 {
-    @apply pb-2 text-3xl font-semibold tracking-tight scroll-m-20 first:mt-0;
+    @apply pb-2 text-3xl font-semibold tracking-tight scroll-m-20 first:mt-0 !important;
   }
   h2 {
-    @apply text-2xl font-semibold tracking-tight scroll-m-20;
+    @apply text-2xl font-semibold tracking-tight scroll-m-20 !important;
   }
   h3 {
-    @apply text-[16px] font-semibold leading-none tracking-tight;
+    @apply text-[16px] font-semibold leading-none tracking-tight !important;
   }
 }
