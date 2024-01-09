@@ -35,6 +35,7 @@ function Assessments() {
         `${backendEndpoint.getDiagnosticQuiz}/${selectedSubject}`
       ),
     enabled: !!selectedSubject,
+    retry: 1,
     staleTime: 0,
   });
 
@@ -65,17 +66,20 @@ function Assessments() {
         setUpQuiz(questions, selectedSubject);
       }
       setSelectedSubject(undefined);
+    } else if (!query.isSuccess && !query.isFetching && !!selectedSubject) {
+      setSelectedSubject(undefined);
     }
   }, [query.isSuccess, query.isFetching, selectedSubject]);
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 pt-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center">
+      <div className="grid grid-cols-1 gap-3 pt-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center">
         <DiagnosticQuizCard
           subjectTitle={Subject["Mathematics"]}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
           timeLimit={15}
+          numberOfQuestions={30}
         />
         <DiagnosticQuizCard
           subjectTitle={Subject["Numerical Reasoning"]}
