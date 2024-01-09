@@ -24,7 +24,7 @@ export const router = createBrowserRouter(
       <Route path="*" element={<>Something wrong</>} />
       <Route path={PageLocation.Dashboard} element={<Dashboard />} />
 
-      <Route path={PageLocation.Assessments} element={<Assessments />} />
+      <Route path={PageLocation.DiagnosticQuiz} element={<Assessments />} />
       <Route path={PageLocation.Quiz} element={<Quiz />} />
       <Route path={PageLocation.QuizSummary} element={<QuizSummary />} />
 

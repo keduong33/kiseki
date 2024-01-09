@@ -1,7 +1,7 @@
 export enum PageLocation {
   Dashboard = "/",
 
-  Assessments = "/assessments",
+  DiagnosticQuiz = "/diagnostic-quiz",
   Quiz = "/quiz",
   QuizSummary = "/quiz-summary",
 
