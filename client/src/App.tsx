@@ -22,7 +22,7 @@ function App() {
       >
         <div className="flex flex-row w-screen h-screen">
           <NavigationBar />
-          <main className="w-full h-screen p-3 overflow-y-scroll">
+          <main className="w-full h-screen px-[100px] overflow-y-scroll">
             <Outlet />
           </main>
         </div>
