@@ -33,19 +33,23 @@ export default function DiagnosticQuizCard({
     <>
       <Card className="w-[280px] h-[230px] flex flex-col">
         <CardHeader className="items-start p-0 ">
-          <div className="h-[130px] w-full bg-slate-600 rounded-lg" />
+          <div className="h-[130px] w-full  rounded-lg bg-gradient-to-br from-indigo-300 to-purple-300" />
           <CardTitle className="py-3 pl-[16px]">{subjectTitle}</CardTitle>
         </CardHeader>
         <CardContent className="flex justify-between px-[16px]">
-          <Badge variant="outline" className=" h-[32px]">
-            <HelpCircleIcon size={IconSize.small} />
-            {numberOfQuestions
-              ? `${numberOfQuestions} questions`
-              : "Surprise xD"}
+          <Badge className="h-[32px] bg-[#2a2e4e]">
+            <HelpCircleIcon size={IconSize.small} className="pb-[2px]" />
+            <p>
+              {numberOfQuestions
+                ? `${numberOfQuestions} questions`
+                : "Surprise xD"}
+            </p>
           </Badge>
-          <Badge variant="outline" className=" h-[32px] align-middle flex">
-            <Clock size={IconSize.small} />
-            <p>{timeLimit ? `${timeLimit}:00` : "No time limit"} </p>
+          <Badge className="h-[32px] bg-[#2a2e4e]">
+            <Clock size={IconSize.small} className="pb-[2px]" />
+            <p className="mb-0">
+              {timeLimit ? `${timeLimit}:00` : "No time limit"}
+            </p>
           </Badge>
           <KisekiButton
             onClick={async () => {
