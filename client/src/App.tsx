@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/clerk-react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { PageLocation } from "../../types/PageLocation";
 import { config } from "./common/config";
 import NavigationBar from "./components/layout/NavigationBar";
 import { ThemeProvider } from "./components/layout/Theme/ThemeProvider";
@@ -8,6 +9,8 @@ const { clerk } = config;
 
 function App() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const hideNavigationBar = pathname === PageLocation.Quiz;
 
   if (!clerk.publisableKey) {
     console.error("Missing Publishable Key");
@@ -21,7 +24,7 @@ function App() {
         navigate={(to) => navigate(to)}
       >
         <div className="flex flex-row w-screen h-screen">
-          <NavigationBar />
+          {!hideNavigationBar && <NavigationBar />}
           <main className="w-full h-screen px-[100px] overflow-y-scroll">
             <Outlet />
           </main>
