@@ -9,6 +9,7 @@ import {
 import type { QuizMetaData } from "../../../../types/Quiz/Quiz";
 import { Subject } from "../../../../types/Subject/Subject";
 import { backendEndpoint } from "../../../../types/endpoints";
+import { PageHeader } from "../../components/kiseki/PageHeader";
 import { useQuizState } from "../../states/Quiz.state";
 import DiagnosticQuizCard from "./QuizCard/DiagnosticQuizCard";
 import StartQuizDialog from "./QuizCard/StartQuizDialog";
@@ -72,8 +73,8 @@ function Assessments() {
   }, [query.isSuccess, query.isFetching, selectedSubject]);
 
   return (
-    <div className="pt-20">
-      <h2 className="pb-8">Diagnostic Quiz</h2>
+    <>
+      <PageHeader className="pb-8">Diagnostic Quiz</PageHeader>
       <div>
         <p className=" w-[110px] text-center">To do</p>
         <div className="bg-gradient-to-r from-[#FF62E2] via-[#9462FF] to-[#0038FF] w-[110px] h-1" />
@@ -115,7 +116,7 @@ function Assessments() {
         setShowStartQuiz={setShowStartQuiz}
         showStartQuiz={showStartQuiz}
       />
-    </div>
+    </>
   );
 }
 
