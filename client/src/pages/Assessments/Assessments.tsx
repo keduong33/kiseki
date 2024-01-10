@@ -72,8 +72,13 @@ function Assessments() {
   }, [query.isSuccess, query.isFetching, selectedSubject]);
 
   return (
-    <>
-      <div className="grid grid-cols-1 gap-3 pt-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center">
+    <div className="pt-20">
+      <h2 className="pb-8">Diagnostic Quiz</h2>
+      <div>
+        <p className=" w-[110px] text-center">To do</p>
+        <div className="bg-gradient-to-r from-[#FF62E2] via-[#9462FF] to-[#0038FF] w-[110px] h-1" />
+      </div>
+      <div className="grid grid-cols-1 gap-3 pt-8 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <DiagnosticQuizCard
           subjectTitle={Subject["Mathematics"]}
           setSelectedSubject={setSelectedSubject}
@@ -110,7 +115,7 @@ function Assessments() {
         setShowStartQuiz={setShowStartQuiz}
         showStartQuiz={showStartQuiz}
       />
-    </>
+    </div>
   );
 }
 
