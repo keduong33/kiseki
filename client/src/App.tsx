@@ -25,7 +25,7 @@ function App() {
       >
         <div className="flex flex-row w-screen h-screen">
           {!hideNavigationBar && <NavigationBar />}
-          <main className="w-full h-screen px-[100px] overflow-y-scroll">
+          <main className="w-full h-screen px-[100px] overflow-y-scroll pt-20">
             <Outlet />
           </main>
         </div>

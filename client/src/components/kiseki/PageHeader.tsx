@@ -6,5 +6,5 @@ type PageHeaderProps = {
 };
 
 export const PageHeader = ({ children, className }: PageHeaderProps) => (
-  <h2 className={`pt-20 ${className}`}>{children}</h2>
+  <h2 className={`${className}`}>{children}</h2>
 );
