@@ -41,7 +41,7 @@ const AnswerOptions = ({
         return (
           <Card
             className={`flex content-center h-full gap-4 p-3 ${
-              isPicked && "bg-gray-600"
+              isPicked && " bg-gradient-to-bl from-indigo-900 to-violet-700"
             } ${!!imageUrl && "flex-col items-center"}`}
             key={`Option ${index}`}
             onClick={() => saveAnswer(option ?? imageUrl)}
