@@ -68,6 +68,6 @@
     @apply text-2xl font-semibold tracking-tight scroll-m-20 !important;
   }
   h3 {
-    @apply text-[16px] font-semibold leading-none tracking-tight !important;
+    @apply text-[16px] font-semibold tracking-tight !important;
   }
 }
