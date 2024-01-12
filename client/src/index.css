@@ -37,8 +37,8 @@
     --popover-foreground: 210 20% 98%;
     --primary: 241 100% 66%;
     --primary-foreground: 210 20% 98%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 232 38% 64%;
+    --secondary-foreground: 235 14% 16%;
     --muted: 215 27.9% 16.9%;
     --muted-foreground: 217.9 10.6% 64.9%;
     --accent: 215 27.9% 16.9%;
@@ -69,5 +69,8 @@
   }
   h3 {
     @apply text-[16px] font-semibold tracking-tight !important;
+  }
+  p {
+    @apply text-[14px];
   }
 }
