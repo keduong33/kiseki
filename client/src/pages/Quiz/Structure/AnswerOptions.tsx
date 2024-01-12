@@ -29,7 +29,7 @@ const AnswerOptions = ({
   };
 
   return (
-    <div className="flex flex-wrap justify-center w-full gap-2">
+    <div className="flex flex-wrap justify-center w-[925px] gap-2 ">
       {options.map((option, index) => {
         const imageUrl = optionImageUrls[index];
 
@@ -40,7 +40,7 @@ const AnswerOptions = ({
 
         return (
           <Card
-            className={`flex gap-4 p-3 w-[300px] xl:w-[400px] ${
+            className={`flex gap-4 p-3 w-[300px] xl:w-[400px] min-h-[50px] ${
               isPicked ? "bg-gradient-to-bl from-indigo-900 to-violet-700" : ""
             } `}
             key={`Option ${index}`}
