@@ -71,6 +71,6 @@
     @apply text-[16px] font-semibold tracking-tight !important;
   }
   p {
-    @apply text-[14px];
+    @apply text-[12px];
   }
 }
