@@ -22,8 +22,10 @@ import {
   TableRow,
 } from "../../components/shadcn/ui/table";
 import { useQuizState } from "../../states/Quiz.state";
-import { convertArrayIndexToQuestionIndex } from "../Quiz/Quiz";
-import { convertCharToNumber } from "../Quiz/commonQuizFunctions";
+import {
+  convertArrayIndexToQuestionIndex,
+  convertCharToNumber,
+} from "../Quiz/commonQuizFunctions";
 import analyseQuiz from "./analyseQuiz/analyseQuiz";
 
 function QuizSummary() {
