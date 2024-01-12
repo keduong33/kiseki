@@ -3,10 +3,9 @@ import { Button } from "../../components/shadcn/ui/button";
 import { useQuizState } from "../../states/Quiz.state";
 import AnswerOptions from "./Structure/AnswerOptions";
 import Question from "./Structure/Question";
+import QuestionNavigation from "./Structure/QuestionNavigation";
 import QuizHeader from "./Structure/QuizHeader";
 import { SubmitQuizButton } from "./SubmitQuizButton";
-
-export const convertArrayIndexToQuestionIndex = (index: number) => index + 1;
 
 function Quiz() {
   const [questions, currentQuestionIndex, setCurrentQuestionIndex] =
@@ -27,15 +26,18 @@ function Quiz() {
   };
 
   const currentQuestion = questions[currentQuestionIndex];
-  const hasImage = !currentQuestion?.optionImageUrls.includes(null);
 
   return (
     <>
       {currentQuestion && (
         <div className="flex flex-col gap-4">
           <QuizHeader />
-          <div className={`flex flex-row gap-3 ${hasImage && "flex-col"}`}>
-            <Question currentQuestion={currentQuestion} />
+          <div className={`flex flex-col gap-3 items-center`}>
+            <div className="flex justify-center w-full gap-8">
+              <QuestionNavigation />
+              <Question currentQuestion={currentQuestion} />
+            </div>
+
             <AnswerOptions
               options={currentQuestion.options}
               optionImageUrls={currentQuestion.optionImageUrls}
