@@ -8,7 +8,7 @@ const Question = ({
   currentQuestion: FullInfoQuestion;
 }) => {
   return (
-    <Card className="w-full p-4 text-justify md:min-h-[450px]">
+    <Card className="min-w-[600px] xl:max-w-[700px] max-w-[600px] p-4 text-justify md:min-h-[200px]">
       <div>{htmlParser(currentQuestion.content)}</div>
     </Card>
   );
