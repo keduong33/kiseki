@@ -29,7 +29,7 @@ const AnswerOptions = ({
   };
 
   return (
-    <div className="flex flex-col justify-between w-full gap-3">
+    <div className="flex flex-wrap justify-center w-full gap-2">
       {options.map((option, index) => {
         const imageUrl = optionImageUrls[index];
 
@@ -40,20 +40,17 @@ const AnswerOptions = ({
 
         return (
           <Card
-            className={`flex content-center h-full gap-4 p-3 ${
-              isPicked && " bg-gradient-to-bl from-indigo-900 to-violet-700"
-            } ${!!imageUrl && "flex-col items-center"}`}
+            className={`flex gap-4 p-3 w-[300px] xl:w-[400px] ${
+              isPicked ? "bg-gradient-to-bl from-indigo-900 to-violet-700" : ""
+            } `}
             key={`Option ${index}`}
             onClick={() => saveAnswer(option ?? imageUrl)}
           >
             <p className="my-auto">{convertNumberToChar(index)}</p>
-            <div className="my-auto">{htmlParser(option ?? "")}</div>
-            <img
-              src={imageUrl ?? ""}
-              className={`${
-                !!imageUrl && "my-auto mx-auto w-[300px] h-[400px]"
-              }`}
-            />
+            {option && <div>{htmlParser(option ?? "")}</div>}
+            {imageUrl && (
+              <img src={imageUrl ?? ""} className={`max-w-[250px] h-[250px]`} />
+            )}
           </Card>
         );
       })}
