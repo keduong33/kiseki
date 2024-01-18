@@ -8,12 +8,17 @@ import { useQuizState } from "../../../states/Quiz.state";
 import { convertArrayIndexToQuestionIndex } from "../commonQuizFunctions";
 
 function QuestionNavigation() {
-  const [questions, currentQuestionIndex, setCurrentQuestionIndex] =
-    useQuizState((state) => [
-      state.questions,
-      state.currentQuestionIndex,
-      state.setCurrentQuestionIndex,
-    ]);
+  const [
+    questions,
+    currentQuestionIndex,
+    setCurrentQuestionIndex,
+    userAnswers,
+  ] = useQuizState((state) => [
+    state.questions,
+    state.currentQuestionIndex,
+    state.setCurrentQuestionIndex,
+    state.userAnswers,
+  ]);
 
   const changeQuestion = (newQuestionIndex: number) => {
     setCurrentQuestionIndex(newQuestionIndex);
@@ -39,6 +44,8 @@ function QuestionNavigation() {
               className={`border-2 rounded-md w-[30px] h-[30px] flex items-center align-middle justify-center cursor-pointer font-semibold ${
                 index === currentQuestionIndex
                   ? "bg-gradient-to-r from-[#2E48F5] via-[#765CFA] to-[#CE73FF]"
+                  : userAnswers[index]
+                  ? "bg-green-400"
                   : ""
               }`}
               onClick={() => changeQuestion(index)}
