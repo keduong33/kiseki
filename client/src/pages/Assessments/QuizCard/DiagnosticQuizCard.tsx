@@ -37,7 +37,7 @@ export default function DiagnosticQuizCard({
           <CardTitle className="py-3 pl-[16px]">{subjectTitle}</CardTitle>
         </CardHeader>
         <CardContent className="flex justify-between px-[16px]">
-          <Badge className="h-[32px] bg-[#2a2e4e]">
+          <Badge className="h-[32px] bg-[#2a2e4e]" variant={"outline"}>
             <HelpCircleIcon size={IconSize.small} className="pb-[2px]" />
             <p>
               {numberOfQuestions
@@ -45,7 +45,7 @@ export default function DiagnosticQuizCard({
                 : "Surprise xD"}
             </p>
           </Badge>
-          <Badge className="h-[32px] bg-[#2a2e4e]">
+          <Badge className="h-[32px] bg-[#2a2e4e]" variant={"outline"}>
             <Clock size={IconSize.small} className="pb-[2px]" />
             <p className="mb-0">
               {timeLimit ? `${timeLimit}:00` : "No time limit"}
