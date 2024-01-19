@@ -31,16 +31,21 @@ function Assessments() {
 
   const query = useQuery({
     queryKey: ["questions", selectedSubject],
-    queryFn: async () =>
-      await axios.get(
+    queryFn: async () => {
+      const response = await axios.get(
         `${backendEndpoint.getDiagnosticQuiz}/${selectedSubject}`
-      ),
+      );
+      return response.data as QuestionFromBackend[];
+    },
+
     enabled: !!selectedSubject,
     retry: 1,
     staleTime: 0,
+    select: (receivedQuestions) =>
+      receivedQuestions.map((question) =>
+        convertBackendQuestionToFullInfo(question)
+      ),
   });
-
-  const receivedQuestions = query.data?.data as QuestionFromBackend[];
 
   const setUpQuiz = (questions: FullInfoQuestion[], subject: Subject) => {
     const quizMetaData: QuizMetaData = {
@@ -59,12 +64,9 @@ function Assessments() {
 
   useEffect(() => {
     if (query.isSuccess && !query.isFetching && !!selectedSubject) {
-      if (receivedQuestions && receivedQuestions.length !== 0) {
-        const questions = receivedQuestions.map((question) =>
-          convertBackendQuestionToFullInfo(question)
-        );
+      if (query.data.length !== 0) {
         setShowStartQuiz(true);
-        setUpQuiz(questions, selectedSubject);
+        setUpQuiz(query.data, selectedSubject);
       }
       setSelectedSubject(undefined);
     } else if (!query.isSuccess && !query.isFetching && !!selectedSubject) {
