@@ -1,22 +1,36 @@
+import type { unstable_Blocker as Blocker } from "react-router-dom";
+import KisekiButton from "../../components/kiseki/button";
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
+  DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@radix-ui/react-dialog";
-import Button from "../../components/kiseki/button";
-import { DialogFooter, DialogHeader } from "../../components/shadcn/ui/dialog";
+} from "../../components/shadcn/ui/dialog";
 
-type LeaveMidQuizWarningProps = {
+type LeaveMidQuizDialogProps = {
   show?: boolean;
+  setShow?: (show: boolean) => void;
+  blocker: Blocker;
 };
 
-function LeaveMidQuizWarning({ show }: LeaveMidQuizWarningProps) {
+function LeaveMidQuizDialog({
+  show,
+  blocker,
+  setShow,
+}: LeaveMidQuizDialogProps) {
+  const leaveQuiz = () => {
+    blocker.proceed && blocker.proceed();
+  };
+
+  const resumeQuiz = () => {
+    blocker.reset && blocker.reset();
+  };
+
   return (
-    <Dialog open>
-      <DialogTrigger asChild></DialogTrigger>
+    <Dialog open={show} onOpenChange={setShow}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>A quiz is in progress</DialogTitle>
@@ -25,11 +39,13 @@ function LeaveMidQuizWarning({ show }: LeaveMidQuizWarningProps) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2">
-          <Button>Leave</Button>
+          <KisekiButton onClick={leaveQuiz} variant="secondary" type="button">
+            Leave
+          </KisekiButton>
           <DialogClose asChild>
-            <Button type="button" variant="secondary">
+            <KisekiButton type="button" onClick={resumeQuiz}>
               Resume
-            </Button>
+            </KisekiButton>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
@@ -37,4 +53,4 @@ function LeaveMidQuizWarning({ show }: LeaveMidQuizWarningProps) {
   );
 }
 
-export default LeaveMidQuizWarning;
+export default LeaveMidQuizDialog;

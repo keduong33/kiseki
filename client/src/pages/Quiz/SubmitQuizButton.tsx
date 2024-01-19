@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { PageLocation } from "../../../../types/PageLocation";
-import { Button } from "../../components/shadcn/ui/button";
+import KisekiButton from "../../components/kiseki/button";
 import {
   Dialog,
   DialogClose,
@@ -14,7 +14,7 @@ import {
 import { useQuizState } from "../../states/Quiz.state";
 import { markQuiz } from "./markQuiz/markQuiz";
 
-export function SubmitQuizButton({ disabled }: { disabled: boolean }) {
+export function SubmitQuizButton({ className }: { className: string }) {
   const navigate = useNavigate();
   const [usersAnswers, questions] = useQuizState((state) => [
     state.userAnswers,
@@ -38,22 +38,22 @@ export function SubmitQuizButton({ disabled }: { disabled: boolean }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={disabled}>Submit</Button>
+        <KisekiButton className={className}>Submit</KisekiButton>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Submitting Answers</DialogTitle>
+          <DialogTitle>Submitting Quiz</DialogTitle>
           <DialogDescription>
             Have you done checking your answers?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2">
-          <Button onClick={submitQuiz}>Continue</Button>
           <DialogClose asChild>
-            <Button type="button" variant="secondary">
+            <KisekiButton type="button" variant="secondary">
               Cancel
-            </Button>
+            </KisekiButton>
           </DialogClose>
+          <KisekiButton onClick={submitQuiz}>Continue</KisekiButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>

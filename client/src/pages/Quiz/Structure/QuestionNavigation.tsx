@@ -5,6 +5,7 @@ import {
   CardHeader,
 } from "../../../components/shadcn/ui/card";
 import { useQuizState } from "../../../states/Quiz.state";
+import { SubmitQuizButton } from "../SubmitQuizButton";
 import { convertArrayIndexToQuestionIndex } from "../commonQuizFunctions";
 
 function QuestionNavigation() {
@@ -20,6 +21,8 @@ function QuestionNavigation() {
     state.userAnswers,
   ]);
 
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
+
   const changeQuestion = (newQuestionIndex: number) => {
     setCurrentQuestionIndex(newQuestionIndex);
   };
@@ -33,6 +36,8 @@ function QuestionNavigation() {
     if (currentQuestionIndex < questions.length - 1)
       setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
+
+  const ButtonStyles = "w-[100px] font-semibold";
 
   return (
     <div className="flex flex-col gap-2">
@@ -59,18 +64,19 @@ function QuestionNavigation() {
       <div className="flex justify-between w-full gap-3 md:justify-center">
         <KisekiButton
           onClick={prevQuestion}
-          className="w-[100px] font-semibold"
+          className={ButtonStyles}
           variant={"secondary"}
         >
           Back
         </KisekiButton>
 
-        <KisekiButton
-          onClick={nextQuestion}
-          className="w-[100px] font-semibold"
-        >
-          {currentQuestionIndex === questions.length - 1 ? "Submit" : "Next"}
-        </KisekiButton>
+        {isLastQuestion ? (
+          <SubmitQuizButton className={ButtonStyles} />
+        ) : (
+          <KisekiButton onClick={nextQuestion} className={ButtonStyles}>
+            Next
+          </KisekiButton>
+        )}
       </div>
     </div>
   );
