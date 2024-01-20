@@ -16,6 +16,11 @@ export const convertNotionPageToQuestion = (
     const property = page.properties[key];
 
     switch (property.type) {
+      case "title": {
+        NotionQuestion.set(key, getHeadingText(property.title));
+        return;
+      }
+
       case "rich_text": {
         NotionQuestion.set(key, getPlainText(property.rich_text));
         return;

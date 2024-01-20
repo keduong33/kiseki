@@ -89,30 +89,6 @@ function Assessments() {
           timeLimit={15}
           numberOfQuestions={30}
         />
-        <DiagnosticQuizCard
-          subjectTitle={"Numerical Reasoning"}
-          setSelectedSubject={setSelectedSubject}
-          selectedSubject={selectedSubject}
-          timeLimit={15}
-        />
-        <DiagnosticQuizCard
-          subjectTitle={"Reading Comprehension"}
-          setSelectedSubject={setSelectedSubject}
-          selectedSubject={selectedSubject}
-          timeLimit={15}
-        />
-        <DiagnosticQuizCard
-          subjectTitle={"Science Reasoning"}
-          setSelectedSubject={setSelectedSubject}
-          selectedSubject={selectedSubject}
-          timeLimit={15}
-        />
-        <DiagnosticQuizCard
-          subjectTitle={"Verbal Reasoning"}
-          setSelectedSubject={setSelectedSubject}
-          selectedSubject={selectedSubject}
-          timeLimit={15}
-        />
       </div>
       <StartQuizDialog
         setShowStartQuiz={setShowStartQuiz}
