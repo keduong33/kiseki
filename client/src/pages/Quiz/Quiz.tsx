@@ -17,13 +17,14 @@ function Quiz() {
   const currentQuestion = questions[currentQuestionIndex];
   const [showLeaveQuizDialog, setShowLeaveQuizDialog] = useState(false);
 
-  const blocker = useBlocker(({ currentLocation, nextLocation }) => {
+  const blocker = useBlocker(({ nextLocation }) => {
     if (nextLocation.pathname === PageLocation.QuizSummary) return false;
 
     if (nextLocation.pathname === PageLocation.DiagnosticQuiz) {
       setShowLeaveQuizDialog(true);
       return true;
     }
+    return true;
   });
 
   return (

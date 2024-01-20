@@ -7,7 +7,7 @@ import {
 
 import { Clock } from "iconsax-react";
 import { HelpCircleIcon } from "lucide-react";
-import { Subject } from "../../../../../types/Subject/Subject";
+import type { Subject } from "../../../../../types/Subject/Subject";
 import KisekiButton from "../../../components/kiseki/button";
 import { IconSize } from "../../../components/layout/NavigationBar";
 import { Badge } from "../../../components/shadcn/ui/badge";
