@@ -59,18 +59,27 @@ export default async (req: Request, context: Context) => {
             numberOfCorrectAnswers:topic.numberOfCorrectAnswers
           }]->(t)
 
-          WITH $subtopics as importedSubtopic, result, topic
+          WITH $subtopics as importedSubtopic, result
           UNWIND importedSubtopic as subtopic
           MERGE (sub:Subtopic {subtopic:subtopic.subtopic})
           MERGE (result)-[hasSubtopic:HAS_SUBTOPIC {
             numberOfQuestions:subtopic.numberOfQuestions,
             numberOfCorrectAnswers:subtopic.numberOfCorrectAnswers
           }]->(sub)
+
+          WITH $skills as importedSkill, result
+          UNWIND importedSkill as skill
+          MERGE (s:Skill {skill:skill.skill})
+          MERGE (result)-[hasSkill:HAS_SKILL {
+            numberOfQuestions:skill.numberOfQuestions,
+            numberOfCorrectAnswers:skill.numberOfCorrectAnswers
+          }]->(s)
         `,
         {
           userID: userID,
           topics: analysedResult.topics,
           subtopics: analysedResult.subtopics,
+          skills: analysedResult.skills,
           createdAt: neo4jDateTime,
           resultID: `${userID}&${neo4jDateTime}`,
           totalNumberOfCorrectAnswers:
