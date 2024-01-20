@@ -24,7 +24,6 @@ export type ToStudy = {
 };
 
 function StudyPlan() {
-  const maxStudyDays = 7;
   const maxTopicPerDay = 2;
 
   const {
@@ -39,11 +38,6 @@ function StudyPlan() {
     },
   });
 
-  const studyDays: Array<dayjs.Dayjs> = Array.from(
-    { length: maxStudyDays },
-    (_value, daysAfter) => today.add(daysAfter, "day")
-  );
-
   const toStudys: ToStudy[] | undefined = results && generateStudyPlan(results);
 
   return (
@@ -56,32 +50,20 @@ function StudyPlan() {
       {isPending && <p>Loading your results...</p>}
 
       {toStudys && (
-        <div>
-          {studyDays.map((day, dayIndex) => {
-            const isToday = day.date() === today.date();
-            return (
-              <div key={day.format(dateFormat)} className="w-fit">
-                <h3>
-                  {isToday && "Today "}
-                  {!isToday && `${day.format("dddd")} `}
-
-                  {day.format(dateFormat)}
-                </h3>
-                {toStudys
-                  .slice(dayIndex, dayIndex + maxTopicPerDay)
-                  .map((toStudy) => {
-                    return (
-                      <StudyCard
-                        subject={toStudy.subject}
-                        topic={toStudy.topic}
-                        subtopic={toStudy.subtopic}
-                        skill={toStudy.skill}
-                      />
-                    );
-                  })}
-              </div>
-            );
-          })}
+        <div key={today.format(dateFormat)} className="w-fit">
+          <h3></h3>
+          <div className="flex flex-col gap-4">
+            {toStudys.slice(0, maxTopicPerDay).map((toStudy) => {
+              return (
+                <StudyCard
+                  subject={toStudy.subject}
+                  topic={toStudy.topic}
+                  subtopic={toStudy.subtopic}
+                  skill={toStudy.skill}
+                />
+              );
+            })}
+          </div>
         </div>
       )}
     </>
