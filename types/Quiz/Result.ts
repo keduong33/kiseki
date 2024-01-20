@@ -1,4 +1,4 @@
-import type { SubTopic, Subject, Topic } from "../Subject/Subject";
+import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
 
 export type AnalysedTopics = {
   topic: Topic;
@@ -11,10 +11,17 @@ export type AnalysedSubtopics = {
   numberOfQuestions: number;
 };
 
+export type AnalysedSkill = {
+  skill: Skill;
+  numberOfCorrectAnswers: number;
+  numberOfQuestions: number;
+};
+
 export type AnalysedResult = {
+  subject?: Subject;
   topics?: AnalysedTopics[];
   subtopics?: AnalysedSubtopics[];
-  subject?: Subject;
+  skills?: AnalysedSkill[];
   totalNumberOfCorrectAnswers: number;
   totalNumberOfQuestions: number;
   createdAt?: string;

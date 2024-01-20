@@ -2,10 +2,15 @@ import type { MarkedQuestion } from "../../../../../types/Quiz/Question";
 import type { MarkedQuiz } from "../../../../../types/Quiz/Quiz";
 import type {
   AnalysedResult,
+  AnalysedSkill,
   AnalysedSubtopics,
   AnalysedTopics,
 } from "../../../../../types/Quiz/Result";
-import type { SubTopic, Topic } from "../../../../../types/Subject/Subject";
+import type {
+  Skill,
+  SubTopic,
+  Topic,
+} from "../../../../../types/Subject/Subject";
 import { uiSafeResult, type UISafeReturn } from "../../../common/safeReturn";
 
 const analyseQuiz = (markedQuiz: MarkedQuiz): UISafeReturn<AnalysedResult> => {
@@ -13,12 +18,15 @@ const analyseQuiz = (markedQuiz: MarkedQuiz): UISafeReturn<AnalysedResult> => {
 
   const subtopicsAnalysed = analyseBasedOnSubTopics(markedQuiz.questions);
 
+  const skillAnalysed = analyseBasedOnSkills(markedQuiz.questions);
+
   // TODO: multiple subjects?
   const subject = markedQuiz.questions[0].subject;
 
   return uiSafeResult({
     topics: topicsAnalysed,
     subtopics: subtopicsAnalysed,
+    skills: skillAnalysed,
     totalNumberOfQuestions: markedQuiz.numberOfQuestions,
     totalNumberOfCorrectAnswers: markedQuiz.numberOfCorrectAnswers,
     subject: subject,
@@ -103,6 +111,45 @@ const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
   }
 
   return subtopicsAnalysed;
+};
+
+const analyseBasedOnSkills = (markedQuestionsList: MarkedQuestion[]) => {
+  const numberOfQuestionsBySkill: Map<Skill, number> = new Map();
+  const numberOfCorrectAnswersBySkill: Map<Skill, number> = new Map();
+
+  markedQuestionsList.forEach((question) => {
+    question.skills?.forEach((skill) => {
+      numberOfQuestionsBySkill.set(
+        skill,
+        (numberOfQuestionsBySkill.get(skill) ?? 0) + 1
+      );
+
+      if (question.markedCorrect) {
+        numberOfCorrectAnswersBySkill.set(
+          skill,
+          (numberOfCorrectAnswersBySkill.get(skill) ?? 0) + 1
+        );
+      } else {
+        numberOfCorrectAnswersBySkill.set(
+          skill,
+          numberOfCorrectAnswersBySkill.get(skill) ?? 0
+        );
+      }
+    });
+  });
+
+  const analysedSkills: AnalysedSkill[] = [];
+  for (const s of numberOfQuestionsBySkill.keys()) {
+    const skill = s as Skill;
+
+    analysedSkills.push({
+      skill: skill as Skill,
+      numberOfCorrectAnswers: numberOfCorrectAnswersBySkill.get(skill) ?? 0,
+      numberOfQuestions: numberOfQuestionsBySkill.get(skill) ?? 0,
+    } satisfies AnalysedSkill);
+  }
+
+  return analysedSkills;
 };
 
 export default analyseQuiz;
