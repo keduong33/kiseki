@@ -19,18 +19,15 @@ export type ParsedFromCSVQuestion = {
   Topic: string;
   Subtopic: string;
   Skill: string;
-  "Time in ms": number;
-  "Randomise Options": boolean;
+  "Time in s": number;
 };
 
 export type QuizQuestion = {
-  id: string;
-  name: string;
-  content: string;
+  id?: string;
+  question: string;
   options: (string | null)[];
   optionImageUrls: (string | null)[];
-  timeInMs: number;
-  randomiseOptions: boolean;
+  timeInS: number;
 };
 
 export type FullInfoQuestion = QuizQuestion & {
@@ -47,9 +44,8 @@ export type MarkedQuestion = FullInfoQuestion & {
 };
 
 export type QuestionFromBackend = {
-  id: string;
-  name: string;
-  content: string;
+  id?: string;
+  question: string;
   option_a: string;
   option_b: string;
   option_c: string;
@@ -62,12 +58,13 @@ export type QuestionFromBackend = {
   option_e_image_url: string;
   correct_options: string;
   feedback: string;
+  time_in_s: number;
   subject: string;
   topic?: string;
   subtopic?: string;
   skill?: string;
-  time_in_ms: number;
-  randomise_options: boolean;
+  difficulty?: string;
+  curriculum?: string;
 };
 
 export const convertBackendQuestionToFullInfo = (
@@ -75,8 +72,7 @@ export const convertBackendQuestionToFullInfo = (
 ): FullInfoQuestion => {
   const question = {
     id: inputQuestion.id,
-    name: inputQuestion.name,
-    content: inputQuestion.content,
+    question: inputQuestion.question,
     options: [
       inputQuestion.option_a,
       inputQuestion.option_b,
@@ -97,8 +93,7 @@ export const convertBackendQuestionToFullInfo = (
     topic: inputQuestion.topic as Topic,
     subtopics: inputQuestion.subtopic?.split(",") as SubTopic[],
     skills: inputQuestion.skill?.split(",") as Skill[],
-    timeInMs: inputQuestion.time_in_ms,
-    randomiseOptions: inputQuestion.randomise_options,
+    timeInS: inputQuestion.time_in_s,
   } satisfies FullInfoQuestion;
   return question;
 };
@@ -108,8 +103,7 @@ export const convertParsedQuestionToFullInfo = (
 ): FullInfoQuestion => {
   const question = {
     id: "",
-    name: parsedQuestion["Name"],
-    content: parsedQuestion["Question"],
+    question: parsedQuestion["Question"],
     options: [
       parsedQuestion["Option A"],
       parsedQuestion["Option B"],
@@ -130,8 +124,7 @@ export const convertParsedQuestionToFullInfo = (
     topic: parsedQuestion.Topic as Topic,
     subtopics: parsedQuestion.Subtopic.split(",") as SubTopic[],
     skills: parsedQuestion.Skill.split(",") as Skill[],
-    timeInMs: parsedQuestion["Time in ms"],
-    randomiseOptions: parsedQuestion["Randomise Options"],
+    timeInS: parsedQuestion["Time in s"],
   } satisfies FullInfoQuestion;
   return question;
 };

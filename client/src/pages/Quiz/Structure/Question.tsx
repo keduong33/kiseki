@@ -9,7 +9,7 @@ const Question = ({
 }) => {
   return (
     <Card className="min-w-[600px] max-w-[700px] p-4 text-justify md:min-h-[200px] flex-1">
-      <div>{htmlParser(currentQuestion.content)}</div>
+      <div>{htmlParser(currentQuestion.question)}</div>
     </Card>
   );
 };

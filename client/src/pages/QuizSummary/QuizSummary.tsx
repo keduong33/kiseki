@@ -135,7 +135,7 @@ function QuizSummary() {
                   {convertArrayIndexToQuestionIndex(index)}
                 </TableCell>
                 <TableCell className="2xl:max-w-[600px] max-w-[400px] px-2">
-                  {HTMLReactParser(markedQuestion.content)}
+                  {HTMLReactParser(markedQuestion.question)}
                 </TableCell>
                 <TableCell className="w-[300px]">
                   {answer?.includes("img") ? (
