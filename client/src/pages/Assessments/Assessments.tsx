@@ -7,7 +7,7 @@ import {
   type QuestionFromBackend,
 } from "../../../../types/Quiz/Question";
 import type { QuizMetaData } from "../../../../types/Quiz/Quiz";
-import { Subject } from "../../../../types/Subject/Subject";
+import type { Subject } from "../../../../types/Subject/Subject";
 import { backendEndpoint } from "../../../../types/endpoints";
 import { PageHeader } from "../../components/kiseki/PageHeader";
 import { useQuizState } from "../../states/Quiz.state";
@@ -83,32 +83,32 @@ function Assessments() {
       </div>
       <div className="grid grid-cols-1 gap-3 pt-8 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <DiagnosticQuizCard
-          subjectTitle={Subject["Mathematics"]}
+          subjectTitle={"Mathematics"}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
           timeLimit={15}
           numberOfQuestions={30}
         />
         <DiagnosticQuizCard
-          subjectTitle={Subject["Numerical Reasoning"]}
+          subjectTitle={"Numerical Reasoning"}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
           timeLimit={15}
         />
         <DiagnosticQuizCard
-          subjectTitle={Subject["Reading Comprehension"]}
+          subjectTitle={"Reading Comprehension"}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
           timeLimit={15}
         />
         <DiagnosticQuizCard
-          subjectTitle={Subject["Science Reasoning"]}
+          subjectTitle={"Science Reasoning"}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
           timeLimit={15}
         />
         <DiagnosticQuizCard
-          subjectTitle={Subject["Verbal Reasoning"]}
+          subjectTitle={"Verbal Reasoning"}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
           timeLimit={15}

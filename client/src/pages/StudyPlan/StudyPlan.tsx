@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
-import { MathsTopic } from "../../../../types/Subject/Math";
 import {
-  Subject,
+  type Subject,
   type SubTopic,
   type Topic,
 } from "../../../../types/Subject/Subject";
@@ -45,7 +44,7 @@ function StudyPlan() {
                 </span>
                 {day.format(dateFormat)}
               </h3>
-              <StudyCard subject={Subject.Maths} topic={MathsTopic.Algebra} />
+              <StudyCard subject={"Maths"} topic={"Algebra"} />
             </div>
           );
         })}

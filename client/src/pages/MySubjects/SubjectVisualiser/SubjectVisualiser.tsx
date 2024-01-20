@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Subject,
-  getSubTopicsBasedOnTopic,
-  getTopicsBasedOnSubject,
-  type Topic,
-} from "../../../../../types/Subject/Subject";
+import { type Subject, type Topic } from "../../../../../types/Subject/Subject";
 import {
   Select,
   SelectContent,

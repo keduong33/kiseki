@@ -63,9 +63,9 @@ export type QuestionFromBackend = {
   correct_options: string;
   feedback: string;
   subject: string;
-  topic: string | null;
-  subtopic: string | null;
-  skill: string | null;
+  topic?: string;
+  subtopic?: string;
+  skill?: string;
   time_in_ms: number;
   randomise_options: boolean;
 };
