@@ -10,29 +10,32 @@ import {
   type Topic,
 } from "../../../../types/Subject/Subject";
 import { PageHeader } from "../../components/kiseki/PageHeader";
+import { generateStudyPlan } from "./GenerateStudyPlan";
 import StudyCard from "./StudyCard";
 
 const dateFormat = "DD MMM YYYY";
 const today = dayjs();
 
-export type ToStudyTopic = {
+export type ToStudy = {
   subject: Subject;
-  topic?: Topic;
-  subtopic?: SubTopic;
-  skill?: Skill;
+  topic: Topic;
+  subtopic: SubTopic;
+  skill: Skill;
 };
-
-const mockToStudyTopics: ToStudyTopic[] = [];
 
 function StudyPlan() {
   const maxStudyDays = 7;
   const maxTopicPerDay = 2;
 
-  const query = useQuery({
+  const {
+    data: results,
+    isError,
+    isPending,
+  } = useQuery({
     queryKey: ["results"],
     queryFn: async () => {
       const response = await axios.get(`${backendEndpoint.getStudentResult}`);
-      return response.data as AnalysedResult;
+      return response.data as AnalysedResult[];
     },
   });
 
@@ -41,28 +44,46 @@ function StudyPlan() {
     (_value, daysAfter) => today.add(daysAfter, "day")
   );
 
-  const toStudyTopics: ToStudyTopic[] = mockToStudyTopics;
+  const toStudys: ToStudy[] | undefined = results && generateStudyPlan(results);
 
   return (
     <>
       <PageHeader className="pb-4">Study Plan</PageHeader>
-      <div>
-        {studyDays.map((day) => {
-          const isToday = day.date() === today.date();
-          return (
-            <div key={day.format(dateFormat)} className="w-fit">
-              <h3>
-                <span>
+      {isError && <>Failed to get your results. Please reload the page :)</>}
+
+      {!toStudys && !isPending && <p>There is nothing for you to study!</p>}
+
+      {isPending && <p>Loading your results...</p>}
+
+      {toStudys && (
+        <div>
+          {studyDays.map((day, dayIndex) => {
+            const isToday = day.date() === today.date();
+            return (
+              <div key={day.format(dateFormat)} className="w-fit">
+                <h3>
                   {isToday && "Today "}
                   {!isToday && `${day.format("dddd")} `}
-                </span>
-                {day.format(dateFormat)}
-              </h3>
-              <StudyCard subject={"Maths"} topic={"Algebra"} />
-            </div>
-          );
-        })}
-      </div>
+
+                  {day.format(dateFormat)}
+                </h3>
+                {toStudys
+                  .slice(dayIndex, dayIndex + maxTopicPerDay)
+                  .map((toStudy) => {
+                    return (
+                      <StudyCard
+                        subject={toStudy.subject}
+                        topic={toStudy.topic}
+                        subtopic={toStudy.subtopic}
+                        skill={toStudy.skill}
+                      />
+                    );
+                  })}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 }

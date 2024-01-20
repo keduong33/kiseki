@@ -2,10 +2,11 @@ import { TickCircle } from "iconsax-react";
 import KisekiButton from "../../components/kiseki/button";
 import { IconSize } from "../../components/layout/NavigationBar";
 import { Card } from "../../components/shadcn/ui/card";
-import type { ToStudyTopic } from "./StudyPlan";
+import type { ToStudy } from "./StudyPlan";
 
-function StudyCard({ subject, topic, subtopic }: ToStudyTopic) {
-  const toStudy = subtopic ?? topic;
+function StudyCard({ subject, topic, subtopic, skill }: ToStudy) {
+  const toStudy =
+    topic + `${subtopic ? `-${subtopic}` : ""}` + `${skill ? `-${skill}` : ""}`;
   return (
     <Card className="w-[400px]">
       <div className="p-[30px] flex">
