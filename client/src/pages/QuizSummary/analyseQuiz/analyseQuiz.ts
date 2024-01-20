@@ -14,19 +14,19 @@ import type {
 import { uiSafeResult, type UISafeReturn } from "../../../common/safeReturn";
 
 const analyseQuiz = (markedQuiz: MarkedQuiz): UISafeReturn<AnalysedResult> => {
-  const topicsAnalysed = analyseResultsBasedOnTopic(markedQuiz.questions);
+  const analysedTopics = analyseResultsBasedOnTopic(markedQuiz.questions);
 
-  const subtopicsAnalysed = analyseBasedOnSubTopics(markedQuiz.questions);
+  const analysedSubtopics = analyseBasedOnSubTopics(markedQuiz.questions);
 
-  const skillAnalysed = analyseBasedOnSkills(markedQuiz.questions);
+  const analysedSkills = analyseBasedOnSkills(markedQuiz.questions);
 
   // TODO: multiple subjects?
   const subject = markedQuiz.questions[0].subject;
 
   return uiSafeResult({
-    topics: topicsAnalysed,
-    subtopics: subtopicsAnalysed,
-    skills: skillAnalysed,
+    topics: analysedTopics,
+    subtopics: analysedSubtopics,
+    skills: analysedSkills,
     totalNumberOfQuestions: markedQuiz.numberOfQuestions,
     totalNumberOfCorrectAnswers: markedQuiz.numberOfCorrectAnswers,
     subject: subject,
@@ -58,19 +58,19 @@ const analyseResultsBasedOnTopic = (markedQuestionsList: MarkedQuestion[]) => {
     }
   });
 
-  const topicsAnalysed: AnalysedTopics[] = [];
+  const analysedTopics: AnalysedTopics[] = [];
 
   for (const t of numberOfQuestionsByTopic.keys()) {
     const topic = t as Topic;
 
-    topicsAnalysed.push({
+    analysedTopics.push({
       topic: topic as Topic,
       numberOfCorrectAnswers: numberOfCorrectAnswersByTopic.get(topic) ?? 0,
       numberOfQuestions: numberOfQuestionsByTopic.get(topic) ?? 0,
     } satisfies AnalysedTopics);
   }
 
-  return topicsAnalysed;
+  return analysedTopics;
 };
 
 const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
@@ -98,11 +98,11 @@ const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
     });
   });
 
-  const subtopicsAnalysed: AnalysedSubtopics[] = [];
+  const analysedSubtopics: AnalysedSubtopics[] = [];
   for (const s of numberOfQuestionsBySubtopic.keys()) {
     const subtopic = s as SubTopic;
 
-    subtopicsAnalysed.push({
+    analysedSubtopics.push({
       subtopic: subtopic as SubTopic,
       numberOfCorrectAnswers:
         numberOfCorrectAnswersBySubtopic.get(subtopic) ?? 0,
@@ -110,7 +110,7 @@ const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
     } satisfies AnalysedSubtopics);
   }
 
-  return subtopicsAnalysed;
+  return analysedSubtopics;
 };
 
 const analyseBasedOnSkills = (markedQuestionsList: MarkedQuestion[]) => {
