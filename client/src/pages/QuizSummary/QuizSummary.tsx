@@ -157,7 +157,7 @@ function QuizSummary() {
                   )}
                 </TableCell>
                 <TableCell className="w-[300px]">
-                  {correctAnswerIndexes.map((index) => {
+                  {correctAnswerIndexes?.map((index) => {
                     const textCorrectAnswer = markedQuestion.options[index];
                     const imageCorrectAnswer =
                       markedQuestion.optionImageUrls[index];

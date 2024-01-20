@@ -4,9 +4,9 @@ import type { FullInfoQuestion, MarkedQuestion } from "./Question";
 export type Quiz = {
   questions: FullInfoQuestion[];
 
-  userAnswers: (string | null)[];
+  userAnswers: (string | undefined)[];
 
-  quizMetaData: QuizMetaData | null;
+  quizMetaData: QuizMetaData | undefined;
 
   currentQuestionIndex: number;
 

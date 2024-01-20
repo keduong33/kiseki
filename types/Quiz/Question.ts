@@ -25,14 +25,14 @@ export type ParsedFromCSVQuestion = {
 export type QuizQuestion = {
   id?: string;
   question: string;
-  options: (string | null)[];
-  optionImageUrls: (string | null)[];
+  options: (string | undefined)[];
+  optionImageUrls: (string | undefined)[];
   timeInS: number;
 };
 
 export type FullInfoQuestion = QuizQuestion & {
   correctOptions: string[];
-  feedback: string;
+  feedback?: string;
   subject: Subject;
   topic: Topic;
   subtopics: SubTopic[];
@@ -46,19 +46,22 @@ export type MarkedQuestion = FullInfoQuestion & {
 export type QuestionFromBackend = {
   id?: string;
   question: string;
-  option_a: string;
-  option_b: string;
-  option_c: string;
-  option_d: string;
-  option_e: string;
-  option_a_image_url: string;
-  option_b_image_url: string;
-  option_c_image_url: string;
-  option_d_image_url: string;
-  option_e_image_url: string;
+
+  option_a?: string;
+  option_b?: string;
+  option_c?: string;
+  option_d?: string;
+  option_e?: string;
+  option_a_image_url?: string;
+  option_b_image_url?: string;
+  option_c_image_url?: string;
+  option_d_image_url?: string;
+  option_e_image_url?: string;
+
   correct_options: string;
-  feedback: string;
-  time_in_s: number;
+  feedback?: string;
+  time_in_s?: string;
+
   subject: string;
   topic?: string;
   subtopic?: string;
@@ -93,7 +96,7 @@ export const convertBackendQuestionToFullInfo = (
     topic: inputQuestion.topic as Topic,
     subtopics: inputQuestion.subtopic?.split(",") as SubTopic[],
     skills: inputQuestion.skill?.split(",") as Skill[],
-    timeInS: inputQuestion.time_in_s,
+    timeInS: parseInt(inputQuestion.time_in_s ?? "0"),
   } satisfies FullInfoQuestion;
   return question;
 };

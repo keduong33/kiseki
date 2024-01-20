@@ -11,7 +11,7 @@ import {
 import { convertCharToNumber } from "../commonQuizFunctions";
 
 export const markQuiz = (
-  userAnswers: (string | null)[],
+  userAnswers: (string | undefined)[],
   questions: FullInfoQuestion[]
 ): UISafeReturn<MarkedQuiz> => {
   if (userAnswers.length <= 0) {

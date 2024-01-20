@@ -5,7 +5,7 @@ import type { Quiz, QuizMetaData } from "../../../types/Quiz/Quiz";
 
 type Actions = {
   setQuestions: (questions: FullInfoQuestion[]) => void;
-  setUserAnswers: (userAnswers: (string | null)[]) => void;
+  setUserAnswers: (userAnswers: (string | undefined)[]) => void;
   setQuizMetaData: (quizMetaData: QuizMetaData) => void;
   setCurrentQuestionIndex: (index: number) => void;
   setRemainingTime: (time: number) => void;
@@ -15,7 +15,7 @@ type Actions = {
 const initialState: Quiz = {
   questions: [],
   userAnswers: [],
-  quizMetaData: null,
+  quizMetaData: undefined,
   currentQuestionIndex: 0,
   remainingTime: 0,
 };
