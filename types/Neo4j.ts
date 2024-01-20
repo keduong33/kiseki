@@ -1,5 +1,5 @@
 import { DateTime, Integer, Node, Relationship } from "neo4j-driver";
-import type { SubTopic, Subject, Topic } from "./Subject/Subject";
+import type { Skill, SubTopic, Subject, Topic } from "./Subject/Subject";
 
 type StudentProperties = {
   id: string;
@@ -7,10 +7,10 @@ type StudentProperties = {
 
 export type Neo4jUser = Node<Integer, StudentProperties>;
 
-export type Neo4jResultTopicSubtopic = {
+export type Neo4jResult = {
   result: ResultNode;
-  level: "Topic" | "Subtopic";
-  resultType: TopicNode | SubtopicNode;
+  level: "Topic" | "Subtopic" | "Skill";
+  resultType: TopicNode | SubtopicNode | SkillNode;
   stats: StatsRelationship;
 };
 
@@ -36,6 +36,13 @@ export type SubtopicNode = Node<
   Integer,
   {
     subtopic: SubTopic;
+  }
+>;
+
+export type SkillNode = Node<
+  Integer,
+  {
+    skill: Skill;
   }
 >;
 

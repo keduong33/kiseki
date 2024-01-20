@@ -1,20 +1,22 @@
 import type { QueryResult } from "neo4j-driver";
 
 import type {
-  Neo4jResultTopicSubtopic,
+  Neo4jResult,
   ResultStatistics,
+  SkillNode,
   SubtopicNode,
   TopicNode,
 } from "../../../../types/Neo4j";
 import type {
   AnalysedResult,
-  AnalysedSubtopics,
-  AnalysedTopics,
+  AnalysedSkill,
+  AnalysedSubtopic,
+  AnalysedTopic,
 } from "../../../../types/Quiz/Result";
-import type { SubTopic, Topic } from "../../../../types/Subject/Subject";
+import type { Skill, SubTopic, Topic } from "../../../../types/Subject/Subject";
 
 export const convertNeo4jResult = (
-  neo4jResponse: QueryResult<Neo4jResultTopicSubtopic>
+  neo4jResponse: QueryResult<Neo4jResult>
 ): AnalysedResult[] => {
   const resultMap: Map<string, AnalysedResult> = new Map();
 
@@ -26,28 +28,10 @@ export const convertNeo4jResult = (
 
     const currentAnalysedResult = resultMap.get(result.id);
 
-    // TODO: Maybe Subtopic is Topic with a boolean or something --> less label
-
-    if (currentAnalysedResult) {
-      if (!currentAnalysedResult.topics) currentAnalysedResult.topics = [];
-      if (!currentAnalysedResult.subtopics)
-        currentAnalysedResult.subtopics = [];
-
-      if (level == "Topic") {
-        resultType = resultType as TopicNode;
-        currentAnalysedResult.topics.push(
-          convertToAnalysedTopic(resultType.properties.topic, stats)
-        );
-      }
-      if (level == "Subtopic") {
-        resultType = resultType as SubtopicNode;
-        currentAnalysedResult.subtopics.push(
-          convertToAnalysedSubtopic(resultType.properties.subtopic, stats)
-        );
-      }
-    } else {
-      let analysedTopics: AnalysedTopics[] = [];
-      let analysedSubtopics: AnalysedSubtopics[] = [];
+    if (!currentAnalysedResult) {
+      let analysedTopics: AnalysedTopic[] = [];
+      let analysedSubtopics: AnalysedSubtopic[] = [];
+      let analysedSkills: AnalysedSkill[] = [];
 
       if (level == "Topic") {
         resultType = resultType as TopicNode;
@@ -61,16 +45,48 @@ export const convertNeo4jResult = (
           convertToAnalysedSubtopic(resultType.properties.subtopic, stats)
         );
       }
+      if (level === "Skill") {
+        resultType = resultType as SkillNode;
+        analysedSkills.push(
+          convertToAnalysedSkill(resultType.properties.skill, stats)
+        );
+      }
 
       const newAnalysedResult = {
         subject: result.subject,
         createdAt: result.createdAt.toString(),
         topics: analysedTopics,
         subtopics: analysedSubtopics,
+        skills: analysedSkills,
         totalNumberOfCorrectAnswers: result.totalNumberOfCorrectAnswers,
         totalNumberOfQuestions: result.totalNumberOfQuestions,
       } satisfies AnalysedResult;
       resultMap.set(result.id, newAnalysedResult);
+    } else {
+      if (!currentAnalysedResult.topics) currentAnalysedResult.topics = [];
+      if (!currentAnalysedResult.subtopics)
+        currentAnalysedResult.subtopics = [];
+      if (!currentAnalysedResult.skills) currentAnalysedResult.skills = [];
+
+      if (level == "Topic") {
+        resultType = resultType as TopicNode;
+        currentAnalysedResult.topics.push(
+          convertToAnalysedTopic(resultType.properties.topic, stats)
+        );
+      }
+      if (level == "Subtopic") {
+        resultType = resultType as SubtopicNode;
+        currentAnalysedResult.subtopics.push(
+          convertToAnalysedSubtopic(resultType.properties.subtopic, stats)
+        );
+      }
+
+      if (level === "Skill") {
+        resultType = resultType as SkillNode;
+        currentAnalysedResult.skills.push(
+          convertToAnalysedSkill(resultType.properties.skill, stats)
+        );
+      }
     }
   });
 
@@ -82,21 +98,32 @@ export const convertNeo4jResult = (
 const convertToAnalysedTopic = (
   topic: Topic,
   hasTopic: ResultStatistics
-): AnalysedTopics => {
+): AnalysedTopic => {
   return {
     topic: topic,
     numberOfCorrectAnswers: hasTopic.numberOfCorrectAnswers,
     numberOfQuestions: hasTopic.numberOfQuestions,
-  } satisfies AnalysedTopics;
+  } satisfies AnalysedTopic;
 };
 
 const convertToAnalysedSubtopic = (
   subtopic: SubTopic,
   hasTopic: ResultStatistics
-): AnalysedSubtopics => {
+): AnalysedSubtopic => {
   return {
     subtopic: subtopic,
     numberOfCorrectAnswers: hasTopic.numberOfCorrectAnswers,
     numberOfQuestions: hasTopic.numberOfQuestions,
-  } satisfies AnalysedSubtopics;
+  } satisfies AnalysedSubtopic;
+};
+
+const convertToAnalysedSkill = (
+  skill: Skill,
+  hasTopic: ResultStatistics
+): AnalysedSkill => {
+  return {
+    skill: skill,
+    numberOfCorrectAnswers: hasTopic.numberOfCorrectAnswers,
+    numberOfQuestions: hasTopic.numberOfQuestions,
+  } satisfies AnalysedSkill;
 };

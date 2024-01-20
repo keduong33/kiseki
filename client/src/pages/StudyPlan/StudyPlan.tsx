@@ -1,5 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import dayjs from "dayjs";
+import { backendEndpoint } from "../../../../types/endpoints";
+import type { AnalysedResult } from "../../../../types/Quiz/Result";
 import {
+  type Skill,
   type Subject,
   type SubTopic,
   type Topic,
@@ -12,8 +17,9 @@ const today = dayjs();
 
 export type ToStudyTopic = {
   subject: Subject;
-  topic: Topic;
+  topic?: Topic;
   subtopic?: SubTopic;
+  skill?: Skill;
 };
 
 const mockToStudyTopics: ToStudyTopic[] = [];
@@ -21,6 +27,14 @@ const mockToStudyTopics: ToStudyTopic[] = [];
 function StudyPlan() {
   const maxStudyDays = 7;
   const maxTopicPerDay = 2;
+
+  const query = useQuery({
+    queryKey: ["results"],
+    queryFn: async () => {
+      const response = await axios.get(`${backendEndpoint.getStudentResult}`);
+      return response.data as AnalysedResult;
+    },
+  });
 
   const studyDays: Array<dayjs.Dayjs> = Array.from(
     { length: maxStudyDays },
