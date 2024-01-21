@@ -20,6 +20,11 @@ const analyseQuiz = (markedQuiz: MarkedQuiz): UISafeReturn<AnalysedResult> => {
 
   const analysedSkills = analyseBasedOnSkills(markedQuiz.questions);
 
+  const totalNumberOfCorrectAnswers = markedQuiz.questions.reduce(
+    (sum, question) => (question.markedCorrect ? sum + 1 : sum),
+    0
+  );
+
   // TODO: multiple subjects?
   const subject = markedQuiz.questions[0].subject;
 
@@ -27,8 +32,8 @@ const analyseQuiz = (markedQuiz: MarkedQuiz): UISafeReturn<AnalysedResult> => {
     topics: analysedTopics,
     subtopics: analysedSubtopics,
     skills: analysedSkills,
-    totalNumberOfQuestions: markedQuiz.numberOfQuestions,
-    totalNumberOfCorrectAnswers: markedQuiz.numberOfCorrectAnswers,
+    totalNumberOfQuestions: markedQuiz.questions.length,
+    totalNumberOfCorrectAnswers: totalNumberOfCorrectAnswers,
     subject: subject,
   } satisfies AnalysedResult);
 };

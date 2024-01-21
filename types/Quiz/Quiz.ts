@@ -11,12 +11,16 @@ export type Quiz = {
   currentQuestionIndex: number;
 
   remainingTime: number;
+
+  startTimeStamp: Date | undefined;
+
+  endTimeStamp: Date | undefined;
 };
 
 export type MarkedQuiz = {
   questions: MarkedQuestion[];
-  numberOfCorrectAnswers: number;
-  numberOfQuestions: number;
+  startTimeStamp: Date;
+  endTimeStamp: Date;
 };
 
 export type QuizMetaData = {

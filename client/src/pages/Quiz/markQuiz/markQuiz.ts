@@ -12,7 +12,9 @@ import { convertCharToNumber } from "../commonQuizFunctions";
 
 export const markQuiz = (
   userAnswers: (string | undefined)[],
-  questions: FullInfoQuestion[]
+  questions: FullInfoQuestion[],
+  startTimeStamp: Date,
+  endTimeStamp: Date
 ): UISafeReturn<MarkedQuiz> => {
   if (userAnswers.length <= 0) {
     return uiSafeError(new Error("User Answers do not exist"));
@@ -26,7 +28,6 @@ export const markQuiz = (
     return uiSafeError(new Error("Invalid user answer lists"));
   }
 
-  let numberOfCorrectAnswers = 0;
   const markedQuestions: MarkedQuestion[] = [];
 
   // Assumptions: Questions & Answers are saved in the same order
@@ -51,7 +52,6 @@ export const markQuiz = (
       userAnswer === question.options[correctAnswerIndex] ||
       userAnswer === question.optionImageUrls[correctAnswerIndex];
 
-    if (isCorrect) numberOfCorrectAnswers += 1;
     const markedQuestion = {
       ...question,
       markedCorrect: isCorrect,
@@ -62,8 +62,8 @@ export const markQuiz = (
 
   const markedQuiz: MarkedQuiz = {
     questions: markedQuestions,
-    numberOfCorrectAnswers: numberOfCorrectAnswers,
-    numberOfQuestions: markedQuestions.length,
+    startTimeStamp: startTimeStamp,
+    endTimeStamp: endTimeStamp,
   } satisfies MarkedQuiz;
 
   return uiSafeResult(markedQuiz);
