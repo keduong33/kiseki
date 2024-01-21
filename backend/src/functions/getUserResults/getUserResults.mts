@@ -30,18 +30,18 @@ export default async (req: Request, context: Context) => {
     const res = await session.executeRead((tx: ManagedTransaction) =>
       tx.run<Neo4jResult>(
         `
-        MATCH (s:Student {id:$userID})-[:TOOK_QUIZ]->(result:Result)
-        WITH result
-        MATCH (result)-[stats]->(resultType:Topic|Subtopic|Skill)
-        RETURN result, LABELS(resultType)[0] as level, stats, resultType`,
+        MATCH (s:Student {id:$userID})-[attempt:ATTEMPT]->(question:Question)
+        WITH question, attempt
+        MATCH (question)-[]->(skill:Skill)
+        RETURN attempt, skill`,
         {
           userID: userID,
         }
       )
     );
-    const convertedResults = convertNeo4jResult(res);
+    const analysedSkills = convertNeo4jResult(res);
 
-    return Response.json(convertedResults, { status: 200 });
+    return Response.json(analysedSkills, { status: 200 });
   } catch (error) {
     const e = error as Neo4jError;
     console.error("Failed in getUserResult", e.message);

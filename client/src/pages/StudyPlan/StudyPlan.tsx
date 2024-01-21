@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import dayjs from "dayjs";
-import type { AnalysedResult } from "../../../../types/Quiz/Result";
+import type { AnalysedSkill } from "../../../../types/Quiz/Result";
 import {
   type Skill,
   type Subject,
@@ -34,7 +34,7 @@ function StudyPlan() {
     queryKey: ["results"],
     queryFn: async () => {
       const response = await axios.get(`${backendEndpoint.getStudentResult}`);
-      return response.data as AnalysedResult[];
+      return response.data as AnalysedSkill[];
     },
   });
 

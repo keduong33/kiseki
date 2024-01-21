@@ -1,129 +1,46 @@
 import type { QueryResult } from "neo4j-driver";
 
-import type {
-  Neo4jResult,
-  ResultStatistics,
-  SkillNode,
-  SubtopicNode,
-  TopicNode,
-} from "../../../../types/Neo4j";
-import type {
-  AnalysedResult,
-  AnalysedSkill,
-  AnalysedSubtopic,
-  AnalysedTopic,
-} from "../../../../types/Quiz/Result";
-import type { Skill, Subtopic, Topic } from "../../../../types/Subject/Subject";
+import type { Neo4jResult } from "../../../../types/Neo4j";
+import type { AnalysedSkill, Proficiency } from "../../../../types/Quiz/Result";
+import type { Skill } from "../../../../types/Subject/Subject";
+
+//TODO: multiple topics, subtopics, skills on 1 attempt
 
 export const convertNeo4jResult = (
   neo4jResponse: QueryResult<Neo4jResult>
-): AnalysedResult[] => {
-  const resultMap: Map<string, AnalysedResult> = new Map();
+): AnalysedSkill[] => {
+  const skillsProficiency: Map<Skill, Proficiency> = new Map();
 
   neo4jResponse.records.forEach((record) => {
-    const result = record.get("result")?.properties;
-    const level = record.get("level");
-    let resultType = record.get("resultType");
-    const stats = record.get("stats")?.properties;
+    const skill = record.get("skill").properties;
+    const attempt = record.get("attempt")?.properties;
 
-    const currentAnalysedResult = resultMap.get(result.id);
+    const currentProficiency = skillsProficiency.get(skill.skill);
 
-    if (!currentAnalysedResult) {
-      let analysedTopics: AnalysedTopic[] = [];
-      let analysedSubtopics: AnalysedSubtopic[] = [];
-      let analysedSkills: AnalysedSkill[] = [];
+    if (!currentProficiency) {
+      const updatedProficiency = {
+        correctAttempts: attempt.correct ? 1 : 0,
+        totalAttempts: 1,
+      } satisfies Proficiency;
 
-      if (level == "Topic") {
-        resultType = resultType as TopicNode;
-        analysedTopics.push(
-          convertToAnalysedTopic(resultType.properties.topic, stats)
-        );
-      }
-      if (level == "Subtopic") {
-        resultType = resultType as SubtopicNode;
-        analysedSubtopics.push(
-          convertToAnalysedSubtopic(resultType.properties.subtopic, stats)
-        );
-      }
-      if (level === "Skill") {
-        resultType = resultType as SkillNode;
-        analysedSkills.push(
-          convertToAnalysedSkill(resultType.properties.skill, stats)
-        );
-      }
-
-      const newAnalysedResult = {
-        subject: result.subject,
-        createdAt: result.createdAt.toString(),
-        topics: analysedTopics,
-        subtopics: analysedSubtopics,
-        skills: analysedSkills,
-        totalNumberOfCorrectAnswers: result.totalNumberOfCorrectAnswers,
-        totalNumberOfQuestions: result.totalNumberOfQuestions,
-      } satisfies AnalysedResult;
-      resultMap.set(result.id, newAnalysedResult);
+      skillsProficiency.set(skill.skill, updatedProficiency);
     } else {
-      if (!currentAnalysedResult.topics) currentAnalysedResult.topics = [];
-      if (!currentAnalysedResult.subtopics)
-        currentAnalysedResult.subtopics = [];
-      if (!currentAnalysedResult.skills) currentAnalysedResult.skills = [];
+      const updatedProficiency = {
+        correctAttempts: attempt.correct
+          ? currentProficiency.correctAttempts + 1
+          : currentProficiency.correctAttempts,
+        totalAttempts: currentProficiency.totalAttempts + 1,
+      } satisfies Proficiency;
 
-      if (level == "Topic") {
-        resultType = resultType as TopicNode;
-        currentAnalysedResult.topics.push(
-          convertToAnalysedTopic(resultType.properties.topic, stats)
-        );
-      }
-      if (level == "Subtopic") {
-        resultType = resultType as SubtopicNode;
-        currentAnalysedResult.subtopics.push(
-          convertToAnalysedSubtopic(resultType.properties.subtopic, stats)
-        );
-      }
-
-      if (level === "Skill") {
-        resultType = resultType as SkillNode;
-        currentAnalysedResult.skills.push(
-          convertToAnalysedSkill(resultType.properties.skill, stats)
-        );
-      }
+      skillsProficiency.set(skill.skill, updatedProficiency);
     }
   });
 
-  const analysedResults: AnalysedResult[] = Array.from(resultMap.values());
-
-  return analysedResults;
-};
-
-const convertToAnalysedTopic = (
-  topic: Topic,
-  hasTopic: ResultStatistics
-): AnalysedTopic => {
-  return {
-    topic: topic,
-    numberOfCorrectAnswers: hasTopic.numberOfCorrectAnswers,
-    numberOfQuestions: hasTopic.numberOfQuestions,
-  } satisfies AnalysedTopic;
-};
-
-const convertToAnalysedSubtopic = (
-  subtopic: Subtopic,
-  hasTopic: ResultStatistics
-): AnalysedSubtopic => {
-  return {
-    subtopic: subtopic,
-    numberOfCorrectAnswers: hasTopic.numberOfCorrectAnswers,
-    numberOfQuestions: hasTopic.numberOfQuestions,
-  } satisfies AnalysedSubtopic;
-};
-
-const convertToAnalysedSkill = (
-  skill: Skill,
-  hasTopic: ResultStatistics
-): AnalysedSkill => {
-  return {
-    skill: skill,
-    numberOfCorrectAnswers: hasTopic.numberOfCorrectAnswers,
-    numberOfQuestions: hasTopic.numberOfQuestions,
-  } satisfies AnalysedSkill;
+  return Array.from(skillsProficiency).map((skillProficiency) => {
+    return {
+      skill: skillProficiency[0],
+      correctAttempts: skillProficiency[1].correctAttempts,
+      totalAttempts: skillProficiency[1].totalAttempts,
+    } satisfies AnalysedSkill;
+  });
 };
