@@ -70,8 +70,8 @@ const analyseResultsBasedOnTopic = (markedQuestionsList: MarkedQuestion[]) => {
 
     analysedTopics.push({
       topic: topic as Topic,
-      numberOfCorrectAnswers: numberOfCorrectAnswersByTopic.get(topic) ?? 0,
-      numberOfQuestions: numberOfQuestionsByTopic.get(topic) ?? 0,
+      correctAttempts: numberOfCorrectAnswersByTopic.get(topic) ?? 0,
+      totalAttempts: numberOfQuestionsByTopic.get(topic) ?? 0,
     } satisfies AnalysedTopic);
   }
 
@@ -109,9 +109,8 @@ const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
 
     analysedSubtopics.push({
       subtopic: subtopic as Subtopic,
-      numberOfCorrectAnswers:
-        numberOfCorrectAnswersBySubtopic.get(subtopic) ?? 0,
-      numberOfQuestions: numberOfQuestionsBySubtopic.get(subtopic) ?? 0,
+      correctAttempts: numberOfCorrectAnswersBySubtopic.get(subtopic) ?? 0,
+      totalAttempts: numberOfQuestionsBySubtopic.get(subtopic) ?? 0,
     } satisfies AnalysedSubtopic);
   }
 
@@ -149,8 +148,8 @@ const analyseBasedOnSkills = (markedQuestionsList: MarkedQuestion[]) => {
 
     analysedSkills.push({
       skill: skill as Skill,
-      numberOfCorrectAnswers: numberOfCorrectAnswersBySkill.get(skill) ?? 0,
-      numberOfQuestions: numberOfQuestionsBySkill.get(skill) ?? 0,
+      correctAttempts: numberOfCorrectAnswersBySkill.get(skill) ?? 0,
+      totalAttempts: numberOfQuestionsBySkill.get(skill) ?? 0,
     } satisfies AnalysedSkill);
   }
 

@@ -2,20 +2,14 @@ import type { Skill, Subject, Subtopic, Topic } from "../Subject/Subject";
 
 export type AnalysedTopic = {
   topic: Topic;
-  numberOfCorrectAnswers: number;
-  numberOfQuestions: number;
-};
+} & Proficiency;
 export type AnalysedSubtopic = {
   subtopic: Subtopic;
-  numberOfCorrectAnswers: number;
-  numberOfQuestions: number;
-};
+} & Proficiency;
 
 export type AnalysedSkill = {
   skill: Skill;
-  numberOfCorrectAnswers: number;
-  numberOfQuestions: number;
-};
+} & Proficiency;
 
 export type AnalysedResult = {
   subject?: Subject;
@@ -25,4 +19,9 @@ export type AnalysedResult = {
   totalNumberOfCorrectAnswers: number;
   totalNumberOfQuestions: number;
   createdAt?: string;
+};
+
+export type Proficiency = {
+  correctAttempts: number;
+  totalAttempts: number;
 };

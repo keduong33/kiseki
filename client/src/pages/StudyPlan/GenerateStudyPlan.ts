@@ -15,7 +15,7 @@ export const generateStudyPlan = (results: AnalysedResult[]): ToStudy[] => {
       const topic = result.topics ? result.topics[0].topic : "";
       const subtopic = result.subtopics ? result.subtopics[0].subtopic : "";
 
-      const skillScore = skill.numberOfCorrectAnswers / skill.numberOfQuestions;
+      const skillScore = skill.correctAttempts / skill.totalAttempts;
 
       const key = `${result.subject}:${topic}:${subtopic}:${skill.skill}`;
 
