@@ -41,19 +41,19 @@ const analyseResultsBasedOnTopic = (markedQuestionsList: MarkedQuestion[]) => {
     const topic = question.topic;
 
     numberOfQuestionsByTopic.set(
-      topic,
-      (numberOfQuestionsByTopic.get(topic) ?? 0) + 1
+      topic[0],
+      (numberOfQuestionsByTopic.get(topic[0]) ?? 0) + 1
     );
 
     if (question.markedCorrect) {
       numberOfCorrectAnswersByTopic.set(
-        topic,
-        (numberOfCorrectAnswersByTopic.get(topic) ?? 0) + 1
+        topic[0],
+        (numberOfCorrectAnswersByTopic.get(topic[0]) ?? 0) + 1
       );
     } else {
       numberOfCorrectAnswersByTopic.set(
-        topic,
-        numberOfCorrectAnswersByTopic.get(topic) ?? 0
+        topic[0],
+        numberOfCorrectAnswersByTopic.get(topic[0]) ?? 0
       );
     }
   });
