@@ -1,4 +1,4 @@
-import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
+import type { Skill, Subject, Subtopic, Topic } from "../Subject/Subject";
 
 export type ParsedFromCSVQuestion = {
   Name: string;
@@ -19,26 +19,25 @@ export type ParsedFromCSVQuestion = {
   Topic: string;
   Subtopic: string;
   Skill: string;
-  "Time in ms": number;
-  "Randomise Options": boolean;
+  "Time in s": number;
 };
 
 export type QuizQuestion = {
-  id: string;
-  name: string;
-  content: string;
-  options: (string | null)[];
-  optionImageUrls: (string | null)[];
-  timeInMs: number;
-  randomiseOptions: boolean;
+  id?: string;
+  question: string;
+  options: (string | undefined)[];
+  optionImageUrls: (string | undefined)[];
+  timeInS: number;
 };
 
+//TODO: Revise
+//Current state: the app can only deal with 1 topic, 1 subtopic, 1 skill for now
 export type FullInfoQuestion = QuizQuestion & {
   correctOptions: string[];
-  feedback: string;
+  feedback?: string;
   subject: Subject;
-  topic: Topic;
-  subtopics: SubTopic[];
+  topics: Topic[];
+  subtopics: Subtopic[];
   skills: Skill[];
 };
 
@@ -47,27 +46,31 @@ export type MarkedQuestion = FullInfoQuestion & {
 };
 
 export type QuestionFromBackend = {
-  id: string;
-  name: string;
-  content: string;
-  option_a: string;
-  option_b: string;
-  option_c: string;
-  option_d: string;
-  option_e: string;
-  option_a_image_url: string;
-  option_b_image_url: string;
-  option_c_image_url: string;
-  option_d_image_url: string;
-  option_e_image_url: string;
+  id?: string;
+  question: string;
+
+  option_a?: string;
+  option_b?: string;
+  option_c?: string;
+  option_d?: string;
+  option_e?: string;
+  option_a_image_url?: string;
+  option_b_image_url?: string;
+  option_c_image_url?: string;
+  option_d_image_url?: string;
+  option_e_image_url?: string;
+
   correct_options: string;
-  feedback: string;
+  feedback?: string;
+  time_in_s?: string;
+
   subject: string;
-  topic: string | null;
-  subtopic: string | null;
-  skill: string | null;
-  time_in_ms: number;
-  randomise_options: boolean;
+  topic: string;
+  subtopic: string;
+  skill: string;
+
+  difficulty?: string;
+  curriculum?: string;
 };
 
 export const convertBackendQuestionToFullInfo = (
@@ -75,8 +78,7 @@ export const convertBackendQuestionToFullInfo = (
 ): FullInfoQuestion => {
   const question = {
     id: inputQuestion.id,
-    name: inputQuestion.name,
-    content: inputQuestion.content,
+    question: inputQuestion.question,
     options: [
       inputQuestion.option_a,
       inputQuestion.option_b,
@@ -94,11 +96,10 @@ export const convertBackendQuestionToFullInfo = (
     correctOptions: inputQuestion.correct_options.split(","),
     feedback: inputQuestion.feedback,
     subject: inputQuestion.subject as Subject,
-    topic: inputQuestion.topic as Topic,
-    subtopics: inputQuestion.subtopic?.split(",") as SubTopic[],
-    skills: inputQuestion.skill?.split(",") as Skill[],
-    timeInMs: inputQuestion.time_in_ms,
-    randomiseOptions: inputQuestion.randomise_options,
+    topics: inputQuestion.topic.split(",") as Topic[],
+    subtopics: inputQuestion.subtopic.split(",") as Subtopic[],
+    skills: inputQuestion.skill.split(",") as Skill[],
+    timeInS: parseInt(inputQuestion.time_in_s ?? "0"),
   } satisfies FullInfoQuestion;
   return question;
 };
@@ -108,8 +109,7 @@ export const convertParsedQuestionToFullInfo = (
 ): FullInfoQuestion => {
   const question = {
     id: "",
-    name: parsedQuestion["Name"],
-    content: parsedQuestion["Question"],
+    question: parsedQuestion["Question"],
     options: [
       parsedQuestion["Option A"],
       parsedQuestion["Option B"],
@@ -127,11 +127,10 @@ export const convertParsedQuestionToFullInfo = (
     correctOptions: parsedQuestion["Correct Options"].split(","),
     feedback: parsedQuestion["Feedback"],
     subject: parsedQuestion.Subject as Subject,
-    topic: parsedQuestion.Topic as Topic,
-    subtopics: parsedQuestion.Subtopic.split(",") as SubTopic[],
+    topics: parsedQuestion.Topic.split(",") as Topic[],
+    subtopics: parsedQuestion.Subtopic.split(",") as Subtopic[],
     skills: parsedQuestion.Skill.split(",") as Skill[],
-    timeInMs: parsedQuestion["Time in ms"],
-    randomiseOptions: parsedQuestion["Randomise Options"],
+    timeInS: parsedQuestion["Time in s"],
   } satisfies FullInfoQuestion;
   return question;
 };

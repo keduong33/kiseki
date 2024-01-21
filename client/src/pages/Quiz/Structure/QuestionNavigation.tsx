@@ -5,15 +5,23 @@ import {
   CardHeader,
 } from "../../../components/shadcn/ui/card";
 import { useQuizState } from "../../../states/Quiz.state";
+import { SubmitQuizButton } from "../SubmitQuizButton";
 import { convertArrayIndexToQuestionIndex } from "../commonQuizFunctions";
 
 function QuestionNavigation() {
-  const [questions, currentQuestionIndex, setCurrentQuestionIndex] =
-    useQuizState((state) => [
-      state.questions,
-      state.currentQuestionIndex,
-      state.setCurrentQuestionIndex,
-    ]);
+  const [
+    questions,
+    currentQuestionIndex,
+    setCurrentQuestionIndex,
+    userAnswers,
+  ] = useQuizState((state) => [
+    state.questions,
+    state.currentQuestionIndex,
+    state.setCurrentQuestionIndex,
+    state.userAnswers,
+  ]);
+
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   const changeQuestion = (newQuestionIndex: number) => {
     setCurrentQuestionIndex(newQuestionIndex);
@@ -29,6 +37,8 @@ function QuestionNavigation() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
+  const ButtonStyles = "w-[100px] font-semibold";
+
   return (
     <div className="flex flex-col gap-2">
       <Card className="w-[240px] h-fit">
@@ -39,6 +49,8 @@ function QuestionNavigation() {
               className={`border-2 rounded-md w-[30px] h-[30px] flex items-center align-middle justify-center cursor-pointer font-semibold ${
                 index === currentQuestionIndex
                   ? "bg-gradient-to-r from-[#2E48F5] via-[#765CFA] to-[#CE73FF]"
+                  : userAnswers[index]
+                  ? "bg-green-400"
                   : ""
               }`}
               onClick={() => changeQuestion(index)}
@@ -52,18 +64,19 @@ function QuestionNavigation() {
       <div className="flex justify-between w-full gap-3 md:justify-center">
         <KisekiButton
           onClick={prevQuestion}
-          className="w-[100px] font-semibold"
+          className={ButtonStyles}
           variant={"secondary"}
         >
           Back
         </KisekiButton>
 
-        <KisekiButton
-          onClick={nextQuestion}
-          className="w-[100px] font-semibold"
-        >
-          {currentQuestionIndex === questions.length - 1 ? "Submit" : "Next"}
-        </KisekiButton>
+        {isLastQuestion ? (
+          <SubmitQuizButton className={ButtonStyles} />
+        ) : (
+          <KisekiButton onClick={nextQuestion} className={ButtonStyles}>
+            Next
+          </KisekiButton>
+        )}
       </div>
     </div>
   );

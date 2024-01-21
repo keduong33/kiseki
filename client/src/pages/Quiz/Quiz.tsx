@@ -1,4 +1,8 @@
+import { useState } from "react";
+import { useBlocker } from "react-router-dom";
+import { PageLocation } from "../../../../types/PageLocation";
 import { useQuizState } from "../../states/Quiz.state";
+import LeaveMidQuizDialog from "./LeaveMidQuizDialog";
 import AnswerOptions from "./Structure/AnswerOptions";
 import Question from "./Structure/Question";
 import QuestionNavigation from "./Structure/QuestionNavigation";
@@ -11,6 +15,17 @@ function Quiz() {
   ]);
 
   const currentQuestion = questions[currentQuestionIndex];
+  const [showLeaveQuizDialog, setShowLeaveQuizDialog] = useState(false);
+
+  const blocker = useBlocker(({ nextLocation }) => {
+    if (nextLocation.pathname === PageLocation.QuizSummary) return false;
+
+    if (nextLocation.pathname === PageLocation.DiagnosticQuiz) {
+      setShowLeaveQuizDialog(true);
+      return true;
+    }
+    return true;
+  });
 
   return (
     <>
@@ -30,6 +45,11 @@ function Quiz() {
           </div>
         </div>
       )}
+      <LeaveMidQuizDialog
+        show={showLeaveQuizDialog}
+        setShow={setShowLeaveQuizDialog}
+        blocker={blocker}
+      />
     </>
   );
 }

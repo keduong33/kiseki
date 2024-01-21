@@ -1,6 +1,6 @@
 import type { Config, Context } from "@netlify/functions";
 import type { ManagedTransaction, Neo4jError } from "neo4j-driver";
-import type { Neo4jResultTopicSubtopic } from "../../../../types/Neo4j";
+import type { Neo4jResult } from "../../../../types/Neo4j";
 import { initNeo4jDriver } from "../../common/neo4jDriver";
 import { Response500 } from "../../common/responseTemplate";
 import { verifyClientToken } from "../../common/verifyClientToken";
@@ -28,20 +28,20 @@ export default async (req: Request, context: Context) => {
   try {
     // TODO: different filters
     const res = await session.executeRead((tx: ManagedTransaction) =>
-      tx.run<Neo4jResultTopicSubtopic>(
+      tx.run<Neo4jResult>(
         `
-        MATCH (s:Student {id:$userID})-[:TOOK_QUIZ]->(result:Result)
-        WITH result
-        MATCH (result)-[stats]->(resultType:Topic|Subtopic)
-        RETURN result, LABELS(resultType)[0] as level, stats, resultType`,
+        MATCH (s:Student {id:$userID})-[attempt:ATTEMPT]->(question:Question)
+        WITH question, attempt
+        MATCH (question)-[]->(skill:Skill)
+        RETURN attempt, skill`,
         {
           userID: userID,
         }
       )
     );
-    const convertedResults = convertNeo4jResult(res);
+    const analysedSkills = convertNeo4jResult(res);
 
-    return Response.json(convertedResults, { status: 200 });
+    return Response.json(analysedSkills, { status: 200 });
   } catch (error) {
     const e = error as Neo4jError;
     console.error("Failed in getUserResult", e.message);
@@ -57,5 +57,5 @@ export default async (req: Request, context: Context) => {
 };
 
 export const config: Config = {
-  path: "/api/get-results",
+  path: "/api/get-student-results",
 };

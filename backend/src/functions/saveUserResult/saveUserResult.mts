@@ -1,6 +1,6 @@
 import type { Config, Context } from "@netlify/functions";
 import { DateTime, ManagedTransaction, Neo4jError } from "neo4j-driver";
-import type { AnalysedResult } from "../../../../types/Quiz/Result";
+import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
 import { initNeo4jDriver } from "../../common/neo4jDriver";
 import { Response500 } from "../../common/responseTemplate";
 import { verifyClientToken } from "../../common/verifyClientToken";
@@ -22,7 +22,7 @@ export default async (req: Request, context: Context) => {
     return Response500("There is no result to save");
   }
 
-  const analysedResult = (await req.json()) as AnalysedResult;
+  const markedQuiz = (await req.json()) as MarkedQuiz;
 
   const [driver, initError] = initNeo4jDriver();
 
@@ -36,54 +36,41 @@ export default async (req: Request, context: Context) => {
   const session = driver.session();
 
   try {
-    const now = new Date();
-    const neo4jDateTime = DateTime.fromStandardDate(now);
+    const neo4jStartDateTime = DateTime.fromStandardDate(
+      new Date(markedQuiz.startTimeStamp)
+    );
+    const neo4jEndDateTime = DateTime.fromStandardDate(
+      new Date(markedQuiz.endTimeStamp)
+    );
     const res = await session.executeWrite((tx: ManagedTransaction) =>
       tx.run(
         `
           MERGE (student:Student {id:$userID})
-          MERGE (result:Result {
-            id:$resultID, 
-            createdAt:$createdAt, 
-            totalNumberOfCorrectAnswers:$totalNumberOfCorrectAnswers, 
-            totalNumberOfQuestions:$totalNumberOfQuestions,
-            subject:$subject}
-            )
-          MERGE (student)-[tookQuiz:TOOK_QUIZ ]->(result)
 
-          WITH $topics as importedTopic, result
-          UNWIND importedTopic as topic
-          MERGE (t:Topic {topic:topic.topic})
-          MERGE (result)-[hasTopic:HAS_TOPIC {
-            numberOfQuestions:topic.numberOfQuestions,
-            numberOfCorrectAnswers:topic.numberOfCorrectAnswers
-          }]->(t)
+          WITH $questions as importedQuestions, student
+          UNWIND importedQuestions as importedQuestion
+          MERGE (question:Question {id:importedQuestion.id})
+          MERGE (student)-[:ATTEMPT {correct:importedQuestion.markedCorrect, startTimeStamp:$startTimeStamp, endTimeStamp:$endTimeStamp}]->(question)
 
-          WITH $subtopics as importedSubtopic, result, topic
-          UNWIND importedSubtopic as subtopic
-          MERGE (sub:Subtopic {subtopic:subtopic.subtopic})
-          MERGE (result)-[hasSubtopic:HAS_SUBTOPIC {
-            numberOfQuestions:subtopic.numberOfQuestions,
-            numberOfCorrectAnswers:subtopic.numberOfCorrectAnswers
-          }]->(sub)
+          WITH importedQuestion, question
+          // Handle skills
+          FOREACH (skill IN importedQuestion.skills |
+            MERGE (ski:Skill {skill: skill})
+            MERGE (question)-[:HAS_SKILL]->(ski)
+          ) 
         `,
         {
           userID: userID,
-          topics: analysedResult.topics,
-          subtopics: analysedResult.subtopics,
-          createdAt: neo4jDateTime,
-          resultID: `${userID}&${neo4jDateTime}`,
-          totalNumberOfCorrectAnswers:
-            analysedResult.totalNumberOfCorrectAnswers,
-          totalNumberOfQuestions: analysedResult.totalNumberOfQuestions,
-          subject: analysedResult.subject,
+          questions: markedQuiz.questions,
+          startTimeStamp: neo4jStartDateTime,
+          endTimeStamp: neo4jEndDateTime,
         }
       )
     );
   } catch (error) {
     const e = error as Neo4jError;
     console.error("Failed in saveUserResult", e.message);
-    return Response500("Cannot save your information");
+    return Response500("Cannot save your result");
   } finally {
     await session.close();
   }

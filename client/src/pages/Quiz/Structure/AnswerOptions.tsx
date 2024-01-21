@@ -7,8 +7,8 @@ const AnswerOptions = ({
   options,
   optionImageUrls,
 }: {
-  options: (string | null)[];
-  optionImageUrls: (string | null)[];
+  options?: (string | undefined)[];
+  optionImageUrls: (string | undefined)[];
 }) => {
   const [userAnswers, setUserAnswers, currentQuestionIndex] = useQuizState(
     (state) => [
@@ -18,7 +18,7 @@ const AnswerOptions = ({
     ]
   );
 
-  const saveAnswer = (studentAnswer: string | null) => {
+  const saveAnswer = (studentAnswer?: string) => {
     /*TODO: Add these features (multiple answers & shuffled questions):
         - save shuffled questions
         - save question with multiple answers
@@ -30,13 +30,12 @@ const AnswerOptions = ({
 
   return (
     <div className="flex flex-wrap justify-center w-[925px] gap-2 ">
-      {options.map((option, index) => {
+      {options?.map((option, index) => {
         const imageUrl = optionImageUrls[index];
 
         const isPicked =
-          (userAnswers[currentQuestionIndex] == option && option !== null) ||
-          (userAnswers[currentQuestionIndex] == optionImageUrls[index] &&
-            imageUrl !== null);
+          (option && userAnswers[currentQuestionIndex] == option) ||
+          (imageUrl && userAnswers[currentQuestionIndex] == imageUrl);
 
         return (
           <Card

@@ -1,55 +1,72 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import dayjs from "dayjs";
-import { MathsTopic } from "../../../../types/Subject/Math";
+import type { AnalysedSkill } from "../../../../types/Quiz/Result";
 import {
-  Subject,
-  type SubTopic,
+  type Skill,
+  type Subject,
+  type Subtopic,
   type Topic,
 } from "../../../../types/Subject/Subject";
+import { backendEndpoint } from "../../../../types/endpoints";
 import { PageHeader } from "../../components/kiseki/PageHeader";
+import { generateStudyPlan } from "./GenerateStudyPlan";
 import StudyCard from "./StudyCard";
 
 const dateFormat = "DD MMM YYYY";
 const today = dayjs();
 
-export type ToStudyTopic = {
+export type ToStudy = {
   subject: Subject;
   topic: Topic;
-  subtopic?: SubTopic;
+  subtopic: Subtopic;
+  skill: Skill;
 };
 
-const mockToStudyTopics: ToStudyTopic[] = [];
-
 function StudyPlan() {
-  const maxStudyDays = 7;
   const maxTopicPerDay = 2;
 
-  const studyDays: Array<dayjs.Dayjs> = Array.from(
-    { length: maxStudyDays },
-    (_value, daysAfter) => today.add(daysAfter, "day")
-  );
+  const {
+    data: results,
+    isError,
+    isPending,
+  } = useQuery({
+    queryKey: ["results"],
+    queryFn: async () => {
+      const response = await axios.get(`${backendEndpoint.getStudentResult}`);
+      return response.data as AnalysedSkill[];
+    },
+  });
 
-  const toStudyTopics: ToStudyTopic[] = mockToStudyTopics;
+  const toStudys: ToStudy[] | undefined = results && generateStudyPlan(results);
 
   return (
     <>
       <PageHeader className="pb-4">Study Plan</PageHeader>
-      <div>
-        {studyDays.map((day) => {
-          const isToday = day.date() === today.date();
-          return (
-            <div key={day.format(dateFormat)} className="w-fit">
-              <h3>
-                <span>
-                  {isToday && "Today "}
-                  {!isToday && `${day.format("dddd")} `}
-                </span>
-                {day.format(dateFormat)}
-              </h3>
-              <StudyCard subject={Subject.Maths} topic={MathsTopic.Algebra} />
-            </div>
-          );
-        })}
-      </div>
+      {isError && <>Failed to get your results. Please reload the page :)</>}
+
+      {!toStudys && !isPending && <p>There is nothing for you to study!</p>}
+
+      {isPending && <p>Loading your results...</p>}
+
+      {toStudys && (
+        <div key={today.format(dateFormat)} className="w-fit">
+          <h3></h3>
+          <div className="flex flex-col gap-4">
+            {toStudys.slice(0, maxTopicPerDay).map((toStudy, index) => {
+              return (
+                <StudyCard
+                  key={`toStudy-${index}`}
+                  subject={toStudy.subject}
+                  topic={toStudy.topic}
+                  subtopic={toStudy.subtopic}
+                  skill={toStudy.skill}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
     </>
   );
 }

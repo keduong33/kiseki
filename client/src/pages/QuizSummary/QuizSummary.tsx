@@ -1,10 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
 import HTMLReactParser from "html-react-parser";
 import { AwardIcon, HourglassIcon } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
-import type { AnalysedResult } from "../../../../types/Quiz/Result";
 import { backendEndpoint } from "../../../../types/endpoints";
 import KisekiButton from "../../components/kiseki/button";
 import {
@@ -28,6 +30,27 @@ import {
 } from "../Quiz/commonQuizFunctions";
 import analyseQuiz from "./analyseQuiz/analyseQuiz";
 
+dayjs.extend(updateLocale);
+dayjs.extend(relativeTime);
+
+dayjs.updateLocale("en", {
+  relativeTime: {
+    future: "%s",
+    past: "%s",
+    s: "%d seconds",
+    m: "%d minute",
+    mm: "%d minutes",
+    h: "an hour",
+    hh: "%d hours",
+    d: "a day",
+    dd: "%d days",
+    M: "a month",
+    MM: "%d months",
+    y: "a year",
+    yy: "%d years",
+  },
+});
+
 function QuizSummary() {
   const { state } = useLocation();
 
@@ -37,7 +60,7 @@ function QuizSummary() {
   ]);
 
   const saveResult = useMutation({
-    mutationFn: async (result: AnalysedResult) =>
+    mutationFn: async (result: MarkedQuiz) =>
       await axios.post(`${backendEndpoint.saveStudentResult}`, result),
     onSuccess(data) {
       console.log(data.data);
@@ -50,6 +73,9 @@ function QuizSummary() {
 
   const { result } = state;
   const markedQuiz = result as MarkedQuiz;
+  const timeTaken = dayjs(markedQuiz.endTimeStamp).from(
+    dayjs(markedQuiz.startTimeStamp)
+  );
 
   const [analysedResult, analysisError] = analyseQuiz(markedQuiz);
 
@@ -73,7 +99,7 @@ function QuizSummary() {
 
         <KisekiButton
           onClick={() => {
-            saveResult.mutate(analysedResult);
+            saveResult.mutate(markedQuiz);
           }}
           disabled={JSON.stringify(analysedResult) === "{}"}
         >
@@ -101,7 +127,7 @@ function QuizSummary() {
           </CardHeader>
           <CardContent>
             <HourglassIcon className="m-auto" />
-            <p className="pt-2">Incoming</p>
+            <p className="pt-2">{timeTaken}</p>
           </CardContent>
         </Card>
       </div>
@@ -135,7 +161,7 @@ function QuizSummary() {
                   {convertArrayIndexToQuestionIndex(index)}
                 </TableCell>
                 <TableCell className="2xl:max-w-[600px] max-w-[400px] px-2">
-                  {HTMLReactParser(markedQuestion.content)}
+                  {HTMLReactParser(markedQuestion.question)}
                 </TableCell>
                 <TableCell className="w-[300px]">
                   {answer?.includes("img") ? (
@@ -157,7 +183,7 @@ function QuizSummary() {
                   )}
                 </TableCell>
                 <TableCell className="w-[300px]">
-                  {correctAnswerIndexes.map((index) => {
+                  {correctAnswerIndexes?.map((index) => {
                     const textCorrectAnswer = markedQuestion.options[index];
                     const imageCorrectAnswer =
                       markedQuestion.optionImageUrls[index];

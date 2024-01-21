@@ -4,19 +4,23 @@ import type { FullInfoQuestion, MarkedQuestion } from "./Question";
 export type Quiz = {
   questions: FullInfoQuestion[];
 
-  userAnswers: (string | null)[];
+  userAnswers: (string | undefined)[];
 
-  quizMetaData: QuizMetaData | null;
+  quizMetaData: QuizMetaData | undefined;
 
   currentQuestionIndex: number;
 
   remainingTime: number;
+
+  startTimeStamp: Date | undefined;
+
+  endTimeStamp: Date | undefined;
 };
 
 export type MarkedQuiz = {
   questions: MarkedQuestion[];
-  numberOfCorrectAnswers: number;
-  numberOfQuestions: number;
+  startTimeStamp: Date;
+  endTimeStamp: Date;
 };
 
 export type QuizMetaData = {

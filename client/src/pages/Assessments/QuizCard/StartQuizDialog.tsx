@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../../components/shadcn/ui/dialog";
+import { useQuizState } from "../../../states/Quiz.state";
 
 function StartQuizDialog({
   showStartQuiz,
@@ -19,6 +20,12 @@ function StartQuizDialog({
   setShowStartQuiz: (open: boolean) => void;
 }) {
   const navigate = useNavigate();
+  const setStartTimeStamp = useQuizState((quiz) => quiz.setStartTimeStamp);
+
+  const startQuiz = () => {
+    setStartTimeStamp(new Date());
+    navigate(PageLocation.Quiz);
+  };
   return (
     <Dialog open={showStartQuiz} onOpenChange={setShowStartQuiz}>
       <DialogContent className="sm:max-w-md">
@@ -29,7 +36,7 @@ function StartQuizDialog({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2">
-          <Button onClick={() => navigate(PageLocation.Quiz)}>Let's go</Button>
+          <Button onClick={startQuiz}>Let's go</Button>
           <DialogClose asChild>
             <Button type="button" variant="secondary">
               Cancel

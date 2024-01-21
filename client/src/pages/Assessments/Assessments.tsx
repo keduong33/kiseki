@@ -7,7 +7,7 @@ import {
   type QuestionFromBackend,
 } from "../../../../types/Quiz/Question";
 import type { QuizMetaData } from "../../../../types/Quiz/Quiz";
-import { Subject } from "../../../../types/Subject/Subject";
+import type { Subject } from "../../../../types/Subject/Subject";
 import { backendEndpoint } from "../../../../types/endpoints";
 import { PageHeader } from "../../components/kiseki/PageHeader";
 import { useQuizState } from "../../states/Quiz.state";
@@ -20,27 +20,34 @@ function Assessments() {
     setUserAnswers,
     setCurrentQuestionIndex,
     setQuizMetaData,
+    resetQuizState,
   ] = useQuizState((state) => [
     state.setQuestions,
     state.setUserAnswers,
     state.setCurrentQuestionIndex,
     state.setQuizMetaData,
+    state.resetState,
   ]);
   const [showStartQuiz, setShowStartQuiz] = useState<boolean>(false);
   const [selectedSubject, setSelectedSubject] = useState<Subject | undefined>();
 
   const query = useQuery({
     queryKey: ["questions", selectedSubject],
-    queryFn: async () =>
-      await axios.get(
+    queryFn: async () => {
+      const response = await axios.get(
         `${backendEndpoint.getDiagnosticQuiz}/${selectedSubject}`
-      ),
+      );
+      return response.data as QuestionFromBackend[];
+    },
+
     enabled: !!selectedSubject,
     retry: 1,
     staleTime: 0,
+    select: (receivedQuestions) =>
+      receivedQuestions.map((question) =>
+        convertBackendQuestionToFullInfo(question)
+      ),
   });
-
-  const receivedQuestions = query.data?.data as QuestionFromBackend[];
 
   const setUpQuiz = (questions: FullInfoQuestion[], subject: Subject) => {
     const quizMetaData: QuizMetaData = {
@@ -59,18 +66,19 @@ function Assessments() {
 
   useEffect(() => {
     if (query.isSuccess && !query.isFetching && !!selectedSubject) {
-      if (receivedQuestions && receivedQuestions.length !== 0) {
-        const questions = receivedQuestions.map((question) =>
-          convertBackendQuestionToFullInfo(question)
-        );
+      if (query.data.length !== 0) {
         setShowStartQuiz(true);
-        setUpQuiz(questions, selectedSubject);
+        setUpQuiz(query.data, selectedSubject);
       }
       setSelectedSubject(undefined);
     } else if (!query.isSuccess && !query.isFetching && !!selectedSubject) {
       setSelectedSubject(undefined);
     }
   }, [query.isSuccess, query.isFetching, selectedSubject]);
+
+  useEffect(() => {
+    resetQuizState();
+  }, []);
 
   return (
     <>
@@ -81,35 +89,11 @@ function Assessments() {
       </div>
       <div className="grid grid-cols-1 gap-3 pt-8 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <DiagnosticQuizCard
-          subjectTitle={Subject["Mathematics"]}
+          subjectTitle={"Mathematics"}
           setSelectedSubject={setSelectedSubject}
           selectedSubject={selectedSubject}
           timeLimit={15}
           numberOfQuestions={30}
-        />
-        <DiagnosticQuizCard
-          subjectTitle={Subject["Numerical Reasoning"]}
-          setSelectedSubject={setSelectedSubject}
-          selectedSubject={selectedSubject}
-          timeLimit={15}
-        />
-        <DiagnosticQuizCard
-          subjectTitle={Subject["Reading Comprehension"]}
-          setSelectedSubject={setSelectedSubject}
-          selectedSubject={selectedSubject}
-          timeLimit={15}
-        />
-        <DiagnosticQuizCard
-          subjectTitle={Subject["Science Reasoning"]}
-          setSelectedSubject={setSelectedSubject}
-          selectedSubject={selectedSubject}
-          timeLimit={15}
-        />
-        <DiagnosticQuizCard
-          subjectTitle={Subject["Verbal Reasoning"]}
-          setSelectedSubject={setSelectedSubject}
-          selectedSubject={selectedSubject}
-          timeLimit={15}
         />
       </div>
       <StartQuizDialog

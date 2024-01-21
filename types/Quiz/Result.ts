@@ -1,21 +1,27 @@
-import type { SubTopic, Subject, Topic } from "../Subject/Subject";
+import type { Skill, Subject, Subtopic, Topic } from "../Subject/Subject";
 
-export type AnalysedTopics = {
+export type AnalysedTopic = {
   topic: Topic;
-  numberOfCorrectAnswers: number;
-  numberOfQuestions: number;
-};
-export type AnalysedSubtopics = {
-  subtopic: SubTopic;
-  numberOfCorrectAnswers: number;
-  numberOfQuestions: number;
-};
+} & Proficiency;
+export type AnalysedSubtopic = {
+  subtopic: Subtopic;
+} & Proficiency;
+
+export type AnalysedSkill = {
+  skill: Skill;
+} & Proficiency;
 
 export type AnalysedResult = {
-  topics?: AnalysedTopics[];
-  subtopics?: AnalysedSubtopics[];
   subject?: Subject;
+  topics?: AnalysedTopic[];
+  subtopics?: AnalysedSubtopic[];
+  skills?: AnalysedSkill[];
   totalNumberOfCorrectAnswers: number;
   totalNumberOfQuestions: number;
   createdAt?: string;
+};
+
+export type Proficiency = {
+  correctAttempts: number;
+  totalAttempts: number;
 };

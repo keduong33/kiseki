@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  Subject,
-  getSubTopicsBasedOnTopic,
-  getTopicsBasedOnSubject,
+  type Subtopic,
   type Topic,
 } from "../../../../../types/Subject/Subject";
 import {
@@ -21,13 +19,11 @@ function SubjectVisualiser() {
   const convertedSubject =
     subject && subject[0]?.toUpperCase().concat(subject.slice(1));
 
-  const topics = getTopicsBasedOnSubject(convertedSubject as Subject);
+  const topics: Topic[] = [];
 
-  const [currentTopic, setCurrentTopic] = useState<Topic>(
-    topics && Object.values(topics)[0]
-  );
+  const [currentTopic, setCurrentTopic] = useState<Topic>("Sth");
 
-  const subtopics = getSubTopicsBasedOnTopic(currentTopic);
+  const subtopics: Subtopic[] = [];
   const subjectTitle = convertedSubject;
 
   const changeTopic = (topic: Topic) => {

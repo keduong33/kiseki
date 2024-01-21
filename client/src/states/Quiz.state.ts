@@ -5,19 +5,23 @@ import type { Quiz, QuizMetaData } from "../../../types/Quiz/Quiz";
 
 type Actions = {
   setQuestions: (questions: FullInfoQuestion[]) => void;
-  setUserAnswers: (userAnswers: (string | null)[]) => void;
+  setUserAnswers: (userAnswers: (string | undefined)[]) => void;
   setQuizMetaData: (quizMetaData: QuizMetaData) => void;
   setCurrentQuestionIndex: (index: number) => void;
   setRemainingTime: (time: number) => void;
   resetState: () => void;
+  setStartTimeStamp: (timestamp: Date) => void;
+  setEndTimeStamp: (timestamp: Date) => void;
 };
 
 const initialState: Quiz = {
   questions: [],
   userAnswers: [],
-  quizMetaData: null,
+  quizMetaData: undefined,
   currentQuestionIndex: 0,
   remainingTime: 0,
+  startTimeStamp: undefined,
+  endTimeStamp: undefined,
 };
 
 export const useQuizState = create<Quiz & Actions>()(
@@ -38,6 +42,12 @@ export const useQuizState = create<Quiz & Actions>()(
       },
       setRemainingTime(time) {
         set(() => ({ remainingTime: time }));
+      },
+      setStartTimeStamp(timestamp) {
+        set(() => ({ startTimeStamp: timestamp }));
+      },
+      setEndTimeStamp(timestamp) {
+        set(() => ({ endTimeStamp: timestamp }));
       },
       resetState() {
         set(initialState);

@@ -13,5 +13,9 @@ declare namespace NodeJS {
 
     // NEON
     NEON_DB_URL: string;
+
+    // NOTION
+    NOTION_SECRET_KEY: string;
+    NOTION_QUESTION_BANK_ID: string;
   }
 }
