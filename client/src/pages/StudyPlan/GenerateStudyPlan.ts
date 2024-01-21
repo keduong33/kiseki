@@ -15,10 +15,7 @@ export const generateStudyPlan = (results: AnalysedResult[]): ToStudy[] => {
       const topic = result.topics ? result.topics[0].topic : "";
       const subtopic = result.subtopics ? result.subtopics[0].subtopic : "";
 
-      const skillScore = result.skills
-        ? result.skills[0].numberOfCorrectAnswers /
-          result.skills[0].numberOfQuestions
-        : 0;
+      const skillScore = skill.numberOfCorrectAnswers / skill.numberOfQuestions;
 
       const key = `${result.subject}:${topic}:${subtopic}:${skill.skill}`;
 
@@ -40,8 +37,6 @@ export const generateStudyPlan = (results: AnalysedResult[]): ToStudy[] => {
         skill: skill,
       } satisfies ToStudy);
   });
-
-  console.log(overallResult);
 
   return toStudy;
 };
