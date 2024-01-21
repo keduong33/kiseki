@@ -1,4 +1,4 @@
-import { Book1, Bookmark, Chart1, Firstline, People } from "iconsax-react";
+import { Book1, Bookmark, Firstline, People } from "iconsax-react";
 import { LayoutDashboard } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { PageLocation } from "../../../../types/PageLocation";
@@ -38,11 +38,6 @@ const mainLinks: navBarLink[] = [
     destination: PageLocation.ComingSoon,
     icon: <Bookmark size={IconSize.medium} />,
     comingSoon: true,
-  },
-  {
-    title: "Insights",
-    destination: PageLocation.Insights,
-    icon: <Chart1 size={IconSize.medium} />,
   },
   {
     title: "Community",

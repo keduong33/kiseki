@@ -11,7 +11,6 @@ import AddQuestions from "../pages/AddQuestions/AddQuestions";
 import Assessments from "../pages/Assessments/Assessments";
 import ComingSoon from "../pages/ComingSoon/ComingSoon";
 import Dashboard from "../pages/Dashboard/Dashboard";
-import Insights from "../pages/Insights/Insights";
 import MySubjects from "../pages/MySubjects/MySubjects";
 import SubjectVisualiser from "../pages/MySubjects/SubjectVisualiser/SubjectVisualiser";
 import Profile from "../pages/Profile/Profile";
@@ -37,7 +36,6 @@ export const router = createBrowserRouter(
         element={<SubjectVisualiser />}
       />
       <Route path={PageLocation.StudyPlan} element={<StudyPlan />} />
-      <Route path={PageLocation.Insights} element={<Insights />} />
 
       <Route path={PageLocation.AddQuestions} element={<AddQuestions />} />
 
