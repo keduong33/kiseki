@@ -50,23 +50,9 @@ export default async (req: Request, context: Context) => {
           WITH $questions as importedQuestions, student
           UNWIND importedQuestions as importedQuestion
           MERGE (question:Question {id:importedQuestion.id})
-          MERGE (student)-[:ATTEMPT {id:$attemptID, correct:importedQuestion.markedCorrect}]->(question)
-          
+          MERGE (student)-[:ATTEMPT {correct:importedQuestion.markedCorrect, startTimeStamp:$startTimeStamp, endTimeStamp:$endTimeStamp}]->(question)
 
           WITH importedQuestion, question
-
-          // Handle topics
-          FOREACH (topic IN importedQuestion.topics |
-            MERGE (t:Topic {topic: topic})
-            MERGE (question)-[:HAS_TOPIC]->(t)
-          )
-          
-          // Handle subtopics
-          FOREACH (subtopic IN importedQuestion.subtopics |
-            MERGE (sub:Subtopic {subtopic: subtopic})
-            MERGE (question)-[:HAS_SUBTOPIC]->(sub)
-          )
-          
           // Handle skills
           FOREACH (skill IN importedQuestion.skills |
             MERGE (ski:Skill {skill: skill})
@@ -76,7 +62,8 @@ export default async (req: Request, context: Context) => {
         {
           userID: userID,
           questions: markedQuiz.questions,
-          attemptID: `${userID}&${neo4jStartDateTime}-${neo4jEndDateTime}`,
+          startTimeStamp: neo4jStartDateTime,
+          endTimeStamp: neo4jEndDateTime,
         }
       )
     );
