@@ -1,5 +1,5 @@
 import { DateTime, Integer, Node, Relationship } from "neo4j-driver";
-import type { Skill, SubTopic, Subject, Topic } from "./Subject/Subject";
+import type { Skill, Subject, Subtopic, Topic } from "./Subject/Subject";
 
 type StudentProperties = {
   id: string;
@@ -35,7 +35,7 @@ export type TopicNode = Node<
 export type SubtopicNode = Node<
   Integer,
   {
-    subtopic: SubTopic;
+    subtopic: Subtopic;
   }
 >;
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  type SubTopic,
+  type Subtopic,
   type Topic,
 } from "../../../../../types/Subject/Subject";
 import {
@@ -23,7 +23,7 @@ function SubjectVisualiser() {
 
   const [currentTopic, setCurrentTopic] = useState<Topic>("Sth");
 
-  const subtopics: SubTopic[] = [];
+  const subtopics: Subtopic[] = [];
   const subjectTitle = convertedSubject;
 
   const changeTopic = (topic: Topic) => {

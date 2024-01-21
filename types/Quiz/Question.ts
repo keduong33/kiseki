@@ -1,4 +1,4 @@
-import type { Skill, SubTopic, Subject, Topic } from "../Subject/Subject";
+import type { Skill, Subject, Subtopic, Topic } from "../Subject/Subject";
 
 export type ParsedFromCSVQuestion = {
   Name: string;
@@ -35,7 +35,7 @@ export type FullInfoQuestion = QuizQuestion & {
   feedback?: string;
   subject: Subject;
   topic: Topic;
-  subtopics: SubTopic[];
+  subtopics: Subtopic[];
   skills: Skill[];
 };
 
@@ -94,7 +94,7 @@ export const convertBackendQuestionToFullInfo = (
     feedback: inputQuestion.feedback,
     subject: inputQuestion.subject as Subject,
     topic: inputQuestion.topic as Topic,
-    subtopics: inputQuestion.subtopic?.split(",") as SubTopic[],
+    subtopics: inputQuestion.subtopic?.split(",") as Subtopic[],
     skills: inputQuestion.skill?.split(",") as Skill[],
     timeInS: parseInt(inputQuestion.time_in_s ?? "0"),
   } satisfies FullInfoQuestion;
@@ -125,7 +125,7 @@ export const convertParsedQuestionToFullInfo = (
     feedback: parsedQuestion["Feedback"],
     subject: parsedQuestion.Subject as Subject,
     topic: parsedQuestion.Topic as Topic,
-    subtopics: parsedQuestion.Subtopic.split(",") as SubTopic[],
+    subtopics: parsedQuestion.Subtopic.split(",") as Subtopic[],
     skills: parsedQuestion.Skill.split(",") as Skill[],
     timeInS: parsedQuestion["Time in s"],
   } satisfies FullInfoQuestion;

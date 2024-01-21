@@ -13,7 +13,7 @@ import type {
   AnalysedSubtopic,
   AnalysedTopic,
 } from "../../../../types/Quiz/Result";
-import type { Skill, SubTopic, Topic } from "../../../../types/Subject/Subject";
+import type { Skill, Subtopic, Topic } from "../../../../types/Subject/Subject";
 
 export const convertNeo4jResult = (
   neo4jResponse: QueryResult<Neo4jResult>
@@ -107,7 +107,7 @@ const convertToAnalysedTopic = (
 };
 
 const convertToAnalysedSubtopic = (
-  subtopic: SubTopic,
+  subtopic: Subtopic,
   hasTopic: ResultStatistics
 ): AnalysedSubtopic => {
   return {

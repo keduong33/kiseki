@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import dayjs from "dayjs";
-import { backendEndpoint } from "../../../../types/endpoints";
 import type { AnalysedResult } from "../../../../types/Quiz/Result";
 import {
   type Skill,
   type Subject,
-  type SubTopic,
+  type Subtopic,
   type Topic,
 } from "../../../../types/Subject/Subject";
+import { backendEndpoint } from "../../../../types/endpoints";
 import { PageHeader } from "../../components/kiseki/PageHeader";
 import { generateStudyPlan } from "./GenerateStudyPlan";
 import StudyCard from "./StudyCard";
@@ -19,7 +19,7 @@ const today = dayjs();
 export type ToStudy = {
   subject: Subject;
   topic: Topic;
-  subtopic: SubTopic;
+  subtopic: Subtopic;
   skill: Skill;
 };
 

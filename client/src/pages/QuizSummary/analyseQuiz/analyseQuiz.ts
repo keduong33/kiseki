@@ -3,12 +3,12 @@ import type { MarkedQuiz } from "../../../../../types/Quiz/Quiz";
 import type {
   AnalysedResult,
   AnalysedSkill,
-  AnalysedSubtopics,
-  AnalysedTopics,
+  AnalysedSubtopic,
+  AnalysedTopic,
 } from "../../../../../types/Quiz/Result";
 import type {
   Skill,
-  SubTopic,
+  Subtopic,
   Topic,
 } from "../../../../../types/Subject/Subject";
 import { uiSafeResult, type UISafeReturn } from "../../../common/safeReturn";
@@ -58,7 +58,7 @@ const analyseResultsBasedOnTopic = (markedQuestionsList: MarkedQuestion[]) => {
     }
   });
 
-  const analysedTopics: AnalysedTopics[] = [];
+  const analysedTopics: AnalysedTopic[] = [];
 
   for (const t of numberOfQuestionsByTopic.keys()) {
     const topic = t as Topic;
@@ -67,15 +67,15 @@ const analyseResultsBasedOnTopic = (markedQuestionsList: MarkedQuestion[]) => {
       topic: topic as Topic,
       numberOfCorrectAnswers: numberOfCorrectAnswersByTopic.get(topic) ?? 0,
       numberOfQuestions: numberOfQuestionsByTopic.get(topic) ?? 0,
-    } satisfies AnalysedTopics);
+    } satisfies AnalysedTopic);
   }
 
   return analysedTopics;
 };
 
 const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
-  const numberOfQuestionsBySubtopic: Map<SubTopic, number> = new Map();
-  const numberOfCorrectAnswersBySubtopic: Map<SubTopic, number> = new Map();
+  const numberOfQuestionsBySubtopic: Map<Subtopic, number> = new Map();
+  const numberOfCorrectAnswersBySubtopic: Map<Subtopic, number> = new Map();
 
   markedQuestionsList.forEach((question) => {
     question.subtopics?.forEach((subtopic) => {
@@ -98,16 +98,16 @@ const analyseBasedOnSubTopics = (markedQuestionsList: MarkedQuestion[]) => {
     });
   });
 
-  const analysedSubtopics: AnalysedSubtopics[] = [];
+  const analysedSubtopics: AnalysedSubtopic[] = [];
   for (const s of numberOfQuestionsBySubtopic.keys()) {
-    const subtopic = s as SubTopic;
+    const subtopic = s as Subtopic;
 
     analysedSubtopics.push({
-      subtopic: subtopic as SubTopic,
+      subtopic: subtopic as Subtopic,
       numberOfCorrectAnswers:
         numberOfCorrectAnswersBySubtopic.get(subtopic) ?? 0,
       numberOfQuestions: numberOfQuestionsBySubtopic.get(subtopic) ?? 0,
-    } satisfies AnalysedSubtopics);
+    } satisfies AnalysedSubtopic);
   }
 
   return analysedSubtopics;
