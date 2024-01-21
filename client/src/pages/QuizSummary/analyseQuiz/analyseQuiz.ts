@@ -43,22 +43,22 @@ const analyseResultsBasedOnTopic = (markedQuestionsList: MarkedQuestion[]) => {
   const numberOfCorrectAnswersByTopic: Map<Topic, number> = new Map();
 
   markedQuestionsList.forEach((question) => {
-    const topic = question.topic;
+    const topics = question.topics;
 
     numberOfQuestionsByTopic.set(
-      topic[0],
-      (numberOfQuestionsByTopic.get(topic[0]) ?? 0) + 1
+      topics[0],
+      (numberOfQuestionsByTopic.get(topics[0]) ?? 0) + 1
     );
 
     if (question.markedCorrect) {
       numberOfCorrectAnswersByTopic.set(
-        topic[0],
-        (numberOfCorrectAnswersByTopic.get(topic[0]) ?? 0) + 1
+        topics[0],
+        (numberOfCorrectAnswersByTopic.get(topics[0]) ?? 0) + 1
       );
     } else {
       numberOfCorrectAnswersByTopic.set(
-        topic[0],
-        numberOfCorrectAnswersByTopic.get(topic[0]) ?? 0
+        topics[0],
+        numberOfCorrectAnswersByTopic.get(topics[0]) ?? 0
       );
     }
   });

@@ -36,7 +36,7 @@ export type FullInfoQuestion = QuizQuestion & {
   correctOptions: string[];
   feedback?: string;
   subject: Subject;
-  topic: Topic[];
+  topics: Topic[];
   subtopics: Subtopic[];
   skills: Skill[];
 };
@@ -96,7 +96,7 @@ export const convertBackendQuestionToFullInfo = (
     correctOptions: inputQuestion.correct_options.split(","),
     feedback: inputQuestion.feedback,
     subject: inputQuestion.subject as Subject,
-    topic: inputQuestion.topic.split(",") as Topic[],
+    topics: inputQuestion.topic.split(",") as Topic[],
     subtopics: inputQuestion.subtopic.split(",") as Subtopic[],
     skills: inputQuestion.skill.split(",") as Skill[],
     timeInS: parseInt(inputQuestion.time_in_s ?? "0"),
@@ -127,7 +127,7 @@ export const convertParsedQuestionToFullInfo = (
     correctOptions: parsedQuestion["Correct Options"].split(","),
     feedback: parsedQuestion["Feedback"],
     subject: parsedQuestion.Subject as Subject,
-    topic: parsedQuestion.Topic.split(",") as Topic[],
+    topics: parsedQuestion.Topic.split(",") as Topic[],
     subtopics: parsedQuestion.Subtopic.split(",") as Subtopic[],
     skills: parsedQuestion.Skill.split(",") as Skill[],
     timeInS: parsedQuestion["Time in s"],
