@@ -30,6 +30,8 @@ export type QuizQuestion = {
   timeInS: number;
 };
 
+//TODO: Revise
+//Current state: the app can only deal with 1 topic, 1 subtopic, 1 skill for now
 export type FullInfoQuestion = QuizQuestion & {
   correctOptions: string[];
   feedback?: string;
