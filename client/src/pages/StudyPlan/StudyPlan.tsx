@@ -53,9 +53,10 @@ function StudyPlan() {
         <div key={today.format(dateFormat)} className="w-fit">
           <h3></h3>
           <div className="flex flex-col gap-4">
-            {toStudys.slice(0, maxTopicPerDay).map((toStudy) => {
+            {toStudys.slice(0, maxTopicPerDay).map((toStudy, index) => {
               return (
                 <StudyCard
+                  key={`toStudy-${index}`}
                   subject={toStudy.subject}
                   topic={toStudy.topic}
                   subtopic={toStudy.subtopic}
