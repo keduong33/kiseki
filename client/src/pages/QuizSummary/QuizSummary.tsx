@@ -1,5 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
 import HTMLReactParser from "html-react-parser";
 import { AwardIcon, HourglassIcon } from "lucide-react";
 import { useLocation } from "react-router-dom";
@@ -28,6 +31,27 @@ import {
 } from "../Quiz/commonQuizFunctions";
 import analyseQuiz from "./analyseQuiz/analyseQuiz";
 
+dayjs.extend(updateLocale);
+dayjs.extend(relativeTime);
+
+dayjs.updateLocale("en", {
+  relativeTime: {
+    future: "%s",
+    past: "%s",
+    s: "%d seconds",
+    m: "%d minute",
+    mm: "%d minutes",
+    h: "an hour",
+    hh: "%d hours",
+    d: "a day",
+    dd: "%d days",
+    M: "a month",
+    MM: "%d months",
+    y: "a year",
+    yy: "%d years",
+  },
+});
+
 function QuizSummary() {
   const { state } = useLocation();
 
@@ -50,6 +74,9 @@ function QuizSummary() {
 
   const { result } = state;
   const markedQuiz = result as MarkedQuiz;
+  const timeTaken = dayjs(markedQuiz.endTimeStamp).from(
+    dayjs(markedQuiz.startTimeStamp)
+  );
 
   const [analysedResult, analysisError] = analyseQuiz(markedQuiz);
 
@@ -101,7 +128,7 @@ function QuizSummary() {
           </CardHeader>
           <CardContent>
             <HourglassIcon className="m-auto" />
-            <p className="pt-2">Incoming</p>
+            <p className="pt-2">{timeTaken}</p>
           </CardContent>
         </Card>
       </div>

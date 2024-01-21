@@ -20,11 +20,13 @@ function Assessments() {
     setUserAnswers,
     setCurrentQuestionIndex,
     setQuizMetaData,
+    resetQuizState,
   ] = useQuizState((state) => [
     state.setQuestions,
     state.setUserAnswers,
     state.setCurrentQuestionIndex,
     state.setQuizMetaData,
+    state.resetState,
   ]);
   const [showStartQuiz, setShowStartQuiz] = useState<boolean>(false);
   const [selectedSubject, setSelectedSubject] = useState<Subject | undefined>();
@@ -73,6 +75,10 @@ function Assessments() {
       setSelectedSubject(undefined);
     }
   }, [query.isSuccess, query.isFetching, selectedSubject]);
+
+  useEffect(() => {
+    resetQuizState();
+  }, []);
 
   return (
     <>

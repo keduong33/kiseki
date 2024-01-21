@@ -10,6 +10,8 @@ type Actions = {
   setCurrentQuestionIndex: (index: number) => void;
   setRemainingTime: (time: number) => void;
   resetState: () => void;
+  setStartTimeStamp: (timestamp: Date) => void;
+  setEndTimeStamp: (timestamp: Date) => void;
 };
 
 const initialState: Quiz = {
@@ -18,6 +20,8 @@ const initialState: Quiz = {
   quizMetaData: undefined,
   currentQuestionIndex: 0,
   remainingTime: 0,
+  startTimeStamp: undefined,
+  endTimeStamp: undefined,
 };
 
 export const useQuizState = create<Quiz & Actions>()(
@@ -38,6 +42,12 @@ export const useQuizState = create<Quiz & Actions>()(
       },
       setRemainingTime(time) {
         set(() => ({ remainingTime: time }));
+      },
+      setStartTimeStamp(timestamp) {
+        set(() => ({ startTimeStamp: timestamp }));
+      },
+      setEndTimeStamp(timestamp) {
+        set(() => ({ endTimeStamp: timestamp }));
       },
       resetState() {
         set(initialState);

@@ -16,14 +16,25 @@ import { markQuiz } from "./markQuiz/markQuiz";
 
 export function SubmitQuizButton({ className }: { className: string }) {
   const navigate = useNavigate();
-  const [usersAnswers, questions] = useQuizState((state) => [
-    state.userAnswers,
-    state.questions,
-  ]);
+  const [usersAnswers, questions, startTimeStamp, endTimeStamp] = useQuizState(
+    (state) => [
+      state.userAnswers,
+      state.questions,
+      state.startTimeStamp,
+      state.endTimeStamp,
+    ]
+  );
 
   const submitQuiz = () => {
-    console.log("Submitting quiz");
-    const [markedQuiz, error] = markQuiz(usersAnswers, questions);
+    const submitTime = new Date();
+    console.log(`Submitting quiz @ ${submitTime}`);
+
+    const [markedQuiz, error] = markQuiz(
+      usersAnswers,
+      questions,
+      startTimeStamp!,
+      endTimeStamp ?? submitTime
+    );
     if (error) {
       console.error("Failed to mark quiz:", error.message);
       return;
