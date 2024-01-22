@@ -1,4 +1,5 @@
-export type ClerkUserProfileMetadata = {
-  dateOfBirth?: string;
+export type ClerkUserUnsafeMetadata = {
   school?: string;
+  yearLevel?: string;
+  applyingFor?: string;
 };
