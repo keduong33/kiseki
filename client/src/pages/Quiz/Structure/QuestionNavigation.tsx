@@ -46,12 +46,12 @@ function QuestionNavigation() {
         <CardContent className="grid grid-cols-5 gap-2 xl:grid-cols-6">
           {questions.map((_q, index) => (
             <p
-              className={`border-2 rounded-md w-[30px] h-[30px] flex items-center align-middle justify-center cursor-pointer font-semibold ${
+              className={`rounded-md w-[30px] h-[30px] flex items-center align-middle justify-center cursor-pointer font-semibold  ${
                 index === currentQuestionIndex
-                  ? "bg-gradient-to-r from-[#2E48F5] via-[#765CFA] to-[#CE73FF]"
+                  ? "bg-primary "
                   : userAnswers[index]
-                  ? "bg-green-400"
-                  : ""
+                  ? "bg-[#787FBC] "
+                  : "bg-background"
               }`}
               onClick={() => changeQuestion(index)}
               key={`Question ${index}`}

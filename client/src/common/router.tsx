@@ -6,14 +6,12 @@ import {
 } from "react-router-dom";
 import { PageLocation } from "../../../types/PageLocation";
 import App from "../App";
-import ProtectedPage from "../components/layout/ProtectedPage";
 import AddQuestions from "../pages/AddQuestions/AddQuestions";
 import Assessments from "../pages/Assessments/Assessments";
 import ComingSoon from "../pages/ComingSoon/ComingSoon";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import MySubjects from "../pages/MySubjects/MySubjects";
 import SubjectVisualiser from "../pages/MySubjects/SubjectVisualiser/SubjectVisualiser";
-import Profile from "../pages/Profile/Profile";
 import Quiz from "../pages/Quiz/Quiz";
 import QuizSummary from "../pages/QuizSummary/QuizSummary";
 import StudyPlan from "../pages/StudyPlan/StudyPlan";
@@ -42,14 +40,6 @@ export const router = createBrowserRouter(
       <Route
         path="/sign-in/*"
         element={<SignIn routing="path" path="/sign-in" />}
-      />
-      <Route
-        path={PageLocation.Profile}
-        element={
-          <ProtectedPage>
-            <Profile />
-          </ProtectedPage>
-        }
       />
     </Route>
   )

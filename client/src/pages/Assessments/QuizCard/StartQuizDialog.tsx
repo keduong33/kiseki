@@ -36,12 +36,12 @@ function StartQuizDialog({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2">
-          <Button onClick={startQuiz}>Let's go</Button>
           <DialogClose asChild>
             <Button type="button" variant="secondary">
               Cancel
             </Button>
           </DialogClose>
+          <Button onClick={startQuiz}>Let's go</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

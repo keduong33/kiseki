@@ -2,6 +2,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { PageLocation } from "../../types/PageLocation";
 import { config } from "./common/config";
+import { enUS } from "./components/clerk/en_localisation";
 import NavigationBar from "./components/layout/NavigationBar";
 import { ThemeProvider } from "./components/layout/Theme/ThemeProvider";
 
@@ -22,6 +23,12 @@ function App() {
       <ClerkProvider
         publishableKey={clerk.publisableKey}
         navigate={(to) => navigate(to)}
+        supportEmail="kelyduong@gmail.com"
+        appearance={{
+          variables: { colorPrimary: "#31365C" },
+          signUp: { elements: { card: "w-[570px]" } },
+        }}
+        localization={enUS}
       >
         <div className="flex flex-row w-screen h-screen">
           {!hideNavigationBar && <NavigationBar />}
