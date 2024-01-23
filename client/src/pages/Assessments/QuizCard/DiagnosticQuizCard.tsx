@@ -39,17 +39,11 @@ export default function DiagnosticQuizCard({
         <CardContent className="flex justify-between px-[16px]">
           <Badge className="h-[32px] bg-[#2a2e4e]" variant={"outline"}>
             <HelpCircleIcon size={IconSize.small} className="pb-[2px]" />
-            <p>
-              {numberOfQuestions
-                ? `${numberOfQuestions} questions`
-                : "Surprise xD"}
-            </p>
+            <>{numberOfQuestions ? `${numberOfQuestions}Q` : "Surprise xD"}</>
           </Badge>
-          <Badge className="h-[32px] bg-[#2a2e4e]" variant={"outline"}>
+          <Badge className="h-[32px] bg-[#2a2e4e] " variant={"outline"}>
             <Clock size={IconSize.small} className="pb-[2px]" />
-            <p className="mb-0">
-              {timeLimit ? `${timeLimit}:00` : "No time limit"}
-            </p>
+            <>{timeLimit ? `${timeLimit}:00` : "No time limit"}</>
           </Badge>
           <KisekiButton
             onClick={async () => {
