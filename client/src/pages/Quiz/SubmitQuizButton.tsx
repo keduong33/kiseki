@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/shadcn/ui/dialog";
+import { useMarkedQuizState } from "../../states/MarkedQuiz.state";
 import { useQuizState } from "../../states/Quiz.state";
 import { markQuiz } from "./markQuiz/markQuiz";
 
@@ -40,8 +41,13 @@ export function SubmitQuizButton({ className }: { className: string }) {
       return;
     }
 
+    useMarkedQuizState.setState({
+      questions: markedQuiz.questions,
+      startTimeStamp: markedQuiz.startTimeStamp,
+      endTimeStamp: markedQuiz.endTimeStamp,
+    });
+
     navigate(PageLocation.QuizSummary, {
-      state: { result: markedQuiz },
       replace: true,
     });
   };

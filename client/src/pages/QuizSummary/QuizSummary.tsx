@@ -7,7 +7,6 @@ import updateLocale from "dayjs/plugin/updateLocale";
 import HTMLReactParser from "html-react-parser";
 import { TickCircle } from "iconsax-react";
 import { AwardIcon, HourglassIcon, XCircle } from "lucide-react";
-import { useLocation } from "react-router-dom";
 import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
 import { backendEndpoint } from "../../../../types/endpoints";
 import KisekiButton from "../../components/kiseki/button";
@@ -26,6 +25,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/shadcn/ui/table";
+import { useMarkedQuizState } from "../../states/MarkedQuiz.state";
 import { useQuizState } from "../../states/Quiz.state";
 import {
   convertArrayIndexToQuestionIndex,
@@ -55,9 +55,10 @@ dayjs.updateLocale("en", {
 });
 
 function QuizSummary() {
-  const { state } = useLocation();
-
   const { isSignedIn, isLoaded } = useUser();
+  const [markedQuestions, startTimeStamp, endTimeStamp] = useMarkedQuizState(
+    (state) => [state.questions, state.startTimeStamp, state.endTimeStamp]
+  );
 
   const [quizMetaData, userAnswers] = useQuizState((state) => [
     state.quizMetaData,
@@ -72,17 +73,12 @@ function QuizSummary() {
     },
   });
 
-  if (!state) {
-    return <>We could not find your recent quiz</>;
-  }
+  if (markedQuestions.length === 0)
+    return <p>Sorry, We cannot find your most recent quiz results :(</p>;
 
-  const { result } = state;
-  const markedQuiz = result as MarkedQuiz;
-  const timeTaken = dayjs(markedQuiz.endTimeStamp).from(
-    dayjs(markedQuiz.startTimeStamp)
-  );
+  const timeTaken = dayjs(endTimeStamp).from(dayjs(startTimeStamp));
 
-  const [analysedResult, analysisError] = analyseQuiz(markedQuiz);
+  const [analysedResult, analysisError] = analyseQuiz(markedQuestions);
 
   if (analysisError) {
     console.error("Failed to analyse result:", analysisError.message);
@@ -131,7 +127,11 @@ function QuizSummary() {
         {isSignedIn && (
           <KisekiButton
             onClick={() => {
-              saveResult.mutate(markedQuiz);
+              saveResult.mutate({
+                questions: markedQuestions,
+                startTimeStamp: startTimeStamp,
+                endTimeStamp: endTimeStamp,
+              } satisfies MarkedQuiz);
             }}
             disabled={JSON.stringify(analysedResult) === "{}"}
             className="w-[200px]"
@@ -165,7 +165,7 @@ function QuizSummary() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {markedQuiz.questions.map((markedQuestion, index) => {
+            {markedQuestions.map((markedQuestion, index) => {
               const correctAnswerIndexes = markedQuestion.correctOptions.map(
                 (answer) => convertCharToNumber(answer)
               );
