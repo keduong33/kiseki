@@ -30,7 +30,7 @@ export default function DiagnosticQuizCard({
 }: DiagnosticQuizCardProps) {
   return (
     <>
-      <Card className="w-[280px] h-[230px] flex flex-col">
+      <Card className="w-[280px] h-[245px] flex flex-col">
         <CardHeader className="items-start p-0 ">
           <div className="h-[130px] w-full  rounded-lg bg-gradient-to-br from-indigo-300 to-purple-300" />
           <CardTitle className="py-3 pl-[16px]">{subjectTitle}</CardTitle>
