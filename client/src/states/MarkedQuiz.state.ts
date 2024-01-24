@@ -7,6 +7,7 @@ type Actions = {
   setMarkedQuestions: (questions: MarkedQuestion[]) => void;
   setStartTimeStamp: (timestamp: Date) => void;
   setEndTimeStamp: (timestamp: Date) => void;
+  setIsSaved: (isSaved: boolean) => void;
   resetState: () => void;
 };
 
@@ -14,12 +15,16 @@ const initialState: MarkedQuiz = {
   questions: [],
   startTimeStamp: undefined,
   endTimeStamp: undefined,
+  isSaved: false,
 };
 
 export const useMarkedQuizState = create<MarkedQuiz & Actions>()(
   persist(
     (set) => ({
       ...initialState,
+      setIsSaved(isSaved) {
+        set(() => ({ isSaved: isSaved }));
+      },
       setMarkedQuestions(questions) {
         set(() => ({ questions: questions }));
       },

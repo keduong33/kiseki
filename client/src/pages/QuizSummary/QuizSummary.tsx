@@ -56,9 +56,14 @@ dayjs.updateLocale("en", {
 
 function QuizSummary() {
   const { isSignedIn, isLoaded } = useUser();
-  const [markedQuestions, startTimeStamp, endTimeStamp] = useMarkedQuizState(
-    (state) => [state.questions, state.startTimeStamp, state.endTimeStamp]
-  );
+  const [markedQuestions, startTimeStamp, endTimeStamp, setIsSaved, isSaved] =
+    useMarkedQuizState((state) => [
+      state.questions,
+      state.startTimeStamp,
+      state.endTimeStamp,
+      state.setIsSaved,
+      state.isSaved,
+    ]);
 
   const [quizMetaData, userAnswers] = useQuizState((state) => [
     state.quizMetaData,
@@ -69,7 +74,11 @@ function QuizSummary() {
     mutationFn: async (result: MarkedQuiz) =>
       await axios.post(`${backendEndpoint.saveStudentResult}`, result),
     onSuccess(data) {
+      setIsSaved(true);
       console.log(data.data);
+    },
+    onError(error) {
+      console.error(error);
     },
   });
 
@@ -133,11 +142,15 @@ function QuizSummary() {
                 endTimeStamp: endTimeStamp,
               } satisfies MarkedQuiz);
             }}
-            disabled={JSON.stringify(analysedResult) === "{}"}
+            disabled={JSON.stringify(analysedResult) === "{}" || isSaved}
             className="w-[200px]"
             isLoading={saveResult.isPending}
           >
-            Save results
+            {saveResult.isError
+              ? "Please try again"
+              : isSaved
+              ? "Saved"
+              : "Save results"}
           </KisekiButton>
         )}
         {!isSignedIn && (
