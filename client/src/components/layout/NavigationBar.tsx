@@ -58,7 +58,7 @@ function NavigationBar() {
   const { pathname } = useLocation();
   const { isSignedIn, user } = useUser();
   return (
-    <aside className="2xl:w-[328px] w-[250px] bg-violet-darker flex flex-col overflow-auto pb-6">
+    <aside className="w-[250px] bg-violet-darker flex flex-col overflow-auto pb-6">
       <div className="flex flex-col flex-1 pt-10 2xl:pt-20 gap-11">
         {mainLinks.map((link, index) => {
           const onPage = pathname === link.destination;

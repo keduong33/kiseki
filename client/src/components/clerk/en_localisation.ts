@@ -1,9 +1,15 @@
 import type { LocalizationResource } from "@clerk/types";
 
 export const enUS: LocalizationResource = {
+  signIn: {
+    start: {
+      title: "Sign in",
+      subtitle: " ",
+    },
+  },
   signUp: {
     start: {
-      title: "Sign up to save your results",
+      title: "Sign up",
       subtitle:
         "Get the pre-release access to the study plan, other diagnostic quizzes, and more",
       actionText: "Have an account?",

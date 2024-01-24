@@ -1,5 +1,4 @@
 import type { MarkedQuestion } from "../../../../../types/Quiz/Question";
-import type { MarkedQuiz } from "../../../../../types/Quiz/Quiz";
 import type {
   AnalysedResult,
   AnalysedSkill,
@@ -13,26 +12,28 @@ import type {
 } from "../../../../../types/Subject/Subject";
 import { uiSafeResult, type UISafeReturn } from "../../../common/safeReturn";
 
-const analyseQuiz = (markedQuiz: MarkedQuiz): UISafeReturn<AnalysedResult> => {
-  const analysedTopics = analyseResultsBasedOnTopic(markedQuiz.questions);
+const analyseQuiz = (
+  markedQuestion: MarkedQuestion[]
+): UISafeReturn<AnalysedResult> => {
+  const analysedTopics = analyseResultsBasedOnTopic(markedQuestion);
 
-  const analysedSubtopics = analyseBasedOnSubTopics(markedQuiz.questions);
+  const analysedSubtopics = analyseBasedOnSubTopics(markedQuestion);
 
-  const analysedSkills = analyseBasedOnSkills(markedQuiz.questions);
+  const analysedSkills = analyseBasedOnSkills(markedQuestion);
 
-  const totalNumberOfCorrectAnswers = markedQuiz.questions.reduce(
+  const totalNumberOfCorrectAnswers = markedQuestion.reduce(
     (sum, question) => (question.markedCorrect ? sum + 1 : sum),
     0
   );
 
   // TODO: multiple subjects?
-  const subject = markedQuiz.questions[0].subject;
+  const subject = markedQuestion[0].subject;
 
   return uiSafeResult({
     topics: analysedTopics,
     subtopics: analysedSubtopics,
     skills: analysedSkills,
-    totalNumberOfQuestions: markedQuiz.questions.length,
+    totalNumberOfQuestions: markedQuestion.length,
     totalNumberOfCorrectAnswers: totalNumberOfCorrectAnswers,
     subject: subject,
   } satisfies AnalysedResult);
