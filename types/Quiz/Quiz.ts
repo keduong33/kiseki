@@ -19,8 +19,8 @@ export type Quiz = {
 
 export type MarkedQuiz = {
   questions: MarkedQuestion[];
-  startTimeStamp: Date | undefined;
-  endTimeStamp: Date | undefined;
+  startTimeStamp: Date;
+  endTimeStamp: Date;
   isSaved?: boolean;
 };
 
