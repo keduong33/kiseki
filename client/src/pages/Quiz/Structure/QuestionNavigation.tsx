@@ -41,9 +41,9 @@ function QuestionNavigation() {
 
   return (
     <div className="flex flex-col gap-2">
-      <Card className="w-[240px] h-fit">
+      <Card className="w-[270px] h-fit">
         <CardHeader className="font-semibold">Questions</CardHeader>
-        <CardContent className="grid grid-cols-5 gap-2 xl:grid-cols-6">
+        <CardContent className="grid grid-cols-5 gap-3 xl:grid-cols-6 ">
           {questions.map((_q, index) => (
             <p
               className={`rounded-md w-[30px] h-[30px] flex items-center align-middle justify-center cursor-pointer font-semibold  ${
