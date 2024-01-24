@@ -70,7 +70,7 @@ function StudyPlan() {
 
           {isPending && isFetching && <p>Loading your results...</p>}
 
-          {toStudys && (
+          {!isFetching && toStudys && (
             <div key={today.format(dateFormat)} className="w-fit">
               <div className="flex flex-col gap-4">
                 {toStudys.slice(0, maxTopicPerDay).map((toStudy, index) => {

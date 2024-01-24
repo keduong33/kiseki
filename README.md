@@ -1,5 +1,9 @@
 # Kiseki
 
+Production	 [![Netlify Status](https://api.netlify.com/api/v1/badges/87275f5f-0fbf-4631-9808-b0f059a352f3/deploy-status)](https://app.netlify.com/sites/kiseki-edu/deploys)
+
+Staging		 [![Netlify Status](https://api.netlify.com/api/v1/badges/87275f5f-0fbf-4631-9808-b0f059a352f3/deploy-status?branch=staging)](https://app.netlify.com/sites/kiseki-edu/deploys)
+
 ## Key info
 
 * Monorepo

@@ -15,6 +15,16 @@ import { uiSafeResult, type UISafeReturn } from "../../../common/safeReturn";
 const analyseQuiz = (
   markedQuestion: MarkedQuestion[]
 ): UISafeReturn<AnalysedResult> => {
+  if (markedQuestion.length <= 0)
+    return uiSafeResult({
+      topics: [],
+      subtopics: [],
+      skills: [],
+      totalNumberOfQuestions: 0,
+      totalNumberOfCorrectAnswers: 0,
+      subject: "",
+    } satisfies AnalysedResult);
+
   const analysedTopics = analyseResultsBasedOnTopic(markedQuestion);
 
   const analysedSubtopics = analyseBasedOnSubTopics(markedQuestion);
@@ -27,6 +37,7 @@ const analyseQuiz = (
   );
 
   // TODO: multiple subjects?
+
   const subject = markedQuestion[0].subject;
 
   return uiSafeResult({

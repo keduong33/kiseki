@@ -9,7 +9,7 @@ const NotionQuestion: Map<string, string> = new Map();
 export const convertNotionPageToQuestion = (
   page: PageObjectResponse
 ): QuestionFromBackend => {
-  const id = page.id;
+  const id = page.id.replaceAll("-", "");
 
   const propertyKeys = Object.keys(page.properties);
   propertyKeys.forEach((key) => {
@@ -29,6 +29,8 @@ export const convertNotionPageToQuestion = (
         NotionQuestion.set(key, property.select?.name ?? "");
         return;
       }
+      default:
+        return;
     }
   });
 
@@ -54,9 +56,9 @@ export const convertNotionPageToQuestion = (
     time_in_s: NotionQuestion.get("Time in s"),
 
     subject: NotionQuestion.get("Subject") ?? "No Subject",
-    topic: NotionQuestion.get("Topic"),
-    subtopic: NotionQuestion.get("Sub-topic"),
-    skill: NotionQuestion.get("Skill"),
+    topic: NotionQuestion.get("Topic") ?? "No Topic",
+    subtopic: NotionQuestion.get("Sub-topic") ?? "No Subtopic",
+    skill: NotionQuestion.get("Skill") ?? "No Skill",
     difficulty: NotionQuestion.get("Difficulty"),
     curriculum: NotionQuestion.get("Curriculum"),
   } satisfies QuestionFromBackend as QuestionFromBackend;

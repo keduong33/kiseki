@@ -13,8 +13,8 @@ type Actions = {
 
 const initialState: MarkedQuiz = {
   questions: [],
-  startTimeStamp: undefined,
-  endTimeStamp: undefined,
+  startTimeStamp: new Date(),
+  endTimeStamp: new Date(),
   isSaved: false,
 };
 
