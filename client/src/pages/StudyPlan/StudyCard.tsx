@@ -4,7 +4,7 @@ import { IconSize } from "../../components/layout/NavigationBar";
 import { Card } from "../../components/shadcn/ui/card";
 import type { ToStudy } from "./StudyPlan";
 
-function StudyCard({ subject, topic, subtopic, skill }: ToStudy) {
+function StudyCard({ topic, subtopic, skill }: ToStudy) {
   return (
     <Card className="w-[400px]">
       <div className="p-[30px] flex">
