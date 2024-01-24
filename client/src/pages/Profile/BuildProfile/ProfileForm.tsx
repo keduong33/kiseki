@@ -39,8 +39,8 @@ export function ProfileForm({ user, textBlack }: ProfileForm) {
     setSearchParams({});
   }
 
-  const availableYearLevels = [6, 7, 8, 9, 10];
-  const applyingFor = ["Scholarship", "Selective School"];
+  const availableYearLevels = ["", 6, 7, 8, 9, 10];
+  const applyingFor = ["", "Scholarship", "Selective School"];
 
   return (
     <form
