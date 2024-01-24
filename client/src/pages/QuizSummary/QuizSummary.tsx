@@ -1,3 +1,4 @@
+import { SignInButton, useUser } from "@clerk/clerk-react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -56,6 +57,8 @@ dayjs.updateLocale("en", {
 function QuizSummary() {
   const { state } = useLocation();
 
+  const { isSignedIn, isLoaded } = useUser();
+
   const [quizMetaData, userAnswers] = useQuizState((state) => [
     state.quizMetaData,
     state.userAnswers,
@@ -100,7 +103,7 @@ function QuizSummary() {
         <p>{quizMetaData?.subject}</p>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col items-center gap-3">
         <div className="flex flex-row gap-4 pt-2">
           <Card className="w-[300px] text-center">
             <CardHeader>
@@ -125,15 +128,28 @@ function QuizSummary() {
             </CardContent>
           </Card>
         </div>
-        <KisekiButton
-          onClick={() => {
-            saveResult.mutate(markedQuiz);
-          }}
-          disabled={JSON.stringify(analysedResult) === "{}"}
-          className="w-[140px]"
-        >
-          Save results
-        </KisekiButton>
+        {isSignedIn && (
+          <KisekiButton
+            onClick={() => {
+              saveResult.mutate(markedQuiz);
+            }}
+            disabled={JSON.stringify(analysedResult) === "{}"}
+            className="w-[200px]"
+            isLoading={saveResult.isPending}
+          >
+            Save results
+          </KisekiButton>
+        )}
+        {!isSignedIn && (
+          <SignInButton redirectUrl={window.location.pathname}>
+            <KisekiButton className="w-[200px]">
+              Sign in to save results
+            </KisekiButton>
+          </SignInButton>
+        )}
+        {!isLoaded && (
+          <KisekiButton isLoading={true} className="w-[200px]"></KisekiButton>
+        )}
       </div>
 
       <div className="flex flex-col pt-10">
