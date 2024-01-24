@@ -7,9 +7,9 @@ interface KisekiButtonProps extends ButtonProps {
 }
 
 const KisekiButton = React.forwardRef<HTMLButtonElement, KisekiButtonProps>(
-  ({ children, isLoading, ...props }, ref) => {
+  ({ children, isLoading, className, ...props }, ref) => {
     return (
-      <Button ref={ref} {...props}>
+      <Button ref={ref} className={`${className} text-base`} {...props}>
         {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
         {!isLoading && children}
       </Button>
