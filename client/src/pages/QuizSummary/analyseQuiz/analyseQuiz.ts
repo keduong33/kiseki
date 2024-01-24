@@ -13,27 +13,27 @@ import type {
 import { uiSafeResult, type UISafeReturn } from "../../../common/safeReturn";
 
 const analyseQuiz = (
-  markedQuiz: MarkedQuestion[]
+  markedQuestion: MarkedQuestion[]
 ): UISafeReturn<AnalysedResult> => {
-  const analysedTopics = analyseResultsBasedOnTopic(markedQuiz);
+  const analysedTopics = analyseResultsBasedOnTopic(markedQuestion);
 
-  const analysedSubtopics = analyseBasedOnSubTopics(markedQuiz);
+  const analysedSubtopics = analyseBasedOnSubTopics(markedQuestion);
 
-  const analysedSkills = analyseBasedOnSkills(markedQuiz);
+  const analysedSkills = analyseBasedOnSkills(markedQuestion);
 
-  const totalNumberOfCorrectAnswers = markedQuiz.reduce(
+  const totalNumberOfCorrectAnswers = markedQuestion.reduce(
     (sum, question) => (question.markedCorrect ? sum + 1 : sum),
     0
   );
 
   // TODO: multiple subjects?
-  const subject = markedQuiz[0].subject;
+  const subject = markedQuestion[0].subject;
 
   return uiSafeResult({
     topics: analysedTopics,
     subtopics: analysedSubtopics,
     skills: analysedSkills,
-    totalNumberOfQuestions: markedQuiz.length,
+    totalNumberOfQuestions: markedQuestion.length,
     totalNumberOfCorrectAnswers: totalNumberOfCorrectAnswers,
     subject: subject,
   } satisfies AnalysedResult);

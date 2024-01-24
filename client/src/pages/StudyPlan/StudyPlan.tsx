@@ -11,11 +11,22 @@ import {
 } from "../../../../types/Subject/Subject";
 import { backendEndpoint } from "../../../../types/endpoints";
 import { PageHeader } from "../../components/kiseki/PageHeader";
+import { useMarkedQuizState } from "../../states/MarkedQuiz.state";
+import analyseQuiz from "../QuizSummary/analyseQuiz/analyseQuiz";
 import { generateStudyPlan } from "./GenerateStudyPlan";
 import StudyCard from "./StudyCard";
 
 const dateFormat = "DD MMM YYYY";
 const today = dayjs();
+
+const getStudyPlan = (results: AnalysedSkill[] | undefined) => {
+  if (results) return generateStudyPlan(results);
+  const cachedMarkedQuestions = useMarkedQuizState.getState().questions;
+  const [analysedResult] = analyseQuiz(cachedMarkedQuestions);
+  if (analysedResult && analysedResult.skills)
+    return generateStudyPlan(analysedResult.skills);
+  return undefined;
+};
 
 export type ToStudy = {
   subject: Subject;
@@ -44,7 +55,7 @@ function StudyPlan() {
     enabled: !!isSignedIn,
   });
 
-  const toStudys: ToStudy[] | undefined = results && generateStudyPlan(results);
+  const toStudys: ToStudy[] | undefined = getStudyPlan(results);
 
   return (
     <>
@@ -61,7 +72,6 @@ function StudyPlan() {
 
           {toStudys && (
             <div key={today.format(dateFormat)} className="w-fit">
-              <h3></h3>
               <div className="flex flex-col gap-4">
                 {toStudys.slice(0, maxTopicPerDay).map((toStudy, index) => {
                   return (
