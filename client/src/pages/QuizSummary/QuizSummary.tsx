@@ -4,11 +4,13 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocale from "dayjs/plugin/updateLocale";
 import HTMLReactParser from "html-react-parser";
-import { AwardIcon, HourglassIcon } from "lucide-react";
+import { TickCircle } from "iconsax-react";
+import { AwardIcon, HourglassIcon, XCircle } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import type { MarkedQuiz } from "../../../../types/Quiz/Quiz";
 import { backendEndpoint } from "../../../../types/endpoints";
 import KisekiButton from "../../components/kiseki/button";
+import { IconSize } from "../../components/layout/NavigationBar";
 import {
   Card,
   CardContent,
@@ -96,124 +98,137 @@ function QuizSummary() {
       <div className="flex gap-3">
         <p>Subject:</p>
         <p>{quizMetaData?.subject}</p>
+      </div>
 
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-row gap-4 pt-2">
+          <Card className="w-[300px] text-center">
+            <CardHeader>
+              <CardTitle>Results</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <AwardIcon className="m-auto" />
+              <p className="pt-2">
+                {analysedResult.totalNumberOfCorrectAnswers}/
+                {analysedResult.totalNumberOfQuestions}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="w-[300px] text-center">
+            <CardHeader>
+              <CardTitle>Time Taken</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <HourglassIcon className="m-auto" />
+              <p className="pt-2">{timeTaken}</p>
+            </CardContent>
+          </Card>
+        </div>
         <KisekiButton
           onClick={() => {
             saveResult.mutate(markedQuiz);
           }}
           disabled={JSON.stringify(analysedResult) === "{}"}
+          className="w-[140px]"
         >
-          Save your results
+          Save results
         </KisekiButton>
       </div>
 
-      <div className="flex flex-row gap-4 pt-2">
-        <Card className="w-[300px] text-center">
-          <CardHeader>
-            <CardTitle>Results</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <AwardIcon className="m-auto" />
-            <p className="pt-2">
-              {analysedResult.totalNumberOfCorrectAnswers}/
-              {analysedResult.totalNumberOfQuestions}
-            </p>
-          </CardContent>
-        </Card>
+      <div className="flex flex-col pt-10">
+        <h2>Review</h2>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[80px]">No</TableHead>
+              <TableHead className="w-[200px]">Question</TableHead>
+              <TableHead className="w-[150px]">Your Answer</TableHead>
+              <TableHead className="w-[150px]">Correct Answer</TableHead>
+              <TableHead className="w-[300px]">Feedback</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {markedQuiz.questions.map((markedQuestion, index) => {
+              const correctAnswerIndexes = markedQuestion.correctOptions.map(
+                (answer) => convertCharToNumber(answer)
+              );
 
-        <Card className="w-[300px] text-center">
-          <CardHeader>
-            <CardTitle>Time Taken</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <HourglassIcon className="m-auto" />
-            <p className="pt-2">{timeTaken}</p>
-          </CardContent>
-        </Card>
+              {
+                /* TODO: Support multiple answers in the future */
+              }
+              const answer = userAnswers[index];
+              return (
+                <TableRow key={`Question ${index}`}>
+                  <TableCell className="flex justify-between gap-2">
+                    <p>{convertArrayIndexToQuestionIndex(index)}</p>
+
+                    {markedQuestion.markedCorrect ? (
+                      <TickCircle
+                        size={IconSize.medium}
+                        color="#6DD25D
+"
+                      />
+                    ) : (
+                      <XCircle size={IconSize.medium} color="red" />
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {HTMLReactParser(markedQuestion.question)}
+                  </TableCell>
+                  <TableCell>
+                    {answer?.includes("img") ? (
+                      <span key={"Correct Answer " + index}>
+                        {HTMLReactParser(answer)}
+                      </span>
+                    ) : answer?.includes("http") ? (
+                      <img
+                        key={"Answer " + index}
+                        src={answer}
+                        className={`${!!answer && "my-auto mx-auto w-[200px]"}`}
+                      />
+                    ) : answer ? (
+                      <span key={"Correct Answer " + index}>
+                        {HTMLReactParser(answer)}
+                      </span>
+                    ) : (
+                      <>N/A</>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {correctAnswerIndexes?.map((index) => {
+                      const textCorrectAnswer = markedQuestion.options[index];
+                      const imageCorrectAnswer =
+                        markedQuestion.optionImageUrls[index];
+                      if (textCorrectAnswer)
+                        return (
+                          <span key={"Correct Answer " + index}>
+                            {HTMLReactParser(textCorrectAnswer)}
+                          </span>
+                        );
+                      else if (imageCorrectAnswer)
+                        return (
+                          <img
+                            src={imageCorrectAnswer}
+                            key={"Correct Answer " + index}
+                            className={`${
+                              !!imageCorrectAnswer &&
+                              "my-auto mx-auto w-[200px]"
+                            }`}
+                          />
+                        );
+                      else return;
+                    })}
+                  </TableCell>
+                  <TableCell className="overflow-x-auto max-w-[400px]">
+                    {HTMLReactParser(markedQuestion.feedback ?? "")}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
       </div>
-
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>No</TableHead>
-            <TableHead>Question</TableHead>
-            <TableHead>Your Answer</TableHead>
-            <TableHead>Correct Answer</TableHead>
-            <TableHead>Feedback</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {markedQuiz.questions.map((markedQuestion, index) => {
-            const correctAnswerIndexes = markedQuestion.correctOptions.map(
-              (answer) => convertCharToNumber(answer)
-            );
-
-            {
-              /* TODO: Support multiple answers in the future */
-            }
-            const answer = userAnswers[index];
-            return (
-              <TableRow
-                key={`Question ${index}`}
-                className={`${markedQuestion.markedCorrect && `bg-green-950`}`}
-              >
-                <TableCell className="font-medium align-top">
-                  {convertArrayIndexToQuestionIndex(index)}
-                </TableCell>
-                <TableCell className="2xl:max-w-[600px] max-w-[400px] px-2">
-                  {HTMLReactParser(markedQuestion.question)}
-                </TableCell>
-                <TableCell className="w-[300px]">
-                  {answer?.includes("img") ? (
-                    <span key={"Correct Answer " + index}>
-                      {HTMLReactParser(answer)}
-                    </span>
-                  ) : answer?.includes("http") ? (
-                    <img
-                      key={"Answer " + index}
-                      src={answer}
-                      className={`${!!answer && "my-auto mx-auto w-[200px]"}`}
-                    />
-                  ) : answer ? (
-                    <span key={"Correct Answer " + index}>
-                      {HTMLReactParser(answer)}
-                    </span>
-                  ) : (
-                    <>N/A</>
-                  )}
-                </TableCell>
-                <TableCell className="w-[300px]">
-                  {correctAnswerIndexes?.map((index) => {
-                    const textCorrectAnswer = markedQuestion.options[index];
-                    const imageCorrectAnswer =
-                      markedQuestion.optionImageUrls[index];
-                    if (textCorrectAnswer)
-                      return (
-                        <span key={"Correct Answer " + index}>
-                          {HTMLReactParser(textCorrectAnswer)}
-                        </span>
-                      );
-                    else if (imageCorrectAnswer)
-                      return (
-                        <img
-                          src={imageCorrectAnswer}
-                          key={"Correct Answer " + index}
-                          className={`${
-                            !!imageCorrectAnswer && "my-auto mx-auto w-[200px]"
-                          }`}
-                        />
-                      );
-                    else return;
-                  })}
-                </TableCell>
-                <TableCell>
-                  {HTMLReactParser(markedQuestion.feedback ?? "")}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
     </>
   );
 }
