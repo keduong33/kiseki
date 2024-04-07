@@ -1,4 +1,4 @@
-import type { unstable_Blocker as Blocker } from "react-router-dom";
+import type { Blocker } from "react-router-dom";
 import KisekiButton from "../../components/kiseki/button";
 import {
   Dialog,
