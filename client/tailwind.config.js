@@ -16,6 +16,13 @@ export const theme = {
   },
   extend: {
     colors: {
+      violet: {
+        inactive: "#606689",
+        lighter: "#31365C",
+        default: "#252843",
+        darker: "#1B2039",
+      },
+
       border: "hsl(var(--border))",
       input: "hsl(var(--input))",
       ring: "hsl(var(--ring))",

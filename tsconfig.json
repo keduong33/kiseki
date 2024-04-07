@@ -10,7 +10,7 @@
       "moduleDetection": "force",
       /* Strictness */
       "strict": true,
-      "noUncheckedIndexedAccess": true,
+      // "noUncheckedIndexedAccess": true,
       "outDir": "dist",
       "sourceMap": true,
       /* If NOT transpiling with TypeScript: */
@@ -28,5 +28,5 @@
       // 
       "rootDir": "."
     },
-      "include": ["backend/env.d.ts"],
+      "include": ["backend/env.d.ts","types/**/*"],
   }

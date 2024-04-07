@@ -1,34 +1,38 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import type { QuizQuestion } from "../../types/Quiz/Question";
-import type { Quiz, QuizMetaData } from "../../types/Quiz/Quiz";
+import type { FullInfoQuestion } from "../../../types/Quiz/Question";
+import type { Quiz, QuizMetaData } from "../../../types/Quiz/Quiz";
 
 type Actions = {
-  setQuestionsList: (questionsList: QuizQuestion[]) => void;
-  setAnswersList: (answersList: number[]) => void;
+  setQuestions: (questions: FullInfoQuestion[]) => void;
+  setUserAnswers: (userAnswers: (string | undefined)[]) => void;
   setQuizMetaData: (quizMetaData: QuizMetaData) => void;
   setCurrentQuestionIndex: (index: number) => void;
   setRemainingTime: (time: number) => void;
   resetState: () => void;
+  setStartTimeStamp: (timestamp: Date) => void;
+  setEndTimeStamp: (timestamp: Date) => void;
 };
 
 const initialState: Quiz = {
-  questionsList: [],
-  answersList: [],
-  quizMetaData: null,
+  questions: [],
+  userAnswers: [],
+  quizMetaData: undefined,
   currentQuestionIndex: 0,
   remainingTime: 0,
+  startTimeStamp: undefined,
+  endTimeStamp: undefined,
 };
 
 export const useQuizState = create<Quiz & Actions>()(
   persist(
     (set) => ({
       ...initialState,
-      setQuestionsList(questionsList) {
-        set(() => ({ questionsList: questionsList }));
+      setQuestions(questions) {
+        set(() => ({ questions: questions }));
       },
-      setAnswersList(answersList) {
-        set(() => ({ answersList: answersList }));
+      setUserAnswers(userAnswers) {
+        set(() => ({ userAnswers: userAnswers }));
       },
       setQuizMetaData(quizMetaData) {
         set(() => ({ quizMetaData: quizMetaData }));
@@ -38,6 +42,12 @@ export const useQuizState = create<Quiz & Actions>()(
       },
       setRemainingTime(time) {
         set(() => ({ remainingTime: time }));
+      },
+      setStartTimeStamp(timestamp) {
+        set(() => ({ startTimeStamp: timestamp }));
+      },
+      setEndTimeStamp(timestamp) {
+        set(() => ({ endTimeStamp: timestamp }));
       },
       resetState() {
         set(initialState);

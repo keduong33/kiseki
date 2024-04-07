@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: url(#radial-gradient);
+      }
+    </style>
+    <radialGradient id="radial-gradient" cx="373.54" cy="546.07" fx="373.54" fy="546.07" r="253.92" gradientTransform="translate(0 -311.62) scale(1 1.57)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1b41fd"/>
+      <stop offset=".25" stop-color="#1654fd"/>
+      <stop offset=".73" stop-color="#0b83ff"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="305.9" y1="546.06" x2="823.7" y2="546.06" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c0a6ff"/>
+      <stop offset=".06" stop-color="#b6a4ff"/>
+      <stop offset=".17" stop-color="#9d9fff"/>
+      <stop offset=".3" stop-color="#7397ff"/>
+      <stop offset=".45" stop-color="#3a8cff"/>
+      <stop offset=".57" stop-color="#0b83ff"/>
+      <stop offset=".99" stop-color="#1b41fd"/>
+    </linearGradient>
+  </defs>
+  <rect class="cls-2" x="244.31" y="211.02" width="258.45" height="670.09" rx="129.22" ry="129.22"/>
+  <path class="cls-1" d="m671.37,546.04l114.45-114.45c25.24-25.24,37.88-58.28,37.88-91.33s-12.64-66.19-37.88-91.38c-50.48-50.48-132.28-50.48-182.76,0l-114.4,114.45-182.71,182.71-.05.05,297.16,297.16c25.24,25.24,58.33,37.83,91.38,37.83s66.14-12.59,91.38-37.83c50.48-50.48,50.48-132.28,0-182.76l-114.45-114.45Z"/>
+</svg>

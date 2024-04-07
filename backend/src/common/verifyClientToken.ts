@@ -34,6 +34,6 @@ export const verifyClientToken = async (
     return safeResult(userId);
   } catch (e) {
     console.error("Failed in verifyClientToken:\n", e);
-    return safeError({ statusCode: 500, message: "Failed to verify token" });
+    return safeError({ statusCode: 500, message: "Cannot verify user" });
   }
 };

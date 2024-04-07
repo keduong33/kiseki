@@ -1,1 +1,1 @@
-{"extends":"../tsconfig.json","include": ["./src", "../client/types/Subject", "./env.d.ts"]}
+{"extends":"../tsconfig.json","include": ["./src", "../types/**/*", "./env.d.ts"]}
