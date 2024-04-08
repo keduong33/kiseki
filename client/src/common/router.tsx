@@ -9,7 +9,6 @@ import { PageLocation } from "../../../types/PageLocation";
 import App from "../App";
 import Assessments from "../pages/Assessments/Assessments";
 import ComingSoon from "../pages/ComingSoon/ComingSoon";
-import Dashboard from "../pages/Dashboard/Dashboard";
 import Quiz from "../pages/Quiz/Quiz";
 
 const StudyPlan = lazy(() => import("../pages/StudyPlan/StudyPlan"));
@@ -31,9 +30,9 @@ export const router = createBrowserRouter(
       <Route path="*" element={<>Something wrong</>} />
       <Route path={PageLocation.ComingSoon} element={<ComingSoon />} />
 
-      <Route path={PageLocation.Dashboard} element={<Dashboard />} />
+      {/* <Route path={PageLocation.Dashboard} element={<Dashboard />} /> */}
 
-      <Route path={PageLocation.DiagnosticQuiz} element={<Assessments />} />
+      <Route path={PageLocation.Dashboard} element={<Assessments />} />
       <Route path={PageLocation.Quiz} element={<Quiz />} />
       <Route path={PageLocation.QuizSummary} element={<QuizSummary />} />
 
