@@ -1,6 +1,6 @@
 import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
-import { Book1, Bookmark, Firstline, People } from "iconsax-react";
-import { BookIcon, LayoutDashboard } from "lucide-react";
+import { Book1, Firstline } from "iconsax-react";
+import { BookIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { PageLocation } from "../../../../types/PageLocation";
 import { ProfileForm } from "../../pages/Profile/BuildProfile/ProfileForm";
@@ -19,12 +19,12 @@ export enum IconSize {
 }
 
 const mainLinks: navBarLink[] = [
-  {
-    title: "Dashboard",
-    destination: PageLocation.Dashboard,
-    icon: <LayoutDashboard size={IconSize.medium} />,
-    comingSoon: true,
-  },
+  // {
+  //   title: "Dashboard",
+  //   destination: PageLocation.Dashboard,
+  //   icon: <LayoutDashboard size={IconSize.medium} />,
+  //   comingSoon: true,
+  // },
   {
     title: "Study Plan",
     destination: PageLocation.StudyPlan,
@@ -32,22 +32,22 @@ const mainLinks: navBarLink[] = [
   },
   {
     title: "Diagnostic Quiz",
-    destination: PageLocation.DiagnosticQuiz,
+    destination: PageLocation.Dashboard,
     icon: <Book1 size={IconSize.medium} />,
   },
-  {
-    title: "Assessments",
-    destination: PageLocation.ComingSoon,
-    icon: <Bookmark size={IconSize.medium} />,
-    comingSoon: true,
-  },
-  {
-    title: "Community",
-    destination: PageLocation.Error,
-    icon: <People size={IconSize.medium} />,
-    comingSoon: true,
-    disabled: true,
-  },
+  // {
+  //   title: "Assessments",
+  //   destination: PageLocation.ComingSoon,
+  //   icon: <Bookmark size={IconSize.medium} />,
+  //   comingSoon: true,
+  // },
+  // {
+  //   title: "Community",
+  //   destination: PageLocation.Error,
+  //   icon: <People size={IconSize.medium} />,
+  //   comingSoon: true,
+  //   disabled: true,
+  // },
 ];
 
 const utilityLinks: navBarLink[] = [
