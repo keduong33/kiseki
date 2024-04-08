@@ -51,7 +51,7 @@ const mainLinks: navBarLink[] = [
 ];
 
 const utilityLinks: navBarLink[] = [
-  { title: "Settings", destination: PageLocation.Error },
+  // { title: "Settings", destination: PageLocation.Error },
 ];
 
 function NavigationBar() {
